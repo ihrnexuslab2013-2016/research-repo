@@ -1,0 +1,9 @@
+---
+  type_name: Other
+  
+  fields:
+    - name: alternative
+      label: Alternative
+      relation: alternative
+      
+...
