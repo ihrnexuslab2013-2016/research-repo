@@ -11,3 +11,9 @@
       <dd><%= r.value(term) %></dd>
   <% end %>
 </dl>
+<dl class="dl-horizontal file-show-term file-show-descriptions">
+  <% present_terms(@presenter,@presenter.use_fields) do |r, term| %>
+  <dt><%= r.label(term) %></dt>
+      <dd><%= r.value(term) %></dd>
+  <% end %>
+</dl>

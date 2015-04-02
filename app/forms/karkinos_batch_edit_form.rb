@@ -1,0 +1,2 @@
+class KarkinosBatchEditForm < KarkinosFileEditForm
+end

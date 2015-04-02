@@ -1,0 +1,14 @@
+---
+  type_name: Image
+  
+  fields:
+    - name: image_size
+      label: Image Size
+      relation: format
+      
+    - name: encoding
+      label: Encoding
+      relation: format
+      multiple: false
+      
+...

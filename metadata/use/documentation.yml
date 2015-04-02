@@ -1,0 +1,16 @@
+---
+  use_name: Documentation
+  
+  fields:
+    - name: software
+      label: Software
+      relation: subject
+      
+    - name: software_version
+      label: Software Version
+      relation: subject
+     
+    - name: type_of_manual
+      label: Type of Manual
+      relation: format
+...

@@ -1,13 +1,17 @@
 ---
-  type_name: Video
+  type_name: Software or Program Code
   
   fields:
-    - name: length
-      label: Length in min.
-      relation: extent
+    - name: filesize
+      label: File Size
+      relation: format
       
     - name: encoding
       label: Encoding
       relation: format
+      
+    - name: language
+      label: Programming language
+      relation: language
       
 ...

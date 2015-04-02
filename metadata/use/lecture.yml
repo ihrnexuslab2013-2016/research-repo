@@ -1,0 +1,16 @@
+---
+  use_name: Lecture
+  
+  fields:
+    - name: recorded_by
+      label: Recorded by
+      relation: contributor
+      
+    - name: audience
+      label: Intended Audience
+      relation: audience
+     
+    - name: place
+      label: Presentation Place
+      relation: spatial
+...

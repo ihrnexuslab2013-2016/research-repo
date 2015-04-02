@@ -46,6 +46,8 @@ Sufia.config do |config|
     "Video" => "Video",
     "Other" => "Other",
   }
+  
+  config.uses = build_use_hash
 
   config.resource_types_to_schema = {
     "Article" => "http://schema.org/Article",
