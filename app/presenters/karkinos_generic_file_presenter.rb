@@ -1,26 +1,33 @@
 class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
   
-  attr_accessor :type_fields
+  attr_accessor :type_fields_map
   attr_accessor :use_fields
+  attr_accessor :use
   
   def initialize(object)
       super
         
-      rtype = object.resource_type
-      filename = rtype.to_s.parameterize.underscore + ".yml"
+      @type_fields_map = Hash.new
       
-      @type_fields = []
-      # add additional type fields to details page
-      if (File.exists?(File.dirname(__FILE__) + "/../../metadata/type/" + filename))
-        yamlFile = YAML.load_file(File.dirname(__FILE__) + "/../../metadata/type/" + filename)
-        
-        yamlFile['fields'].each do |field|
-          @type_fields << field['name'].parameterize.underscore.to_sym
+      types = object.resource_type
+      types.each do |type|
+        filename = type.to_s.parameterize.underscore + ".yml"
+      
+        type_fields = []
+        # add additional type fields to details page
+        if (File.exists?(File.dirname(__FILE__) + "/../../metadata/type/" + filename))
+          yamlFile = YAML.load_file(File.dirname(__FILE__) + "/../../metadata/type/" + filename)
+          
+          yamlFile['fields'].each do |field|
+            type_fields << field['name'].parameterize.underscore.to_sym
+          end
         end
+        
+        @type_fields_map[type] = type_fields
       end
       
-      usage = object.use
-      filename = usage.to_s.parameterize.underscore + ".yml"
+      @use = object.use
+      filename = @use.to_s.parameterize.underscore + ".yml"
       @use_fields = []
       # add additional type fields to details page
       if (File.exists?(File.dirname(__FILE__) + "/../../metadata/use/" + filename))
