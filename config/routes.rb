@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     mount Sufia::Engine => '/'
   root to: 'homepage#index'
 
+  get 'fields/:id/update_edit' => 'fields#update_edit', as: :update_edit
+ 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

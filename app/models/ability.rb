@@ -17,4 +17,5 @@ class Ability
     #   can [:create], ActiveFedora::Base
     # end
   end
+  
 end

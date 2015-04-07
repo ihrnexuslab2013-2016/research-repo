@@ -22,5 +22,6 @@ class KarkinosFileEditForm < KarkinosGenericFilePresenter
   def self.build_permitted_params
      super  + (@permitted_additional_files ? @permitted_additional_files : [])
   end
+  
 
 end
