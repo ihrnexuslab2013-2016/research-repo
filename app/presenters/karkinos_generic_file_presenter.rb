@@ -60,6 +60,20 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
     end
   end
   
+  def use=(use)
+      @use = use
+      filename = @use.to_s.parameterize.underscore + ".yml"
+      @use_fields = []
+      # add additional type fields to details page
+      if (File.exists?(File.dirname(__FILE__) + "/../../metadata/use/" + filename))
+        yamlFile = YAML.load_file(File.dirname(__FILE__) + "/../../metadata/use/" + filename)
+        
+        yamlFile['fields'].each do |field|
+          @use_fields << field['name'].parameterize.underscore.to_sym
+        end
+      end
+  end
+  
   self.terms = [:resource_type, :title, :creator, :contributor, :description, :tag, :rights,
         :publisher, :date_created, :subject, :language, :identifier, :based_near, :related_url, :use]
 end

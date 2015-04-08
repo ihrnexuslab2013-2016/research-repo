@@ -1,21 +1,17 @@
 function change_type_fields()
 {
-	/*var path_parts = window.location.href.split('/');
-	$.ajax({
-        url : "/files/" + path_parts[path_parts.length - 2] + "/update_edit",
-        data : {updated_data: $('#descriptions_display').find('form').serializeArray()}, 
-        type: "POST",
-        success : function(data) {
-          $("#descriptions_display").html(data);
-        }
-     }); */
-    
 	   var resource_types = getSelectedOptions(document.getElementById('resource_type_selector'));
 	   var newPath = $('#update_path').attr('value') + "?resource_types=" + resource_types;
 	   $('#update_link').attr('href', newPath);
 	   $('#update_link').click();
-	   
-	
+}
+
+function change_use_fields()
+{
+	   var use = getSelectedOptions(document.getElementById('resource_use_selector'));
+	   var newPath = $('#update_use_path').attr('value') + "?use=" + use;
+	   $('#update_use_link').attr('href', newPath);
+	   $('#update_use_link').click();
 }
 
 /*

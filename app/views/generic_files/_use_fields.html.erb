@@ -1,0 +1,4 @@
+<h2><%= f.object.use.to_s.humanize %></h2>
+<% f.object.use_fields.each do |term| %>
+   <%= render_edit_field_partial(term, f: f) %>
+<% end %>

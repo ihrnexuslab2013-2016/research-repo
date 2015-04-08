@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   root to: 'homepage#index'
 
   get 'fields/:id/update_edit' => 'fields#update_edit', as: :update_edit
+  get 'fields/:id/update_use' => 'fields#update_use', as: :update_use
  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
