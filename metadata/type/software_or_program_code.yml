@@ -4,11 +4,11 @@
   fields:
     - name: filesize
       label: File Size
-      relation: format
+      relation: http://researchrepo.asu.edu/ns#file_size
       
     - name: encoding
       label: Encoding
-      relation: format
+      relation: http://researchrepo.asu.edu/ns#encoding
       
     - name: language
       label: Programming language

@@ -4,15 +4,15 @@
       <div class="well">
 
 		<input type="hidden" id="update_path" value="<%= update_edit_path %>" />
-		<%= link_to 'Update fields', update_edit_path, :id => 'update_link', :remote => true %>
+		<%= link_to 'Update fields', update_edit_path, :id => 'update_link', :remote => true,  :class=>"hidden"   %>
         <% f.object.terms.each do |term| %>
           <%= render_edit_field_partial(term, f: f) %>
         <% end %>
         
         
-        <div id="type_specific_fields">
+        <span id="type_specific_fields">
         	<%= render partial: "type_fields", locals: {f: f, type_fields_map: f.object.type_fields_map}  %>
-        </div>
+        </span>
         
         
         <h2><%= f.object.use.to_s.humanize %></h2>

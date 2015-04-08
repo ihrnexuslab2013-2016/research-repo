@@ -5,8 +5,5 @@ class GenericFilesController < ApplicationController
   
   self.presenter_class = KarkinosGenericFilePresenter
   self.edit_form_class = KarkinosFileEditForm
-  
-   
-    
    
 end

@@ -8,6 +8,6 @@
       
     - name: encoding
       label: Encoding
-      relation: format
+      relation: http://researchrepo.asu.edu/ns#encoding
       
 ...

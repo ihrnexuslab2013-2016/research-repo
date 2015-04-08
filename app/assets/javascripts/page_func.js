@@ -14,6 +14,7 @@ function change_type_fields()
 	   var newPath = $('#update_path').attr('value') + "?resource_types=" + resource_types;
 	   $('#update_link').attr('href', newPath);
 	   $('#update_link').click();
+	   
 	
 }
 
