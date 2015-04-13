@@ -1,0 +1,10 @@
+    <h2 class="non lower">Files</h2>
+    <table class="table table-striped">
+        <tbody>
+        <% @generic_file.data_files.each do |file| %>
+        <tr class="collection attributes">
+           <%= render_thumbnail_tag file %>
+        </tr>
+      <% end %>
+      </tbody>
+      </table>

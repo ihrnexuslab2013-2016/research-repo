@@ -8,12 +8,7 @@
           <%= render_edit_field_partial(term, f: f) %>
         <% end %>
         
-        <input type="hidden" id="update_path" value="<%= update_edit_path %>" />
-		<%= link_to 'Update type fields', update_edit_path, :id => 'update_link', :remote => true,  :class=>"hidden"   %>
-        <span id="type_specific_fields">
-        	<%= render partial: "type_fields", locals: {f: f, type_fields_map: f.object.type_fields_map}  %>
-        </span>
-        
+       
         <input type="hidden" id="update_use_path" value="<%= update_use_path %>" />
 		<%= link_to 'Update use fields', update_use_path, :id => 'update_use_link', :remote => true,  :class=>"hidden"   %>
         <span id="use_specific_fields">

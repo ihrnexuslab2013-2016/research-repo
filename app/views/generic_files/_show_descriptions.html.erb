@@ -5,15 +5,6 @@
       <dd><%= r.value(term) %></dd>
   <% end %>
 </dl>
-<% @presenter.type_fields_map.each do |type, terms| %>
-<h4 class="file-show-term">Resource Type: <%= type.to_s.humanize %></h4>
-<dl class="dl-horizontal  file-show-descriptions">
-  <% present_terms(@presenter,terms) do |r, term| %>
-  <dt><%= r.label(term) %>:</dt>
-      <dd><%= r.value(term) %></dd>
-  <% end %>
-</dl>
-<% end %>
 
 <% @presenter.use_fields_map.each do |use, terms| %>
 <h4 class="file-show-term">Conceptual Use: <%= use.to_s.humanize %></h4>
