@@ -1,4 +1,6 @@
-<h2><%= f.object.use.to_s.humanize %></h2>
-<% f.object.use_fields.each do |term| %>
-   <%= render_edit_field_partial(term, f: f) %>
+<% f.object.use_fields_map.each do |use, terms| %>
+	<h2><%= use.to_s.humanize %></h2>
+	<% terms.each do |term| %>
+	   <%= render_edit_field_partial(term, f: f) %>
+	<% end %>
 <% end %>

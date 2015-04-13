@@ -91,7 +91,7 @@ module AttributeHelper
   end
   
   def get_use_fields_symbols(use)
-    @use_fields = AttributeHelper::retrieve_use_fields use
+    @use_fields_map[use] = AttributeHelper::retrieve_use_fields use
   end
   
 end

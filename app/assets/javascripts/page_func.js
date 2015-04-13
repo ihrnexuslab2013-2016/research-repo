@@ -8,8 +8,8 @@ function change_type_fields()
 
 function change_use_fields()
 {
-	   var use = getSelectedOptions(document.getElementById('resource_use_selector'));
-	   var newPath = $('#update_use_path').attr('value') + "?use=" + use;
+	   var uses = getSelectedOptions(document.getElementById('resource_use_selector'));
+	   var newPath = $('#update_use_path').attr('value') + "?uses=" + uses;
 	   $('#update_use_link').attr('href', newPath);
 	   $('#update_use_link').click();
 }

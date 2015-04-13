@@ -8,12 +8,12 @@ class FieldsController < ApplicationController
   self.edit_form_class = KarkinosFileEditForm
   
   def update_use
-    use = params[:use]
+    uses = params[:uses].split ','
     
     @generic_file = GenericFile.find(params[:id])
      
     @edit_form = edit_form_class.new(@generic_file)
-    @edit_form.use=use
+    @edit_form.uses=uses
     @presenter = @edit_form 
     @form = @edit_form
      

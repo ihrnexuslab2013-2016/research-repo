@@ -15,10 +15,12 @@
 </dl>
 <% end %>
 
-<h4 class="file-show-term">Conceptual Use: <%= @presenter.use.to_s.humanize %></h4>
+<% @presenter.use_fields_map.each do |use, terms| %>
+<h4 class="file-show-term">Conceptual Use: <%= use.to_s.humanize %></h4>
 <dl class="dl-horizontal file-show-descriptions">
-  <% present_terms(@presenter,@presenter.use_fields) do |r, term| %>
+  <% present_terms(@presenter,terms) do |r, term| %>
   <dt><%= r.label(term) %>:</dt>
       <dd><%= r.value(term) %></dd>
   <% end %>
 </dl>
+<% end %>
