@@ -3,7 +3,8 @@
         <tbody>
         <% @generic_file.data_files.each do |file| %>
         <tr class="collection attributes">
-           <%= render_thumbnail_tag file %>
+        	<%= render_datafile_download_icon file %>
+        	<%= file.title %>
         </tr>
       <% end %>
       </tbody>
