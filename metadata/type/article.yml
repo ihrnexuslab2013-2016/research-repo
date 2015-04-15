@@ -1,0 +1,14 @@
+---
+  type_name: Article
+  
+  fields:
+    - name: image_size
+      label: Image Size
+      relation: http://researchrepo.asu.edu/ns#image_size
+      
+    - name: encoding
+      label: Encoding
+      relation: http://researchrepo.asu.edu/ns#encoding
+      multiple: false
+      
+...

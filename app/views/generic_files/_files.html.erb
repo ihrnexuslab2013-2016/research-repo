@@ -1,0 +1,36 @@
+<div id="files_display" class="tab-pane">
+  <h2>Files</h2>
+  <div class="well">
+
+    
+    <%= hidden_field_tag('redirect_tab', 'files') %>
+    <table>
+    <%= simple_fields_for :data_files do |df| %>
+     	
+    <tr>  
+    	<td width="70px" style="vertical-align: top">
+    	
+		</td>
+		<td>
+			<h4><a href="<%= sufia.download_path(df.object) %>"><%= df.object.title.first %></a></h4>
+			<%= df.input :resource_type %>
+        	
+		</td>
+		
+	</tr>
+    <% end %>
+    </table>
+    <h3>Upload New Version</h3>
+        <div class="form-group">
+          <div class="col-xs-12">
+            <p>Upload a new version of this file from your computer.</p>
+            <p id="upload_field">
+                <%= file_field_tag "filedata", required: 'required' %>
+             </p>
+            </div>
+        </div>
+   
+
+    
+  </div> <!-- /well -->
+</div> <!-- /row -->

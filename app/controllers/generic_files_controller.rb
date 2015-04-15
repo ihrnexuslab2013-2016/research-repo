@@ -32,8 +32,6 @@ class GenericFilesController < ApplicationController
   end
   
   def datafile_actor
-    @datafile = DataFile.new
-    @datafile.generic_file = @generic_file
     @datafile_actor ||=  Sufia::GenericFile::Actor.new(@datafile, current_user)
   end
   
@@ -69,6 +67,13 @@ class GenericFilesController < ApplicationController
     @generic_file.label ||= file.original_filename
     @generic_file.title = [@generic_file.label] if @generic_file.title.blank?
     
+    @datafile = DataFile.new
+    @datafile.generic_file = @generic_file
+    @datafile.filename = [file.original_filename]
+  end
+  
+  def audit_service
+    Karkinos::KarkinosFileAuditService.new(@generic_file)
   end
    
 end
