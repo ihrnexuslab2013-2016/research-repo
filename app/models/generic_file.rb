@@ -1,6 +1,7 @@
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
   
+  
   property :use, predicate: ::RDF::URI.new('http://karkinos.asu.edu/ns#conceptualUse'), multiple: true do |index|
      index.as :stored_searchable, :facetable
   end

@@ -1,0 +1,15 @@
+dl.file_edit {
+ width:100%;
+}
+dl.file_edit dt {
+ float:left;
+ clear: left;
+ min-width: 120px;
+}
+dl.file_edit dd {
+}
+
+table.file_edit_table {
+	width: 100%;
+}
+

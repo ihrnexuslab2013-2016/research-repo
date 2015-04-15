@@ -5,6 +5,47 @@ class GenericFilesController < ApplicationController
   self.presenter_class = KarkinosGenericFilePresenter
   self.edit_form_class = KarkinosFileEditForm
   
+  # overwrites parent update; routed to /files/:id (PUT)
+  def update
+    success = if wants_to_revert?
+      update_version
+    elsif wants_to_add_file?
+      add_file
+    elsif params.has_key? :generic_file
+      update_metadata
+    elsif params.has_key? :visibility
+      update_visibility
+    end
+
+    if success
+      redirect_to sufia.edit_generic_file_path(tab: params[:redirect_tab]), notice:
+        render_to_string(partial: 'generic_files/asset_updated_flash', locals: { generic_file: @generic_file })
+    else
+      flash[:error] ||= 'Update was unsuccessful.'
+      set_variables_for_edit_form
+      render action: 'edit'
+    end
+  end
+  
+  def add_file
+    if params[:filedata]
+      file = params[:filedata]
+      
+      create_datafile_from_upload file
+      set_metadata_for_datafile
+    
+      if !datafile_actor.create_content(file, file.original_filename, file_path, file.content_type)
+        msg = @datafile.errors.full_messages.join(', ')
+        flash[:error] = msg
+        false
+      end
+    else
+      flash[:error] = 'Please select a file.'
+      false
+    end
+    true
+  end
+  
   def update_metadata
     # set all unused attribute to empty 
     #types_fields_map = AttributeHelper::build_type_symbol_map
@@ -67,13 +108,32 @@ class GenericFilesController < ApplicationController
     @generic_file.label ||= file.original_filename
     @generic_file.title = [@generic_file.label] if @generic_file.title.blank?
     
+    create_datafile_from_upload file
+  end
+  
+  def create_datafile_from_upload(file)
     @datafile = DataFile.new
     @datafile.generic_file = @generic_file
     @datafile.filename = [file.original_filename]
   end
   
+  def set_metadata_for_datafile
+    @datafile.apply_depositor_metadata(current_user)
+    time_in_utc = DateTime.now.new_offset(0)
+    @datafile.date_uploaded = time_in_utc
+    @datafile.date_modified = time_in_utc
+    @datafile.creator = [current_user.name]
+    @datafile.resource_type = @generic_file.resource_type
+    @datafile.rights = @generic_file.rights
+  end
+  
   def audit_service
     Karkinos::KarkinosFileAuditService.new(@generic_file)
+  end
+  
+  def wants_to_add_file?
+    has_file_data = params.has_key?(:filedata)
+    has_file_data
   end
    
 end

@@ -4,33 +4,46 @@
 
     
     <%= hidden_field_tag('redirect_tab', 'files') %>
-    <table>
-    <%= simple_fields_for :data_files do |df| %>
-     	
+    <table class="file_edit_table">
+     
+    <% @form.datafile_presenters.each do |df, df_presenter| %>	
     <tr>  
     	<td width="70px" style="vertical-align: top">
-    	
+    		<%= render_datafile_download_icon df %>
 		</td>
 		<td>
-			<h4><a href="<%= sufia.download_path(df.object) %>"><%= df.object.title.first %></a></h4>
-			<%= df.input :resource_type %>
-        	
+			<h4><a href=""><%= df.title.first %></a></h4>
+			
+			<% present_terms(df_presenter,df_presenter.terms - [:title]) do |r, term| %>
+  				<div><strong><%= r.label(term) %>:</strong> <%= r.value(term) %></div>
+  			<% end %>
+  			
+  			<% df_presenter.type_fields_map.each do |type, terms| %>
+			<% present_terms(df_presenter,terms) do |r, term| %>
+			  <div><strong><%= r.label(term) %>:</strong> <%= r.value(term) %></div>
+			  <% end %>
+			<% end %>
+			
 		</td>
 		
 	</tr>
     <% end %>
     </table>
-    <h3>Upload New Version</h3>
-        <div class="form-group">
-          <div class="col-xs-12">
-            <p>Upload a new version of this file from your computer.</p>
-            <p id="upload_field">
-                <%= file_field_tag "filedata", required: 'required' %>
-             </p>
-            </div>
-        </div>
-   
+   </div> <!-- /well --> 
+   <p/>
+   <%= form_for [sufia, @generic_file], html: { multipart: true } do |f| %>
+   <h3>Upload File</h3>
+    <div class="form-group">
+      <div class="col-xs-12">
+        <p>Upload another file from your computer.</p>
+        <p id="upload_field">
+            <%= file_field_tag "filedata", required: 'required' %>
+         </p>
+        <%= f.button '<i class="glyphicon glyphicon-upload"></i> Upload File'.html_safe, name: "add_file", id: "upload_submit", onclick: "confirmation_needed = false;", class: "btn btn-primary" %>
+      </div>
+    </div>
+    <% end %>
 
     
-  </div> <!-- /well -->
+ 
 </div> <!-- /row -->

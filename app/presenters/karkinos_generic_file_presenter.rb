@@ -3,7 +3,9 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
   
   attr_accessor :use_fields_map
   attr_accessor :datafile_presenters
-   
+  attr_accessor :type_fields_map
+  
+  
   def initialize(object)
       super
         
@@ -29,5 +31,9 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
   
   self.terms = [:resource_type, :title, :creator, :contributor, :description, :tag, :rights,
         :publisher, :date_created, :subject, :language, :identifier, :based_near, :related_url, :use]
-        
+      
+  def self.datafile_terms 
+    DatafilePresenter.terms
+  end
+   
 end
