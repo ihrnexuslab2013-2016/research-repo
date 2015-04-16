@@ -15,16 +15,17 @@
       <li id="edit_versioning_link">
         <a href="#files_display" data-toggle="tab"><i class="glyphicon glyphicon-sitemap"></i> Files</a>
       </li>
+      <% end %>
       <li id="edit_permissions_link"><a href="#permissions_display" data-toggle="tab">
         <i class="glyphicon glyphicon-key"></i> Permissions</a>
       </li>
-      <% end %>
+      
     </ul>
     <div class="tab-content">
       <%= render "descriptions", form: @form %>
       
-      <% if !@generic_file.instance_of? DataFile %>
       <%= render "permission", generic_file: @generic_file %>
+      <% if !@generic_file.instance_of? DataFile %>
       <%= render "files", generic_file: @generic_file  %>
       <% end %>
     </div>

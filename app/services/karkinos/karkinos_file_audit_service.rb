@@ -2,7 +2,11 @@ module Karkinos
   class KarkinosFileAuditService < Sufia::GenericFileAuditService
     
     def audit
-      audit_datafiles([])
+      if !generic_file.attributes["data_files"].nil? 
+        return audit_datafiles([])
+      else
+        return ["pass"]
+      end
     end
     
     private

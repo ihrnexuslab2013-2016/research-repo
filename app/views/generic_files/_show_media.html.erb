@@ -7,7 +7,8 @@
         	<%= render_datafile_download_icon df %>
         	</td>
         	<td>
-        	<h4><a href="<%= sufia.download_path(df) %>"><%= df_presenter.title.first %></a></h4>
+        	<h4 class="visibility"><a href="<%= sufia.download_path(df) %>"><%= df_presenter.title.first %></a> <%= render_visibility_badge_for_file df %><small style="float: right"><i class="glyphicon glyphicon-pencil"></i> <%= link_to "Edit", sufia.edit_generic_file_path(df) %></small></h4>
+        	
         	<% present_terms(df_presenter,df_presenter.terms - [:title]) do |r, term| %>
   				<div><strong><%= r.label(term) %>: </strong><%= r.value(term) %></div>
   			<% end %>

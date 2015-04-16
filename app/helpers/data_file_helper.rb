@@ -26,4 +26,12 @@ module DataFileHelper
      "icons/_blank.png"
   end
   
+  def render_visibility_badge_for_file(datafile)
+    if can? :edit, datafile
+      render_visibility_link datafile
+    else
+      render_visibility_label datafile
+    end
+  end
+  
 end

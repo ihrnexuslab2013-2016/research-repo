@@ -3,12 +3,10 @@ class GenericFilesController < ApplicationController
   include Sufia::FilesControllerBehavior
    
   self.presenter_class = KarkinosGenericFilePresenter
+  @@datafile_presenter_class = DatafilePresenter
   @@datafile_edit_form_class = KarkinosDatafileEditForm
   self.edit_form_class = KarkinosFileEditForm
   
-  def self.datafile_presenter_class
-    @@datafile_presenter_class
-  end
   
   # overwrites parent update; routed to /files/:id (PUT)
   def update
@@ -25,7 +23,8 @@ class GenericFilesController < ApplicationController
     end
 
     if success
-      redirect_to sufia.edit_generic_file_path(tab: params[:redirect_tab]), notice:
+      file = @generic_file.try(:generic_file) || @generic_file
+      redirect_to sufia.generic_file_path(file.id), notice: #sufia.edit_generic_file_path(tab: params[:redirect_tab]), notice:
         render_to_string(partial: 'generic_files/asset_updated_flash', locals: { generic_file: @generic_file })
     else
       flash[:error] ||= 'Update was unsuccessful.'
@@ -151,6 +150,11 @@ class GenericFilesController < ApplicationController
   def edit_form
     return @@datafile_edit_form_class.new(@generic_file) if @generic_file.instance_of? DataFile
     edit_form_class.new(@generic_file)
+  end
+  
+  def presenter
+    return @@datafile_presenter_class.new(@generic_file) if @generic_file.instance_of? DataFile
+    presenter_class.new(@generic_file)
   end
    
 end

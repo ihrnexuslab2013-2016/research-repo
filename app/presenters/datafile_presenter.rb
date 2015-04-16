@@ -5,7 +5,7 @@ class DatafilePresenter < Sufia::GenericFilePresenter
   attr_accessor :type_fields_map
   
   
-  self.terms = [:resource_type, :title, :rights, :date_uploaded]
+  self.terms = [:title, :rights, :date_uploaded]
   
   def initialize(object)
     super

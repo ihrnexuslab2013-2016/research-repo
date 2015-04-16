@@ -13,3 +13,7 @@ table.file_edit_table {
 	width: 100%;
 }
 
+h4.visibility span.label {
+  font-size: 50%;
+  vertical-align: middle;
+}

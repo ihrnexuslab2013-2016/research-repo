@@ -49,7 +49,9 @@
     <%= render 'users/activity_log', events: @events %>
   </div><!-- /columns second -->
   <div class="col-xs-12 col-sm-4">
+  	<% if !@generic_file.instance_of? DataFile %>
   	<%= render 'show_media' %>
+  	<% end %>
     <%= render 'show_actions' %>
     <%= render 'show_collections' %>
   </div>
