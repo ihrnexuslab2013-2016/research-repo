@@ -1,12 +1,12 @@
-class KarkinosFileEditForm < KarkinosGenericFilePresenter
+class KarkinosDatafileEditForm < DatafilePresenter 
   include HydraEditor::Form
   include HydraEditor::Form::Permissions
   include AttributeHelper
   
-  self.required_fields = [:title, :creator, :tag, :rights]
+  self.required_fields = [:rights]
   
   @permitted_additional_files = []
-  files = AttributeHelper.yaml_use_files # AttributeHelper.yaml_type_files + AttributeHelper.yaml_use_files
+  files = AttributeHelper.yaml_type_files
   files.each do |file|  
     yamlFile = YAML.load_file(file)
     yamlFile['fields'].each do |field|
