@@ -13,6 +13,7 @@
 		</td>
 		<td>
 			<h4><a href=""><%= df.title.first %></a></h4>
+			<%= link_to "Edit", sufia.edit_generic_file_path(df) %>
 			
 			<% present_terms(df_presenter,df_presenter.terms - [:title]) do |r, term| %>
   				<div><strong><%= r.label(term) %>:</strong> <%= r.value(term) %></div>

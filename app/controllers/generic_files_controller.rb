@@ -3,7 +3,12 @@ class GenericFilesController < ApplicationController
   include Sufia::FilesControllerBehavior
    
   self.presenter_class = KarkinosGenericFilePresenter
+  @@datafile_edit_form_class = KarkinosDatafileEditForm
   self.edit_form_class = KarkinosFileEditForm
+  
+  def self.datafile_presenter_class
+    @@datafile_presenter_class
+  end
   
   # overwrites parent update; routed to /files/:id (PUT)
   def update
@@ -13,6 +18,8 @@ class GenericFilesController < ApplicationController
       add_file
     elsif params.has_key? :generic_file
       update_metadata
+    elsif params.has_key? :data_file
+      update_datafile_metadata
     elsif params.has_key? :visibility
       update_visibility
     end
@@ -72,8 +79,13 @@ class GenericFilesController < ApplicationController
     actor.update_metadata(file_attributes, params[:visibility])
   end
   
+  def update_datafile_metadata
+    file_attributes = @@datafile_edit_form_class.model_attributes(params[:data_file])
+    datafile_actor.update_metadata(file_attributes, params[:visibility])
+  end
+  
   def datafile_actor
-    @datafile_actor ||=  Sufia::GenericFile::Actor.new(@datafile, current_user)
+    @datafile_actor ||=  Sufia::GenericFile::Actor.new((@datafile.nil? ? @generic_file : @datafile), current_user)
   end
   
   def process_file(file)
@@ -134,6 +146,11 @@ class GenericFilesController < ApplicationController
   def wants_to_add_file?
     has_file_data = params.has_key?(:filedata)
     has_file_data
+  end
+  
+  def edit_form
+    return @@datafile_edit_form_class.new(@generic_file) if @generic_file.instance_of? DataFile
+    edit_form_class.new(@generic_file)
   end
    
 end

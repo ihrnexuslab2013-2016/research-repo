@@ -1,6 +1,7 @@
 class DataFile < ActiveFedora::Base
   include Sufia::GenericFile
   
+  
   typeFiles = AttributeHelper.yaml_type_files
   typeFiles.each do |file|  
     yamlFile = YAML.load_file(file)

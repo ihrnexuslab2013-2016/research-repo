@@ -1,20 +1,31 @@
-<%= simple_form_for [sufia, @form], html: { multipart: true } do |f| %>
+<%= simple_form_for [sufia, @form], :url => sufia.generic_file_url(@generic_file), html: { multipart: true } do |f| %>
     <%= hidden_field_tag('redirect_tab', 'descriptions') %>
     <h1>Descriptions <span class="pull-right required"><abbr title="required">*</abbr> indicates required fields</span></h1>
       <div class="well">
 
-		
-        <% f.object.terms.each do |term| %>
+		<% displayterms = f.object.terms %>
+		<% displayterms = displayterms - [:title, :resource_type, :date_uploaded] if @generic_file.instance_of? DataFile %>
+        <% displayterms.each do |term| %>
           <%= render_edit_field_partial(term, f: f) %>
         <% end %>
         
        
+        <% if !@generic_file.instance_of? DataFile %>
         <input type="hidden" id="update_use_path" value="<%= update_use_path %>" />
 		<%= link_to 'Update use fields', update_use_path, :id => 'update_use_link', :remote => true,  :class=>"hidden"   %>
         <span id="use_specific_fields">
         	<%= render partial: "use_fields", locals: {f: f}  %>
         </span>
-
+		<% end %>
+		
+		<% if @generic_file.instance_of? DataFile %>
+        <input type="hidden" id="update_path" value="<%= update_edit_path %>" />
+		<%= link_to 'Update type fields', update_edit_path, :id => 'update_link', :remote => true,  :class=>"hidden"   %>
+        <span id="type_specific_fields">
+        	<%= render partial: "type_fields", locals: {f: f}  %>
+        </span>
+		<% end %>
+		
       </div><!-- /well -->
     <div>
       <%= f.submit class: 'btn btn-primary', onclick: "confirmation_needed = false;", id: "upload_submit", name: "update_descriptions" do %>

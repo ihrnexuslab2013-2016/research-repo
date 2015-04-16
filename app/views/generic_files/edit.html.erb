@@ -11,17 +11,22 @@
       <li id="edit_descriptions_link" class="active">
         <a href="#descriptions_display" data-toggle="tab"><i class="glyphicon glyphicon-tags"></i> Descriptions</a>
       </li>
+      <% if !@generic_file.instance_of? DataFile %>
       <li id="edit_versioning_link">
         <a href="#files_display" data-toggle="tab"><i class="glyphicon glyphicon-sitemap"></i> Files</a>
       </li>
       <li id="edit_permissions_link"><a href="#permissions_display" data-toggle="tab">
         <i class="glyphicon glyphicon-key"></i> Permissions</a>
       </li>
+      <% end %>
     </ul>
     <div class="tab-content">
       <%= render "descriptions", form: @form %>
+      
+      <% if !@generic_file.instance_of? DataFile %>
       <%= render "permission", generic_file: @generic_file %>
       <%= render "files", generic_file: @generic_file  %>
+      <% end %>
     </div>
   </div> <!-- /.col-sm-8 -->
   

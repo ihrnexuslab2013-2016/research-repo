@@ -1,7 +1,9 @@
 class DatafilePresenter < Sufia::GenericFilePresenter
   include AttributeHelper
+  self.model_class = ::DataFile
   
   attr_accessor :type_fields_map
+  
   
   self.terms = [:resource_type, :title, :rights, :date_uploaded]
   
