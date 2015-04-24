@@ -118,6 +118,8 @@ class GenericFilesController < ApplicationController
     @generic_file.on_behalf_of = params[:on_behalf_of] if params[:on_behalf_of]
     @generic_file.label ||= file.original_filename
     @generic_file.title = [@generic_file.label] if @generic_file.title.blank?
+    #@generic_file.title_info = @generic_file.label if @generic_file.title.blank?
+    @generic_file.descMetadata.author = "Test author"
     
     create_datafile_from_upload file
   end
