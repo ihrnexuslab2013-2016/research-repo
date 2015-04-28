@@ -2,5 +2,6 @@ require "active-fedora"
 
 class Example < ActiveFedora::Base
   
-  property :titleInfo, predicate: ModsVocabulary.hasTitle, class_name: "TitleInfo", multiple: false
+  has_and_belongs_to_many :titleInfo, :predicate => ModsVocabulary.hasTitle, :class_name => "TitleInfo"
+  accepts_nested_attributes_for :titleInfo
 end

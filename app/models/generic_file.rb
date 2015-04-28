@@ -1,9 +1,8 @@
 require 'mods'
+require "active-fedora"
 
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
-  
-  contains 'descMetadata', class_name: 'ModsMetadata'
   
   property :use, predicate: ::RDF::URI.new('http://karkinos.asu.edu/ns#conceptualUse'), multiple: true do |index|
      index.as :stored_searchable, :facetable
@@ -22,11 +21,18 @@ class GenericFile < ActiveFedora::Base
  
   has_many :data_files
   
-  #property :titleInfo_title, delegate_to: 'descMetadata', multiple: false
-  property :author, delete_to: 'descMetadata', multiple: false do |index|
-    index.as :stored_searchable
+  has_and_belongs_to_many :title_info, :predicate => ModsVocabulary.hasTitle, :class_name => "TitleInfo"
+  accepts_nested_attributes_for :title_info
+  
+  def save(arg)
+    self.title_info.each do |ti|
+      ti.save!
+      self.title_info_ids += [ti.id]
+    end
+    super
   end
   
+ 
   
   # override inherited properties
   property :resource_type, predicate: ::KarkinosRDF::MODS.type_of_resource do |index|
@@ -107,5 +113,15 @@ class GenericFile < ActiveFedora::Base
   end
   property :source, predicate: ::RDF::DC.source do |index|
     index.as :stored_searchable
+  end
+  
+  class << self
+    def multiple?(field)
+      puts "========== multiple"
+      if !GenericFile.reflections[field].nil? and GenericFile.reflections[field].macro == :has_and_belongs_to_many
+        return true
+      end
+      super
+    end
   end
 end
