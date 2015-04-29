@@ -1,4 +1,3 @@
-require 'mods'
 require "active-fedora"
 
 class GenericFile < ActiveFedora::Base
@@ -21,7 +20,7 @@ class GenericFile < ActiveFedora::Base
  
   has_many :data_files
   
-  has_and_belongs_to_many :title_info, :predicate => ModsVocabulary.hasTitle, :class_name => "TitleInfo"
+  has_and_belongs_to_many :title_info, :predicate => MODS::MODSVocabulary.titleInfo, :class_name => "MODS::TitleInfo"
   accepts_nested_attributes_for :title_info
   
   def save(arg)
@@ -35,9 +34,9 @@ class GenericFile < ActiveFedora::Base
  
   
   # override inherited properties
-  property :resource_type, predicate: ::KarkinosRDF::MODS.type_of_resource do |index|
-    index.as :stored_searchable, :facetable
-  end
+  #property :resource_type, predicate: ::KarkinosRDF::MODS.type_of_resource do |index|
+  #  index.as :stored_searchable, :facetable
+  #end
   
   property :label, predicate: ActiveFedora::RDF::Fcrepo::Model.downloadFilename, multiple: false
 
@@ -117,7 +116,6 @@ class GenericFile < ActiveFedora::Base
   
   class << self
     def multiple?(field)
-      puts "========== multiple"
       if !GenericFile.reflections[field].nil? and GenericFile.reflections[field].macro == :has_and_belongs_to_many
         return true
       end
