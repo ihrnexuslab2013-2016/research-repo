@@ -20,13 +20,20 @@ class GenericFile < ActiveFedora::Base
  
   has_many :data_files
   
-  has_and_belongs_to_many :title_info, :predicate => MODS::MODSVocabulary.titleInfo, :class_name => "MODS::TitleInfo"
-  accepts_nested_attributes_for :title_info
+  has_and_belongs_to_many :title_principals, :predicate => MODS::MODSVocabulary.titlePrincipal, :class_name => "MODS::TitleInfo"
+  accepts_nested_attributes_for :title_principals
+  
+  has_and_belongs_to_many :title_uniforms, :predicate => MODS::MODSVocabulary.titleUniform, :class_name => "MODS::TitleInfo"
+  accepts_nested_attributes_for :title_uniforms
   
   def save(arg)
-    self.title_info.each do |ti|
+    self.title_principals.each do |ti|
       ti.save!
-      self.title_info_ids += [ti.id]
+      #self.title_principle_ids += [ti.id]
+    end
+    self.title_uniforms.each do |tu|
+      tu.save!
+      #self.title_uniforms_ids += [tu.id]
     end
     super
   end
@@ -120,6 +127,10 @@ class GenericFile < ActiveFedora::Base
         return true
       end
       super
+    end
+    
+    def nested_attribute?(field)
+      !GenericFile.reflections[field].nil? and GenericFile.reflections[field].macro == :has_and_belongs_to_many
     end
   end
 end

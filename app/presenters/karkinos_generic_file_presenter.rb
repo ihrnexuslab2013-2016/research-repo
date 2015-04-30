@@ -28,7 +28,7 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
       end
   end
   
-  self.terms = [:resource_type, :title, :title_info, :creator, :contributor, :description, :tag, :rights,
+  self.terms = [:resource_type, :title, :title_principals, :title_uniforms, :creator, :contributor, :description, :tag, :rights,
         :publisher, :date_created, :subject, :language, :identifier, :based_near, :related_url, :use]
         
   @@nested_terms = [:title_info]
@@ -40,5 +40,5 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
   def self.datafile_terms 
     DatafilePresenter.terms
   end
-   
+
 end

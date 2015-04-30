@@ -41,9 +41,14 @@ class KarkinosBatchUpdateJob
       denied << gf
       return
     end
+    title_ids = gf.title_principal_ids
+    
     gf.title = title[gf.id] if title[gf.id]
     gf.attributes = file_attributes
     gf.visibility= visibility
+    
+    #temporary addition for development
+    gf.title_principal_ids = title_ids
     
     if @creation
       gf.data_files.each do |df|
