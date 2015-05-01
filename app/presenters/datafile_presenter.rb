@@ -7,6 +7,13 @@ class DatafilePresenter < Sufia::GenericFilePresenter
   
   self.terms = [:title, :rights, :date_uploaded]
   
+  @@nested_terms = []
+  
+  def nested_terms
+    @@nested_terms
+  end
+  
+  
   def initialize(object)
     super
     resource_types object.resource_type

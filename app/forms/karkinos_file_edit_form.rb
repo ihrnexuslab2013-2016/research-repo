@@ -4,6 +4,7 @@ class KarkinosFileEditForm < KarkinosGenericFilePresenter
   include AttributeHelper
   
   self.required_fields = [:title, :creator, :tag, :rights]
+  @@permitted_nested_params = [ :title_principals => [:label] ]
   
   @permitted_additional_files = []
   files = AttributeHelper.yaml_use_files # AttributeHelper.yaml_type_files + AttributeHelper.yaml_use_files
@@ -20,8 +21,17 @@ class KarkinosFileEditForm < KarkinosGenericFilePresenter
   end
   
   def self.build_permitted_params
-     super  + (@permitted_additional_files ? @permitted_additional_files : [])
+     super  + (@permitted_additional_files ? @permitted_additional_files : []) + @@permitted_nested_params
   end
   
+  def self.nested_attributes(form_params)
+    permitted_nested_params = form_params.permit(@@permitted_nested_params)
+    puts "+++++++++++++++ nested attr"
+    puts form_params
+    puts permitted_nested_params
+    puts @@permitted_nested_params.keys
+    
+    permitted_nested_params
+  end
 
 end

@@ -66,6 +66,9 @@ class GenericFilesController < ApplicationController
     end
     
     file_attributes = edit_form_class.model_attributes(params[:generic_file])
+    #nested_attributes = edit_form_class.nested_attributes(params[:generic_file])
+    #puts "++++++++++++++ nattributes ++++++++++++++"
+    #puts nested_attributes
     file_attributes.keys.each do |attr_name|
       fields.delete(attr_name)
     end
@@ -85,6 +88,10 @@ class GenericFilesController < ApplicationController
   
   def datafile_actor
     @datafile_actor ||=  Sufia::GenericFile::Actor.new((@datafile.nil? ? @generic_file : @datafile), current_user)
+  end
+  
+  def actor
+    @actor ||= GenericFileActor.new(@generic_file, current_user)
   end
   
   def process_file(file)
