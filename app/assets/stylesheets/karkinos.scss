@@ -1,0 +1,88 @@
+@import 'karkinos/settings';
+
+dl.file_edit {
+ width:100%;
+}
+dl.file_edit dt {
+ float:left;
+ clear: left;
+ min-width: 120px;
+}
+dl.file_edit dd {
+}
+
+table.file_edit_table {
+	width: 100%;
+}
+
+h4.visibility span.label {
+  font-size: 50%;
+  vertical-align: middle;
+}
+
+#home_header {
+	background-image: image-url('sedona.jpg');
+}
+
+#masthead {
+  background: #283414;
+}
+#masthead_controls {
+  background-color: #396F36;
+  border-top: 1px solid #283414;
+  border-bottom: 1px solid #283414;
+}
+
+#masthead_controls .navbar {
+  background-color: #396F36;
+}
+
+#masthead_controls .navbar a:link, #masthead_controls .navbar a:visited {
+  background-color: #396F36;
+}
+
+#masthead_controls .navbar li:first-child {
+  border-left: 2px solid #283414;
+} 
+#masthead_controls .navbar li {
+  border-right: 2px solid #283414;
+}
+
+#masthead_controls .navbar-default .navbar-nav > .active > a, #masthead_controls .navbar-default .navbar-nav > .active > a:hover, #masthead_controls .navbar-default .navbar-nav > .active > a:focus {
+  background-color: #396F36;
+}
+
+#masthead_controls .navbar a:hover {
+  background-color: #2B4F29;
+}
+
+#footer {
+  background: #283414;
+}
+
+.dashboard .panel-default > .dashboard-panel {
+  background-color: #9EBE9D;
+}
+
+.add, .btn-primary {
+  background-color:$button-green;
+  border-color: $button-dark-green;
+}
+.add:hover, .add:focus,
+.btn-primary:hover, .btn-primary:focus {
+  background-color: $add-background-hover;
+  border-color: $button-dark-green;
+  color: $button-dark-green;
+}
+
+.btn-info {
+  background-color: $button-green;
+  border-color: $button-dark-green;
+}
+.btn-info:hover, .btn-info:focus {
+  background-color: $view-select-background-hover;
+  border-color: $button-dark-green;
+  color: $button-dark-green;
+}
+
+
