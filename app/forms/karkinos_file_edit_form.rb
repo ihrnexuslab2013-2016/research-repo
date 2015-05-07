@@ -26,11 +26,6 @@ class KarkinosFileEditForm < KarkinosGenericFilePresenter
   
   def self.nested_attributes(form_params)
     permitted_nested_params = form_params.permit(@@permitted_nested_params)
-    puts "+++++++++++++++ nested attr"
-    puts form_params
-    puts permitted_nested_params
-    puts @@permitted_nested_params.keys
-    
     permitted_nested_params
   end
 
