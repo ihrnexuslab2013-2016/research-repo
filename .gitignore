@@ -1,0 +1,4 @@
+db/development.sqlite3
+jetty/*
+log/development.log
+tmp/*
