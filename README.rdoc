@@ -2,4 +2,4 @@
 
 (working name Karkinos)
 
-This page is work in progress. For now, you can find the tracker system at https://www.pivotaltracker.com/n/projects/1319112.
+This page is work in progress. There will be a website with detailed information soon at http://ihrnexuslab.github.io/research-repo/.
