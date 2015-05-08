@@ -4,11 +4,11 @@ class BatchController < ApplicationController
   self.edit_form_class = KarkinosBatchEditForm
   
    def update
-      puts "++++++++++++++++ update batch +++++++++++"
       authenticate_user!
       @batch = Batch.find_or_create(params[:id])
       @batch.status = ["processing"]
       @batch.save
+      
       file_attributes = edit_form_class.model_attributes(params[:generic_file])
       job = KarkinosBatchUpdateJob.new(current_user.user_key, params[:id], params[:title], file_attributes, params[:visibility])
       job.creation=true

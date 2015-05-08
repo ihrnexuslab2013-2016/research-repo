@@ -1,6 +1,7 @@
+require "active-fedora"
+
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
-  
   
   property :use, predicate: ::RDF::URI.new('http://karkinos.asu.edu/ns#conceptualUse'), multiple: true do |index|
      index.as :stored_searchable, :facetable
@@ -19,4 +20,51 @@ class GenericFile < ActiveFedora::Base
  
   has_many :data_files
   
+  has_and_belongs_to_many :title_principals, :predicate => MODS::MODSVocabulary.titlePrincipal, :class_name => "MODS::TitleInfo"
+  accepts_nested_attributes_for :title_principals
+  
+  has_and_belongs_to_many :title_uniforms, :predicate => MODS::MODSVocabulary.titleUniform, :class_name => "MODS::TitleInfo"
+  accepts_nested_attributes_for :title_uniforms
+  
+  def save(arg = {})
+    self.title_principals.each do |ti|
+      ti.save!
+    end
+    self.title_uniforms.each do |tu|
+      tu.save!
+    end
+    super(arg)
+  end
+  
+  def attributes=(attrs)
+    puts attrs
+    if !attrs.nil?
+     self.reflections.keys.each do |attr|
+        if self.class.nested_attribute? attr.to_sym
+          values = attrs[attr]
+          if !values.nil?
+            nested_variables = self.send(attr)
+            values.each do |key, value|
+              nested_variables.first.send(key.to_s + '=', value)
+            end
+            attrs.delete attr
+          end
+        end
+      end
+     end
+     super
+  end
+  
+  class << self
+    def multiple?(field)
+      if !GenericFile.reflections[field].nil? and GenericFile.reflections[field].macro == :has_and_belongs_to_many
+        return true
+      end
+      super
+    end
+    
+    def nested_attribute?(field)
+      !GenericFile.reflections[field].nil? and GenericFile.reflections[field].macro == :has_and_belongs_to_many
+    end
+  end
 end

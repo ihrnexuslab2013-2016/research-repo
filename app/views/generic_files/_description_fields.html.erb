@@ -9,6 +9,16 @@
           <%= render_edit_field_partial(term, f: f) %>
         <% end %>
         
+        <% f.object.nested_terms.each do |nested_term| %>
+        	<% nattrs = @generic_file[nested_term] %>
+        	<%= f.simple_fields_for nested_term do |builder| %>
+        		<% nattrs.each do |nattr| %>
+        			<% builder.object = nattr %>
+        			<%= render_edit_field_partial(:label, f: builder) %>
+        		<% end %>
+        	<% end %>
+        <% end %>
+        
        
         <% if !@generic_file.instance_of? DataFile %>
         <input type="hidden" id="update_use_path" value="<%= update_use_path %>" />
