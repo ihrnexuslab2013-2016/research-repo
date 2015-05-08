@@ -44,6 +44,7 @@ class KarkinosBatchUpdateJob
     title_ids = gf.title_principal_ids
     
     gf.title = title[gf.id] if title[gf.id]
+    gf.title_principals.first.label = title[gf.id]
     gf.attributes = file_attributes
     gf.visibility= visibility
     

@@ -1,0 +1,8 @@
+<% if not @generic_file.nil? %>
+<% @generic_file.title_principals.each do |title| %>
+	<%= f.simple_fields_for :title_principals do |builder| %>
+		<% builder.object = title %>
+		<%= render_edit_field_partial(:label, f: builder) %>
+	<% end %>
+<% end %>
+<% end %>

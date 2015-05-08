@@ -28,10 +28,10 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
       end
   end
   
-  self.terms = [:resource_type, :title, :title_uniforms, :creator, :contributor, :description, :tag, :rights,
-        :publisher, :date_created, :subject, :language, :identifier, :based_near, :related_url, :use]
+  self.terms = [:resource_type, :title_uniforms, :creator, :contributor, :description, :tag, :rights,
+        :publisher, :date_created, :subject, :language, :identifier, :based_near, :related_url, :use, :title_principals]
         
-  @@nested_terms = [:title_principals]
+  @@nested_terms = []
   
   def nested_terms
     @@nested_terms
