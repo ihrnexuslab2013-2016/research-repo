@@ -67,16 +67,16 @@ class GenericFilesController < ApplicationController
     
     file_attributes = edit_form_class.model_attributes(params[:generic_file])
     #nested_attributes = edit_form_class.nested_attributes(params[:generic_file])
-    #puts "++++++++++++++ nattributes ++++++++++++++"
-    #puts nested_attributes
-    file_attributes.keys.each do |attr_name|
-      fields.delete(attr_name)
-    end
+    puts "++++++++++++++ nattributes ++++++++++++++"
+    puts file_attributes
+    #file_attributes.keys.each do |attr_name|
+    #  fields.delete(attr_name)
+    #end
     
     # now we have all unsed fields and can set them to empty
-    fields.each do |field|
-      file_attributes.store(field, presenter_class.multiple?(field.to_sym) ? [] : "")
-    end
+    #fields.each do |field|
+     # file_attributes.store(field, presenter_class.multiple?(field.to_sym) ? [] : "")
+   # end
     
     actor.update_metadata(file_attributes, params[:visibility])
   end

@@ -28,6 +28,9 @@ class GenericFile < ActiveFedora::Base
   
   def save(arg = {})
     self.title_principals.each do |ti|
+      puts "saving ++++++++++"
+      puts ti.id
+      puts ti.label
       ti.save!
     end
     self.title_uniforms.each do |tu|
@@ -36,6 +39,13 @@ class GenericFile < ActiveFedora::Base
     super(arg)
   end
   
+  def init_with_resource(rdf_resource)
+   super(rdf_resource)
+   self.title_principals = [MODS::TitleInfo.new] unless !self.title_principals.empty?
+   self
+  end
+ 
+=begin
   def attributes=(attrs)
     puts attrs
     if !attrs.nil?
@@ -44,9 +54,12 @@ class GenericFile < ActiveFedora::Base
           values = attrs[attr]
           if !values.nil?
             nested_variables = self.send(attr)
-            values.each do |key, value|
-              nested_variables.first.send(key.to_s + '=', value)
-            end
+            if values.respond_to? "values"
+              puts "responding +++++++++++++++++++++++++"
+              values.values.each do |key, value|
+                nested_variables.first.send(key.to_s + '=', value)
+              end
+             end
             attrs.delete attr
           end
         end
@@ -54,6 +67,7 @@ class GenericFile < ActiveFedora::Base
      end
      super
   end
+=end
   
   class << self
     def multiple?(field)
