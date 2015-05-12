@@ -44,20 +44,10 @@ class KarkinosBatchUpdateJob
     title_ids = gf.title_principal_ids
     
     gf.title = title[gf.id] if title[gf.id]
-    #gf.title_principals.first.label = title[gf.title]
-    labels ={}
-    puts "============= labels ========"
-    gf.title_principals.each_with_index do |ti, index|
-      puts title[gf.id]
-      labels["#{index}"] = {"label" => title[gf.id].first, "id" => ti.id}
-      puts labels
+     gf.title_principals.each do |ti|
+      ti.label = gf.title.first
     end
-    puts "+++++++++++++++++++"
-    puts labels
-    #file_attributes["title_principals_attributes"] = labels
-    puts file_attributes
     gf.attributes = file_attributes
-    puts "durch"
     gf.visibility= visibility
     
     #temporary addition for development
