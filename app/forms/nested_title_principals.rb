@@ -15,9 +15,6 @@ module NestedTitlePrincipals
   end
 
   def title_principals_attributes= attributes
-    puts "nested ======================="
-    puts attributes
-    puts "done ======================="
     model.title_principals_attributes= attributes
   end
 

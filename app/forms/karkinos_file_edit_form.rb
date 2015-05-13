@@ -3,6 +3,7 @@ class KarkinosFileEditForm < KarkinosGenericFilePresenter
   include HydraEditor::Form::Permissions
   include AttributeHelper
   include NestedTitlePrincipals
+  include NestedTitleUniforms
   
   self.required_fields = [:title, :creator, :tag, :rights]  
 
