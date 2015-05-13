@@ -1,7 +1,9 @@
 module MODS
   class TitleInfo < ActiveFedora::Base
-    property :label, predicate: ::RDF::URI.new(MODS::MODSVocabulary::RDFS_NS + "label"), multiple: false
-    has_and_belongs_to_many :hasAbbreviatedVariant, predicate: ::RDF::URI.new(MODS::MODSVocabulary::MADSRDF_NS + "hasAbbreviatedVariant"), :class_name => "MODS::MADSTitle"
+    property :label, predicate: MODS::RDFSVocabulary.label, multiple: false do |index|
+       index.as :stored_searchable, :facetable
+    end
+    has_and_belongs_to_many :hasAbbreviatedVariant, predicate: ::RDF::URI.new(MODS::MODSRDFVocabulary::MADSRDF_NS + "hasAbbreviatedVariant"), :class_name => "MODS::MADSTitle"
     
     
   end

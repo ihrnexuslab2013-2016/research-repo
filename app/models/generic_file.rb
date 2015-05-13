@@ -20,12 +20,36 @@ class GenericFile < ActiveFedora::Base
  
   has_many :data_files
   
-  has_and_belongs_to_many :title_principals, :predicate => MODS::MODSVocabulary.titlePrincipal, :class_name => "MODS::TitleInfo"
+  has_and_belongs_to_many :title_principals, :predicate => MODS::MODSRDFVocabulary.titlePrincipal, :class_name => "MODS::TitleInfo"
   accepts_nested_attributes_for :title_principals
   
-  has_and_belongs_to_many :title_uniforms, :predicate => MODS::MODSVocabulary.titleUniform, :class_name => "MODS::TitleInfo"
+  has_and_belongs_to_many :title_uniforms, :predicate => MODS::MODSRDFVocabulary.titleUniform, :class_name => "MODS::TitleInfo"
   accepts_nested_attributes_for :title_uniforms
   
+  property :abstract, predicate: MODS::MODSRDFVocabulary.abstract, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  property :accessCondition, predicate: MODS::MODSRDFVocabulary.accessCondition, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  has_and_belongs_to_many :genres, :predicate => MODS::MODSRDFVocabulary.genre, :class_name => "MODS::Genre"
+  accepts_nested_attributes_for :genres
+  
+  property :languageOfResource, predicate: MODS::MODSRDFVocabulary.languageOfResource, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  has_and_belongs_to_many :locationOfResources, :predicate => MODS::MODSRDFVocabulary.locationOfResource, :class_name => "MODS::Location"
+  accepts_nested_attributes_for :locationOfResources
+  
+  has_and_belongs_to_many :namePrincipals, :predicate => MODS::MODSRDFVocabulary.namePrincipal, :class_name => "MODS::MADSName"
+  accepts_nested_attributes_for :namePrincipals
+  
+  has_and_belongs_to_many :names, :predicate => MODS::MODSRDFVocabulary.name, :class_name => "MODS::MADSName"
+  accepts_nested_attributes_for :names
+ 
   def save(arg = {})
     self.title_principals.each do |ti|
       ti.save! 
@@ -33,38 +57,11 @@ class GenericFile < ActiveFedora::Base
     self.title_uniforms.each do |tu|
       tu.save!
     end
+    self.genres.each do |g|
+      g.save!
+    end
     super(arg)
   end
-  
-  #def init_with_resource(rdf_resource)
-   #super(rdf_resource)
-   #self.title_principals = [MODS::TitleInfo.new] unless !self.title_principals.empty?
-   #self
- # end
- 
-=begin
-  def attributes=(attrs)
-    puts attrs
-    if !attrs.nil?
-     self.reflections.keys.each do |attr|
-        if self.class.nested_attribute? attr.to_sym
-          values = attrs[attr]
-          if !values.nil?
-            nested_variables = self.send(attr)
-            if values.respond_to? "values"
-              puts "responding +++++++++++++++++++++++++"
-              values.values.each do |key, value|
-                nested_variables.first.send(key.to_s + '=', value)
-              end
-             end
-            attrs.delete attr
-          end
-        end
-      end
-     end
-     super
-  end
-=end
   
   class << self
     def multiple?(field)
