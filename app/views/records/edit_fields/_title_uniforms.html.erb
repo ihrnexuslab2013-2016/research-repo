@@ -2,7 +2,7 @@
 <% @generic_file.title_uniforms.each do |title| %>
 	<%= f.simple_fields_for :title_uniforms, f.object do |builder| %>
 		<% builder.object = title %>
-		<%= render_edit_field_partial(:label, f: builder, locals: {label_text: "Uniform title"}) %>
+		<%= render_edit_field_partial(:label, {f: builder, label_text: "Uniform title"}) %>
 	<% end %>
 <% end %>
 
