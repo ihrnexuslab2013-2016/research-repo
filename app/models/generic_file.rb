@@ -26,18 +26,18 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :title_uniforms, :predicate => MODS::MODSRDFVocabulary.titleUniform, :class_name => "MODS::TitleInfo"
   accepts_nested_attributes_for :title_uniforms
   
-  property :abstract, predicate: MODS::MODSRDFVocabulary.abstract, multiple: false do |index|
+  property :abstract, predicate: MODS::MODSRDFVocabulary.abstract, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :accessCondition, predicate: MODS::MODSRDFVocabulary.accessCondition, multiple: false do |index|
+  property :accessCondition, predicate: MODS::MODSRDFVocabulary.accessCondition, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
   has_and_belongs_to_many :genres, :predicate => MODS::MODSRDFVocabulary.genre, :class_name => "MODS::Genre"
   accepts_nested_attributes_for :genres
   
-  property :languageOfResource, predicate: MODS::MODSRDFVocabulary.languageOfResource, multiple: false do |index|
+  property :languageOfResource, predicate: MODS::MODSRDFVocabulary.languageOfResource, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
@@ -50,6 +50,45 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :names, :predicate => MODS::MODSRDFVocabulary.name, :class_name => "MODS::MADSName"
   accepts_nested_attributes_for :names
  
+  property :notes, predicate: MODS::MODSRDFVocabulary.note, multiple: true do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  property :statementOfResponsibility, predicate: MODS::MODSRDFVocabulary.statementOfResponsibility, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  has_and_belongs_to_many :noteGroups, :predicate => MODS::MODSRDFVocabulary.noteGroup, :class_name => "MODS::NoteGroup"
+  accepts_nested_attributes_for :noteGroups
+  
+  property :edition, predicate: MODS::MODSRDFVocabulary.edition, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  property :frequency, predicate: MODS::MODSRDFVocabulary.frequency, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  property :dateIssued, predicate: MODS::MODSRDFVocabulary.dateIssued, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  has_and_belongs_to_many :parts, :predicate => MODS::MODSRDFVocabulary.noteGroup, :class_name => "MODS::Part"
+  accepts_nested_attributes_for :parts
+  
+  property :form, predicate: MODS::MODSRDFVocabulary.frequency, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  property :reformattingQuality, predicate: MODS::MODSRDFVocabulary.frequency, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  property :mediaType, predicate: MODS::MODSRDFVocabulary.frequency, multiple: false do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  
   def save(arg = {})
     self.title_principals.each do |ti|
       ti.save! 

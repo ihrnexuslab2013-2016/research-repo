@@ -21,6 +21,23 @@ module MODS
     property :locationCopyEnumerationAndChronologyBasic
     property :namePrincipal
     property :name
+    property :note
+    property :statementOfResponsibility
+    property :noteGroup
+    property :noteGroupNote
+    property :noteGroupType
+    property :edition
+    property :frequency
+    property :dateIssued
+    property :part
+    property :partOrder
+    property :partLevel
+    property :partCaption
+    property :partNumber
+    property :form
+    property :reformattingQuality
+    property :mediaType
+    
   
   end
 end
