@@ -38,6 +38,21 @@ module MODS
     property :reformattingQuality
     property :mediaType
     
+    #relatedItem
+    property :relatedHost
+    property :relatedReferencedBy
+    property :relatedOriginal
+    property :relatedFormat
+    property :relatedVersion
+    property :relatedPreceding
+    property :relatedReference
+    property :relatedReview
+    property :relatedSeries
+    property :relatedSucceeding
+    
+    #subject
+    property :subjectTopic
+    
   
   end
 end

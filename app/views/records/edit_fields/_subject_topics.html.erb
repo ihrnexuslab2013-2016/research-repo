@@ -1,0 +1,11 @@
+<% if not @generic_file.nil? %>
+<% @generic_file.subject_topics.each do |subject| %>
+	<%= f.simple_fields_for :subject_topics, f.object do |builder| %>
+		<% builder.object = subject %>
+		<%= render_edit_field_partial(:label, {f: builder, label_text: "Subject (Topic)"}) %>
+	<% end %>
+<% end %>
+
+<% end %>
+
+

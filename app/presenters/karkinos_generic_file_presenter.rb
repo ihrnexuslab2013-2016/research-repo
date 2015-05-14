@@ -18,6 +18,14 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
       object.data_files.each do |df|
         @datafile_presenters.store(df, DatafilePresenter.new(df))
       end
+      
+      object.title_principals = [MODS::TitleInfo.new] unless !object.title_principals.empty?
+      puts "++++++++++ topics 1"
+      puts object.subject_topics
+      object.subject_topics = [MODS::MADS::Topic.new] unless !object.subject_topics.empty?
+      puts "++++++++++ topics"
+      puts object.subject_topics.first.id
+      object.subject_geographics = [MODS::MADS::Geographic.new] unless !object.subject_geographics.empty?
   end
   
   def uses=(uses)
@@ -28,7 +36,7 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
       end
   end
   
-  self.terms = [:resource_type, :title_principals, :title_uniforms, :abstract, :accessCondition, :genres, :languageOfResource, :locationOfResources, :namePrincipals, :names, :notes, :statementOfResponsibility, :noteGroups, :edition, :frequency, :dateIssued, :use ]
+  self.terms = [:resource_type, :title_principals, :title_uniforms, :abstract, :accessCondition, :genres, :languageOfResource, :locationOfResources, :namePrincipals, :names, :notes, :statementOfResponsibility, :noteGroups, :edition, :frequency, :dateIssued, :parts, :form, :reformattingQuality, :mediaType, :relatedHost, :relatedReferencedBy, :relatedOriginal, :relatedFormat, :relatedVersion, :relatedPreceding, :relatedReference, :relatedReview, :relatedSeries, :relatedSucceeding, :subject_topics, :subject_geographics, :use ]
         
   @@nested_terms = []
   

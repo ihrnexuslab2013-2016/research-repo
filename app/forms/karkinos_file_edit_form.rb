@@ -4,6 +4,8 @@ class KarkinosFileEditForm < KarkinosGenericFilePresenter
   include AttributeHelper
   include NestedTitlePrincipals
   include NestedTitleUniforms
+  include NestedSubjectTopics
+  include NestedSubjectGeographics
   
   self.required_fields = [:title, :creator, :tag, :rights]  
 

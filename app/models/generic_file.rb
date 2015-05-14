@@ -73,23 +73,59 @@ class GenericFile < ActiveFedora::Base
      index.as :stored_searchable, :facetable
   end
   
-  has_and_belongs_to_many :parts, :predicate => MODS::MODSRDFVocabulary.noteGroup, :class_name => "MODS::Part"
+  has_and_belongs_to_many :parts, :predicate => MODS::MODSRDFVocabulary.part, :class_name => "MODS::Part"
   accepts_nested_attributes_for :parts
   
-  property :form, predicate: MODS::MODSRDFVocabulary.frequency, multiple: false do |index|
+  property :form, predicate: MODS::MODSRDFVocabulary.form, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :reformattingQuality, predicate: MODS::MODSRDFVocabulary.frequency, multiple: false do |index|
+  property :reformattingQuality, predicate: MODS::MODSRDFVocabulary.reformattingQuality, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :mediaType, predicate: MODS::MODSRDFVocabulary.frequency, multiple: false do |index|
+  property :mediaType, predicate: MODS::MODSRDFVocabulary.mediaType, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
   
+  has_and_belongs_to_many :relatedHost, :predicate => MODS::MODSRDFVocabulary.relatedHost, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedHost
+  
+  has_and_belongs_to_many :relatedReferencedBy, :predicate => MODS::MODSRDFVocabulary.relatedReferencedBy, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedReferencedBy
+  
+  has_and_belongs_to_many :relatedOriginal, :predicate => MODS::MODSRDFVocabulary.relatedOriginal, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedOriginal
+  
+  has_and_belongs_to_many :relatedFormat, :predicate => MODS::MODSRDFVocabulary.relatedFormat, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedFormat
+  
+  has_and_belongs_to_many :relatedVersion, :predicate => MODS::MODSRDFVocabulary.relatedVersion, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedVersion
+  
+  has_and_belongs_to_many :relatedPreceding, :predicate => MODS::MODSRDFVocabulary.relatedPreceding, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedPreceding
+  
+  has_and_belongs_to_many :relatedReference, :predicate => MODS::MODSRDFVocabulary.relatedReference, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedReference
+  
+  has_and_belongs_to_many :relatedReview, :predicate => MODS::MODSRDFVocabulary.relatedReview, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedReview
+  
+  has_and_belongs_to_many :relatedSeries, :predicate => MODS::MODSRDFVocabulary.relatedSeries, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedSeries
+  
+  has_and_belongs_to_many :relatedSucceeding, :predicate => MODS::MODSRDFVocabulary.relatedSucceeding, :class_name => "GenericFile"
+  accepts_nested_attributes_for :relatedSucceeding
+  
+  has_and_belongs_to_many :subject_topics, :predicate => MODS::MODSRDFVocabulary.subjectTopic, :class_name => "MODS::MADS::Topic"
+  accepts_nested_attributes_for :subject_topics
+  
+  has_and_belongs_to_many :subject_geographics, :predicate => MODS::MODSRDFVocabulary.subjectTopic, :class_name => "MODS::MADS::Geographic"
+  accepts_nested_attributes_for :subject_geographics
   
   def save(arg = {})
+    puts "saving +++++++++++++++++"
     self.title_principals.each do |ti|
       ti.save! 
     end
@@ -98,6 +134,13 @@ class GenericFile < ActiveFedora::Base
     end
     self.genres.each do |g|
       g.save!
+    end
+    self.subject_topics.each do |t|
+      t.save!
+      puts "saved +++++++++++++++++++++++++++ " + t.id.to_s
+    end
+    self.subject_geographics.each do |t|
+      t.save!
     end
     super(arg)
   end
