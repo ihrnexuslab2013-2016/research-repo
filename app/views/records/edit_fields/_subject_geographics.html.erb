@@ -1,7 +1,6 @@
 <% if not @generic_file.nil? %>
-<% @generic_file.subject_geographics.each do |subject| %>
-	<%= f.simple_fields_for :subject_geographics, f.object do |builder| %>
-		<% builder.object = subject %>
+<% ([@generic_file.subject_geographics] + [MODS::MADS::Geographic.new]).each do |subject| %>
+	<%= f.simple_fields_for :subject_geographics, subject do |builder| %>
 		<%= render_edit_field_partial(:label, {f: builder, label_text: "Subject (Geographic)"}) %>
 	<% end %>
 <% end %>

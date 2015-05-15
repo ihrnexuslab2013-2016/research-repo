@@ -44,10 +44,10 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :locationOfResources, :predicate => MODS::MODSRDFVocabulary.locationOfResource, :class_name => "MODS::Location"
   accepts_nested_attributes_for :locationOfResources
   
-  has_and_belongs_to_many :namePrincipals, :predicate => MODS::MODSRDFVocabulary.namePrincipal, :class_name => "MODS::MADSName"
+  has_and_belongs_to_many :namePrincipals, :predicate => MODS::MODSRDFVocabulary.namePrincipal, :class_name => "MODS::MADS::Name"
   accepts_nested_attributes_for :namePrincipals
   
-  has_and_belongs_to_many :names, :predicate => MODS::MODSRDFVocabulary.name, :class_name => "MODS::MADSName"
+  has_and_belongs_to_many :names, :predicate => MODS::MODSRDFVocabulary.name, :class_name => "MODS::MADS::Name"
   accepts_nested_attributes_for :names
  
   property :notes, predicate: MODS::MODSRDFVocabulary.note, multiple: true do |index|
@@ -118,29 +118,63 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :relatedSucceeding, :predicate => MODS::MODSRDFVocabulary.relatedSucceeding, :class_name => "GenericFile"
   accepts_nested_attributes_for :relatedSucceeding
   
-  has_and_belongs_to_many :subject_topics, :predicate => MODS::MODSRDFVocabulary.subjectTopic, :class_name => "MODS::MADS::Topic"
-  accepts_nested_attributes_for :subject_topics
+  # subject fields
+  has_and_belongs_to_many :subjectTopics, :predicate => MODS::MODSRDFVocabulary.subjectTopic, :class_name => "MODS::MADS::Topic"
+  accepts_nested_attributes_for :subjectTopics
   
-  has_and_belongs_to_many :subject_geographics, :predicate => MODS::MODSRDFVocabulary.subjectTopic, :class_name => "MODS::MADS::Geographic"
-  accepts_nested_attributes_for :subject_geographics
+  has_and_belongs_to_many :subjectGeographics, :predicate => MODS::MODSRDFVocabulary.subjectGeographic, :class_name => "MODS::MADS::Geographic"
+  accepts_nested_attributes_for :subjectGeographics
+  
+  has_and_belongs_to_many :subjectTemporals, :predicate => MODS::MODSRDFVocabulary.subjectTemporal, :class_name => "MODS::MADS::Temporal"
+  accepts_nested_attributes_for :subjectTemporals
+  
+  has_and_belongs_to_many :subjectTitle, :predicate => MODS::MODSRDFVocabulary.subjectTitle, :class_name => "MODS::MADS::Titel"
+  accepts_nested_attributes_for :subjectTitle
+  
+  has_and_belongs_to_many :subjectGeographicCode, :predicate => MODS::MODSRDFVocabulary.subjectGeographicCode, :class_name => "MODS::MADS::GeographicCode"
+  accepts_nested_attributes_for :subjectGeographicCode
+  
+  has_and_belongs_to_many :subjectHierarchicalGeographic, :predicate => MODS::MODSRDFVocabulary.subjectHierarchicalGeographic, :class_name => "MODS::MADS::HierarchicalGeographic"
+  accepts_nested_attributes_for :subjectHierarchicalGeographic
+  
+  has_and_belongs_to_many :cartographics, :predicate => MODS::MODSRDFVocabulary.cartographics, :class_name => "MODS::MADS::Cartographics"
+  accepts_nested_attributes_for :cartographics
+  
+  has_and_belongs_to_many :subjectOccupation, :predicate => MODS::MODSRDFVocabulary.subjectOccupation, :class_name => "MODS::MADS::Occupation"
+  accepts_nested_attributes_for :subjectOccupation
+  
+  has_and_belongs_to_many :subjectGenre, :predicate => MODS::MODSRDFVocabulary.subjectGenre, :class_name => "MODS::MADS::GenreForm"
+  accepts_nested_attributes_for :subjectGenre
+  
+  # table of contents
+  property :tableOfContents, predicate: MODS::MODSRDFVocabulary.tableOfContents, multiple: true do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  # target audience
+  property :targetAudience, predicate: MODS::MODSRDFVocabulary.targetAudience, multiple: true do |index|
+     index.as :stored_searchable, :facetable
+  end
   
   def save(arg = {})
-    puts "saving +++++++++++++++++"
     self.title_principals.each do |ti|
       ti.save! 
     end
     self.title_uniforms.each do |tu|
       tu.save!
+      self.title_uniform_ids = self.title_uniform_ids + [tu.id] unless self.title_uniform_ids.include? tu.id
     end
     self.genres.each do |g|
       g.save!
+      self.genre_ids = self.genre_ids + [g.id] unless self.genre_ids.include? g.id
     end
     self.subject_topics.each do |t|
       t.save!
-      puts "saved +++++++++++++++++++++++++++ " + t.id.to_s
+      self.subject_topic_ids = self.subject_topic_ids + [t.id] unless self.subject_topic_ids.include? t.id
     end
     self.subject_geographics.each do |t|
       t.save!
+      self.subject_geographic_ids = self.subject_geographic_ids + [t.id] unless self.subject_geographic_ids.include? t.id
     end
     super(arg)
   end
