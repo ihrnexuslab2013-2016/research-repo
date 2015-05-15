@@ -52,7 +52,22 @@ module MODS
     
     #subject
     property :subjectTopic
+    property :subjectTitle
+    property :subjectTemporal
+    property :subjectOccupation
+    property :subjectName
+    property :subjectHierarchicalGeographic
+    property :subjectGeographicCode
+    property :subjectGeographic
+    property :subjectGenre
+    property :subjectComplex
+    property :cartographics
     
+    #table of contents
+    property :tableOfContents
+    
+    # target audience
+    property :targetAudience
   
   end
 end

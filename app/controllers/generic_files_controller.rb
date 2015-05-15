@@ -70,7 +70,8 @@ class GenericFilesController < ApplicationController
     #file_attributes.keys.each do |attr_name|
     #  fields.delete(attr_name)
     #end
-    
+    puts "attributes ++++++++++++++++++++++++++++++++"
+    puts file_attributes
     # now we have all unsed fields and can set them to empty
     #fields.each do |field|
      # file_attributes.store(field, presenter_class.multiple?(field.to_sym) ? [] : "")
