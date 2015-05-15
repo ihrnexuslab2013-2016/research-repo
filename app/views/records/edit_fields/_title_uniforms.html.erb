@@ -1,7 +1,6 @@
 <% if not @generic_file.nil? %>
-<% @generic_file.title_uniforms.each do |title| %>
-	<%= f.simple_fields_for :title_uniforms, f.object do |builder| %>
-		<% builder.object = title %>
+<% (@generic_file.title_uniforms + [MODS::MADS::Title.new]).each do |title| %>
+	<%= f.simple_fields_for :title_uniforms, title do |builder| %>
 		<%= render_edit_field_partial(:label, {f: builder, label_text: "Uniform title"}) %>
 	<% end %>
 <% end %>
