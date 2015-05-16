@@ -3,6 +3,8 @@ require "active-fedora"
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
   
+  before_destroy :delete_nested_attributes
+  
   property :use, predicate: ::RDF::URI.new('http://karkinos.asu.edu/ns#conceptualUse'), multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
@@ -21,7 +23,7 @@ class GenericFile < ActiveFedora::Base
   has_many :data_files
   
   has_and_belongs_to_many :title_principals, :predicate => MODS::MODSRDFVocabulary.titlePrincipal, :class_name => "MODS::MADS::Title"
-  accepts_nested_attributes_for :title_principals, allow_destroy: true
+  accepts_nested_attributes_for :title_principals, :allow_destroy => true
   
   has_and_belongs_to_many :title_uniforms, :predicate => MODS::MODSRDFVocabulary.titleUniform, :class_name => "MODS::MADS::Title"
   accepts_nested_attributes_for :title_uniforms, allow_destroy: true
@@ -157,28 +159,7 @@ class GenericFile < ActiveFedora::Base
   end
   
   def save(arg = {})
-    # self.title_principals.each do |ti|
-      # ti.save! 
-    # end
-    # self.title_uniforms.each do |tu|
-      # tu.save!
-      # self.title_uniform_ids = self.title_uniform_ids + [tu.id] unless self.title_uniform_ids.include? tu.id
-    # end
-    # self.genres.each do |g|
-      # g.save!
-      # self.genre_ids = self.genre_ids + [g.id] unless self.genre_ids.include? g.id
-    # end
-    # self.subject_topics.each do |t|
-      # t.save!
-      # self.subject_topic_ids = self.subject_topic_ids + [t.id] unless self.subject_topic_ids.include? t.id
-    # end
-    # self.subject_geographics.each do |t|
-      # t.save!
-      # self.subject_geographic_ids = self.subject_geographic_ids + [t.id] unless self.subject_geographic_ids.include? t.id
-    # end
-    
-    puts "saving +++++++++++++++++++"
-    GenericFile.reflections.each do |assoc|
+   GenericFile.reflections.each do |assoc|
       assoc = assoc[1]
       if assoc.respond_to? :macro and assoc.macro == :has_and_belongs_to_many
         self.send(assoc.name).each do |assoc_elem|
@@ -189,6 +170,14 @@ class GenericFile < ActiveFedora::Base
     end
     
     super(arg)
+  end
+  
+  def delete_nested_attributes
+    gf = GenericFile.find(self.id)
+    puts "delete  ++++++++++++++++++++++++++"
+    puts "titles " + gf.title_principals.count.to_s
+    puts title_principal_ids
+    self.title_principals.delete_all
   end
   
   class << self

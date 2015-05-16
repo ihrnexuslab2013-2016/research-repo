@@ -10,9 +10,6 @@ class BatchController < ApplicationController
       @batch.save
       
       file_attributes = edit_form_class.model_attributes(params[:generic_file])
-      puts "++++++++++++++++++ attributes "
-      puts params[:generic_file]
-      puts file_attributes
       job = KarkinosBatchUpdateJob.new(current_user.user_key, params[:id], params[:title_principals], file_attributes, params[:visibility])
       job.creation=true
       Sufia.queue.push(job)
