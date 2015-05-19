@@ -159,12 +159,14 @@ class GenericFile < ActiveFedora::Base
   end
   
   def save(arg = {})
-   GenericFile.reflections.each do |assoc|
+    GenericFile.reflections.each do |assoc|
       assoc = assoc[1]
       if assoc.respond_to? :macro and assoc.macro == :has_and_belongs_to_many
         self.send(assoc.name).each do |assoc_elem|
-          assoc_elem.save!
-          self.send("#{assoc.name.to_s.singularize}_ids=", self.send("#{assoc.name.to_s.singularize}_ids") + [assoc_elem.id]) unless self.send("#{assoc.name.to_s.singularize}_ids").include? assoc_elem.id
+          if assoc_elem.persisted? or not assoc_elem.respond_to? :is_filled? or assoc_elem.is_filled?
+            assoc_elem.save!
+            self.send("#{assoc.name.to_s.singularize}_ids=", self.send("#{assoc.name.to_s.singularize}_ids") + [assoc_elem.id]) unless self.send("#{assoc.name.to_s.singularize}_ids").include? assoc_elem.id
+          end
         end
       end
     end
@@ -174,9 +176,6 @@ class GenericFile < ActiveFedora::Base
   
   def delete_nested_attributes
     gf = GenericFile.find(self.id)
-    puts "delete  ++++++++++++++++++++++++++"
-    puts "titles " + gf.title_principals.count.to_s
-    puts title_principal_ids
     self.title_principals.delete_all
   end
   

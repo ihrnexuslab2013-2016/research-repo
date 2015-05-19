@@ -1,0 +1,10 @@
+<% if not @generic_file.nil? %>
+<% ([@generic_file.genres] + [MODS::Genre.new]).each do |genre| %>
+	<%= f.simple_fields_for :genres, genre do |builder| %>
+		<%= render_edit_field_partial(:label, {f: builder, label_text: "Genre"}) %>
+	<% end %>
+<% end %>
+
+<% end %>
+
+
