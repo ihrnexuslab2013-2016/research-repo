@@ -1,9 +1,7 @@
 module MODS
   module MADS
-    class GenreForm < ActiveFedora::Base
-      property :label, predicate: MODS::RDFSVocabulary.label, multiple: false do |index|
-         index.as :stored_searchable, :facetable
-      end
+    class GenreForm < LabelProperty
+
     end
   end
 end

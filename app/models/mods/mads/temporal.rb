@@ -1,9 +1,7 @@
 module MODS
   module MADS
-    class Temporal < ActiveFedora::Base
-      property :label, predicate: MODS::RDFSVocabulary.label, multiple: false do |index|
-         index.as :stored_searchable, :facetable
-      end 
+    class Temporal < LabelProperty
+
     end
   end
 end

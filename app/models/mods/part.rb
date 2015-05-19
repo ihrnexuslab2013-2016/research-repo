@@ -13,5 +13,8 @@ module MODS
        index.as :stored_searchable, :facetable
     end
     
+    def is_filled?
+      !self.partOrder.strip.empty? or !self.partLevel.strip.empty? or !self.partCaption.strip.empty? or !self.partNumber.strip.empty?
+    end
   end
 end
