@@ -4,18 +4,18 @@ module NestedSubjectOccupations
   module ClassMethods
     def build_permitted_params
       permitted = super
-      permitted << { subject_occupation_attributes: permitted_subject_occupation_params }
+      permitted << { subject_occupations_attributes: permitted_subject_occupations_params }
       permitted
     end
 
-    def permitted_subject_occupation_params
+    def permitted_subject_occupations_params
       [:label, :id]
     end
 
   end
 
-  def subject_occupation_attributes= attributes
-    model.subject_occupation_attributes= attributes
+  def subject_occupations_attributes= attributes
+    model.subject_occupations_attributes= attributes
   end
 
 end

@@ -1,0 +1,11 @@
+<% if not @generic_file.nil? %>
+<%= f.label :name_principals %>
+<% (@generic_file.name_principals + [MODS::MADS::Name.new]).each do |name| %>
+	<%= f.simple_fields_for :name_principals, name do |builder| %>
+		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>
+	<% end %>
+<% end %>
+
+<% end %>
+
+

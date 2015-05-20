@@ -175,6 +175,9 @@ class GenericFile < ActiveFedora::Base
           if assoc_elem.persisted? or not assoc_elem.respond_to? :is_filled? or assoc_elem.is_filled?
             assoc_elem.save!
             self.send("#{assoc.name.to_s.singularize}_ids=", self.send("#{assoc.name.to_s.singularize}_ids") + [assoc_elem.id]) unless self.send("#{assoc.name.to_s.singularize}_ids").include? assoc_elem.id
+          else
+            puts "can't save : ======================"
+            puts assoc_elem
           end
         end
       end
