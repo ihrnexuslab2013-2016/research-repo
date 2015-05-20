@@ -1,0 +1,7 @@
+<% @generic_file.name_principals.each do |name| %>
+  <span itemprop="name_principle" itemscope itemtype="http://schema.org/Thing">
+    <span itemprop="name"><%= name.label %></span>
+  </span>
+  <br />
+<% end %>
+

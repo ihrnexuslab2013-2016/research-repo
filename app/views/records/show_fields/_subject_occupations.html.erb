@@ -1,0 +1,7 @@
+<% @generic_file.subject_occupations.each do |subject| %>
+  <span itemprop="subject_occupations" itemscope itemtype="http://schema.org/Thing">
+    <span itemprop="name"><%= subject.label %></span>
+  </span>
+  <br />
+<% end %>
+
