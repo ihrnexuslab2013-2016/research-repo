@@ -33,11 +33,15 @@ module MODS
     property :edition
     property :frequency
     property :dateIssued
+    
+    # part
     property :part
     property :partOrder
     property :partLevel
     property :partCaption
     property :partNumber
+    
+    
     property :form
     property :reformattingQuality
     property :mediaType

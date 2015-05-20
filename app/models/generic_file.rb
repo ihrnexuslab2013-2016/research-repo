@@ -56,13 +56,19 @@ class GenericFile < ActiveFedora::Base
      index.as :stored_searchable, :facetable
   end
   
-  property :statement_of_responsibility, predicate: MODS::MODSRDFVocabulary.statementOfResponsibility, multiple: false do |index|
+  # note of type "statement of responsibilit"
+  property :statement_of_responsibility, predicate: MODS::MODSRDFVocabulary.statementOfResponsibility, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
   has_and_belongs_to_many :note_groups, :predicate => MODS::MODSRDFVocabulary.noteGroup, :class_name => "MODS::NoteGroup"
   accepts_nested_attributes_for :note_groups, allow_destroy: true
   
+  # from MODS RDF:
+  # In MODS XML originInfo binds together information pertaining to origination of the resource.  
+  # The binding is considered necessary because originInfo may repeat, for different origination events.  
+  # However, in this ontology, different instances of originInfo are considered to be different resource. 
+  # MODS RDF dispenses with the container and instead, each originInfo subelement tranforms to a direct property of the resource. 
   property :edition, predicate: MODS::MODSRDFVocabulary.edition, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
@@ -78,6 +84,9 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :parts, :predicate => MODS::MODSRDFVocabulary.part, :class_name => "MODS::Part"
   accepts_nested_attributes_for :parts, allow_destroy: true
   
+  # from MODS RDF:
+  # n MODS XML it binds together information pertaining to physical characteristics of the resource. 
+  # MODS RDF dispenses with the container and instead, each physical description subelement tranforms to a direct property of the resource. 
   property :form, predicate: MODS::MODSRDFVocabulary.form, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
@@ -136,8 +145,8 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :subject_geographic_code, :predicate => MODS::MODSRDFVocabulary.subjectGeographicCode, :class_name => "MODS::MADS::GeographicCode"
   accepts_nested_attributes_for :subject_geographic_code, allow_destroy: true
   
-  has_and_belongs_to_many :subject_hierarchical_geographic, :predicate => MODS::MODSRDFVocabulary.subjectHierarchicalGeographic, :class_name => "MODS::MADS::HierarchicalGeographic"
-  accepts_nested_attributes_for :subject_hierarchical_geographic, allow_destroy: true
+  has_and_belongs_to_many :subject_hierarchical_geographics, :predicate => MODS::MODSRDFVocabulary.subjectHierarchicalGeographic, :class_name => "MODS::MADS::HierarchicalGeographic"
+  accepts_nested_attributes_for :subject_hierarchical_geographics, allow_destroy: true
   
   has_and_belongs_to_many :cartographics, :predicate => MODS::MODSRDFVocabulary.cartographics, :class_name => "MODS::MADS::Cartographics"
   accepts_nested_attributes_for :cartographics, allow_destroy: true

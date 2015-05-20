@@ -9,7 +9,7 @@ module NestedParts
     end
 
     def permitted_parts_params
-      [:label, :id]
+      [:part_order, :part_level, :part_caption, :part_number, :id]
     end
 
   end
