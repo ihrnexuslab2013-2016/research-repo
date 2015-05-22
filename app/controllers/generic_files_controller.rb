@@ -124,7 +124,7 @@ class GenericFilesController < ApplicationController
     @generic_file.on_behalf_of = params[:on_behalf_of] if params[:on_behalf_of]
     @generic_file.label ||= file.original_filename
     @generic_file.title = [@generic_file.label] if @generic_file.title.blank?
-    tinfo = MODS::TitleInfo.new
+    tinfo = MODS::MADS::Title.new
     tinfo.label = @generic_file.title.first
     @generic_file.title_principals = [tinfo]
     

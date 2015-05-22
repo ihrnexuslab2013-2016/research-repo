@@ -2,6 +2,9 @@ require "active-fedora"
 
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
+  include SolrObject
+  
+  before_destroy :delete_nested_attributes
   
   property :use, predicate: ::RDF::URI.new('http://karkinos.asu.edu/ns#conceptualUse'), multiple: true do |index|
      index.as :stored_searchable, :facetable
@@ -20,47 +23,53 @@ class GenericFile < ActiveFedora::Base
  
   has_many :data_files
   
-  has_and_belongs_to_many :title_principals, :predicate => MODS::MODSRDFVocabulary.titlePrincipal, :class_name => "MODS::TitleInfo"
-  accepts_nested_attributes_for :title_principals
+  has_and_belongs_to_many :title_principals, :predicate => MODS::MODSRDFVocabulary.titlePrincipal, :class_name => "MODS::MADS::Title"
+  accepts_nested_attributes_for :title_principals, :allow_destroy => true
   
-  has_and_belongs_to_many :title_uniforms, :predicate => MODS::MODSRDFVocabulary.titleUniform, :class_name => "MODS::TitleInfo"
-  accepts_nested_attributes_for :title_uniforms
+  has_and_belongs_to_many :title_uniforms, :predicate => MODS::MODSRDFVocabulary.titleUniform, :class_name => "MODS::MADS::Title"
+  accepts_nested_attributes_for :title_uniforms, allow_destroy: true
   
   property :abstract, predicate: MODS::MODSRDFVocabulary.abstract, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :accessCondition, predicate: MODS::MODSRDFVocabulary.accessCondition, multiple: true do |index|
+  property :access_condition, predicate: MODS::MODSRDFVocabulary.accessCondition, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
   has_and_belongs_to_many :genres, :predicate => MODS::MODSRDFVocabulary.genre, :class_name => "MODS::Genre"
-  accepts_nested_attributes_for :genres
+  accepts_nested_attributes_for :genres, allow_destroy: true
   
-  property :languageOfResource, predicate: MODS::MODSRDFVocabulary.languageOfResource, multiple: true do |index|
+  property :language_of_resource, predicate: MODS::MODSRDFVocabulary.languageOfResource, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
-  has_and_belongs_to_many :locationOfResources, :predicate => MODS::MODSRDFVocabulary.locationOfResource, :class_name => "MODS::Location"
-  accepts_nested_attributes_for :locationOfResources
+  has_and_belongs_to_many :location_of_resources, :predicate => MODS::MODSRDFVocabulary.locationOfResource, :class_name => "MODS::Location"
+  accepts_nested_attributes_for :location_of_resources, allow_destroy: true
   
-  has_and_belongs_to_many :namePrincipals, :predicate => MODS::MODSRDFVocabulary.namePrincipal, :class_name => "MODS::MADS::Name"
-  accepts_nested_attributes_for :namePrincipals
+  #has_and_belongs_to_many :name_principals, :predicate => MODS::MODSRDFVocabulary.namePrincipal, :class_name => "MODS::MADS::Name"
+  #accepts_nested_attributes_for :name_principals, allow_destroy: true
   
   has_and_belongs_to_many :names, :predicate => MODS::MODSRDFVocabulary.name, :class_name => "MODS::MADS::Name"
-  accepts_nested_attributes_for :names
+  accepts_nested_attributes_for :names, allow_destroy: true
  
   property :notes, predicate: MODS::MODSRDFVocabulary.note, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :statementOfResponsibility, predicate: MODS::MODSRDFVocabulary.statementOfResponsibility, multiple: false do |index|
+  # note of type "statement of responsibilit"
+  property :statement_of_responsibility, predicate: MODS::MODSRDFVocabulary.statementOfResponsibility, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
-  has_and_belongs_to_many :noteGroups, :predicate => MODS::MODSRDFVocabulary.noteGroup, :class_name => "MODS::NoteGroup"
-  accepts_nested_attributes_for :noteGroups
+  has_and_belongs_to_many :note_groups, :predicate => MODS::MODSRDFVocabulary.noteGroup, :class_name => "MODS::NoteGroup"
+  accepts_nested_attributes_for :note_groups, allow_destroy: true
   
+  # from MODS RDF:
+  # In MODS XML originInfo binds together information pertaining to origination of the resource.  
+  # The binding is considered necessary because originInfo may repeat, for different origination events.  
+  # However, in this ontology, different instances of originInfo are considered to be different resource. 
+  # MODS RDF dispenses with the container and instead, each originInfo subelement tranforms to a direct property of the resource. 
   property :edition, predicate: MODS::MODSRDFVocabulary.edition, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
@@ -69,114 +78,115 @@ class GenericFile < ActiveFedora::Base
      index.as :stored_searchable, :facetable
   end
   
-  property :dateIssued, predicate: MODS::MODSRDFVocabulary.dateIssued, multiple: false do |index|
+  property :date_issued, predicate: MODS::MODSRDFVocabulary.dateIssued, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
   
   has_and_belongs_to_many :parts, :predicate => MODS::MODSRDFVocabulary.part, :class_name => "MODS::Part"
-  accepts_nested_attributes_for :parts
+  accepts_nested_attributes_for :parts, allow_destroy: true
   
+  # from MODS RDF:
+  # n MODS XML it binds together information pertaining to physical characteristics of the resource. 
+  # MODS RDF dispenses with the container and instead, each physical description subelement tranforms to a direct property of the resource. 
   property :form, predicate: MODS::MODSRDFVocabulary.form, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :reformattingQuality, predicate: MODS::MODSRDFVocabulary.reformattingQuality, multiple: false do |index|
+  property :reformatting_quality, predicate: MODS::MODSRDFVocabulary.reformattingQuality, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :mediaType, predicate: MODS::MODSRDFVocabulary.mediaType, multiple: false do |index|
+  property :media_type, predicate: MODS::MODSRDFVocabulary.mediaType, multiple: false do |index|
      index.as :stored_searchable, :facetable
   end
   
-  has_and_belongs_to_many :relatedHost, :predicate => MODS::MODSRDFVocabulary.relatedHost, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedHost
+  has_and_belongs_to_many :related_host, :predicate => MODS::MODSRDFVocabulary.relatedHost, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_host
   
-  has_and_belongs_to_many :relatedReferencedBy, :predicate => MODS::MODSRDFVocabulary.relatedReferencedBy, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedReferencedBy
+  has_and_belongs_to_many :related_referenced_by, :predicate => MODS::MODSRDFVocabulary.relatedReferencedBy, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_referenced_by
   
-  has_and_belongs_to_many :relatedOriginal, :predicate => MODS::MODSRDFVocabulary.relatedOriginal, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedOriginal
+  has_and_belongs_to_many :related_original, :predicate => MODS::MODSRDFVocabulary.relatedOriginal, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_original
   
-  has_and_belongs_to_many :relatedFormat, :predicate => MODS::MODSRDFVocabulary.relatedFormat, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedFormat
+  has_and_belongs_to_many :related_format, :predicate => MODS::MODSRDFVocabulary.relatedFormat, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_format
   
-  has_and_belongs_to_many :relatedVersion, :predicate => MODS::MODSRDFVocabulary.relatedVersion, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedVersion
+  has_and_belongs_to_many :related_version, :predicate => MODS::MODSRDFVocabulary.relatedVersion, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_version
   
-  has_and_belongs_to_many :relatedPreceding, :predicate => MODS::MODSRDFVocabulary.relatedPreceding, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedPreceding
+  has_and_belongs_to_many :related_preceding, :predicate => MODS::MODSRDFVocabulary.relatedPreceding, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_preceding
   
-  has_and_belongs_to_many :relatedReference, :predicate => MODS::MODSRDFVocabulary.relatedReference, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedReference
+  has_and_belongs_to_many :related_reference, :predicate => MODS::MODSRDFVocabulary.relatedReference, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_reference
   
-  has_and_belongs_to_many :relatedReview, :predicate => MODS::MODSRDFVocabulary.relatedReview, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedReview
+  has_and_belongs_to_many :related_review, :predicate => MODS::MODSRDFVocabulary.relatedReview, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_review
   
-  has_and_belongs_to_many :relatedSeries, :predicate => MODS::MODSRDFVocabulary.relatedSeries, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedSeries
+  has_and_belongs_to_many :related_series, :predicate => MODS::MODSRDFVocabulary.relatedSeries, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_series
   
-  has_and_belongs_to_many :relatedSucceeding, :predicate => MODS::MODSRDFVocabulary.relatedSucceeding, :class_name => "GenericFile"
-  accepts_nested_attributes_for :relatedSucceeding
+  has_and_belongs_to_many :related_succeeding, :predicate => MODS::MODSRDFVocabulary.relatedSucceeding, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_succeeding
   
   # subject fields
-  has_and_belongs_to_many :subjectTopics, :predicate => MODS::MODSRDFVocabulary.subjectTopic, :class_name => "MODS::MADS::Topic"
-  accepts_nested_attributes_for :subjectTopics
+  has_and_belongs_to_many :subject_topics, :predicate => MODS::MODSRDFVocabulary.subjectTopic, :class_name => "MODS::MADS::Topic"
+  accepts_nested_attributes_for :subject_topics, allow_destroy: true
   
-  has_and_belongs_to_many :subjectGeographics, :predicate => MODS::MODSRDFVocabulary.subjectGeographic, :class_name => "MODS::MADS::Geographic"
-  accepts_nested_attributes_for :subjectGeographics
+  has_and_belongs_to_many :subject_geographics, :predicate => MODS::MODSRDFVocabulary.subjectGeographic, :class_name => "MODS::MADS::Geographic"
+  accepts_nested_attributes_for :subject_geographics, allow_destroy: true
   
-  has_and_belongs_to_many :subjectTemporals, :predicate => MODS::MODSRDFVocabulary.subjectTemporal, :class_name => "MODS::MADS::Temporal"
-  accepts_nested_attributes_for :subjectTemporals
+  has_and_belongs_to_many :subject_temporals, :predicate => MODS::MODSRDFVocabulary.subjectTemporal, :class_name => "MODS::MADS::Temporal"
+  accepts_nested_attributes_for :subject_temporals, allow_destroy: true
   
-  has_and_belongs_to_many :subjectTitle, :predicate => MODS::MODSRDFVocabulary.subjectTitle, :class_name => "MODS::MADS::Titel"
-  accepts_nested_attributes_for :subjectTitle
+  has_and_belongs_to_many :subject_title, :predicate => MODS::MODSRDFVocabulary.subjectTitle, :class_name => "MODS::MADS::Title"
+  accepts_nested_attributes_for :subject_title, allow_destroy: true
   
-  has_and_belongs_to_many :subjectGeographicCode, :predicate => MODS::MODSRDFVocabulary.subjectGeographicCode, :class_name => "MODS::MADS::GeographicCode"
-  accepts_nested_attributes_for :subjectGeographicCode
+  has_and_belongs_to_many :subject_geographic_code, :predicate => MODS::MODSRDFVocabulary.subjectGeographicCode, :class_name => "MODS::MADS::GeographicCode"
+  accepts_nested_attributes_for :subject_geographic_code, allow_destroy: true
   
-  has_and_belongs_to_many :subjectHierarchicalGeographic, :predicate => MODS::MODSRDFVocabulary.subjectHierarchicalGeographic, :class_name => "MODS::MADS::HierarchicalGeographic"
-  accepts_nested_attributes_for :subjectHierarchicalGeographic
+  has_and_belongs_to_many :subject_hierarchical_geographics, :predicate => MODS::MODSRDFVocabulary.subjectHierarchicalGeographic, :class_name => "MODS::MADS::HierarchicalGeographic"
+  accepts_nested_attributes_for :subject_hierarchical_geographics, allow_destroy: true
   
   has_and_belongs_to_many :cartographics, :predicate => MODS::MODSRDFVocabulary.cartographics, :class_name => "MODS::MADS::Cartographics"
-  accepts_nested_attributes_for :cartographics
+  accepts_nested_attributes_for :cartographics, allow_destroy: true
   
-  has_and_belongs_to_many :subjectOccupation, :predicate => MODS::MODSRDFVocabulary.subjectOccupation, :class_name => "MODS::MADS::Occupation"
-  accepts_nested_attributes_for :subjectOccupation
+  has_and_belongs_to_many :subject_occupations, :predicate => MODS::MODSRDFVocabulary.subjectOccupation, :class_name => "MODS::MADS::Occupation"
+  accepts_nested_attributes_for :subject_occupations, allow_destroy: true
   
-  has_and_belongs_to_many :subjectGenre, :predicate => MODS::MODSRDFVocabulary.subjectGenre, :class_name => "MODS::MADS::GenreForm"
-  accepts_nested_attributes_for :subjectGenre
+  has_and_belongs_to_many :subject_genres, :predicate => MODS::MODSRDFVocabulary.subjectGenre, :class_name => "MODS::MADS::GenreForm"
+  accepts_nested_attributes_for :subject_genres, allow_destroy: true
   
   # table of contents
-  property :tableOfContents, predicate: MODS::MODSRDFVocabulary.tableOfContents, multiple: true do |index|
+  property :table_of_contents, predicate: MODS::MODSRDFVocabulary.tableOfContents, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
   # target audience
-  property :targetAudience, predicate: MODS::MODSRDFVocabulary.targetAudience, multiple: true do |index|
+  property :target_audience, predicate: MODS::MODSRDFVocabulary.targetAudience, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
   def save(arg = {})
-    self.title_principals.each do |ti|
-      ti.save! 
+    GenericFile.reflections.each do |assoc|
+      assoc = assoc[1]
+      if assoc.respond_to? :macro and assoc.macro == :has_and_belongs_to_many
+        self.send(assoc.name).each do |assoc_elem|
+          if assoc_elem.persisted? or not assoc_elem.respond_to? :is_filled? or assoc_elem.is_filled?
+            assoc_elem.save!
+            self.send("#{assoc.name.to_s.singularize}_ids=", self.send("#{assoc.name.to_s.singularize}_ids") + [assoc_elem.id]) unless self.send("#{assoc.name.to_s.singularize}_ids").include? assoc_elem.id
+          end
+        end
+      end
     end
-    self.title_uniforms.each do |tu|
-      tu.save!
-      self.title_uniform_ids = self.title_uniform_ids + [tu.id] unless self.title_uniform_ids.include? tu.id
-    end
-    self.genres.each do |g|
-      g.save!
-      self.genre_ids = self.genre_ids + [g.id] unless self.genre_ids.include? g.id
-    end
-    self.subject_topics.each do |t|
-      t.save!
-      self.subject_topic_ids = self.subject_topic_ids + [t.id] unless self.subject_topic_ids.include? t.id
-    end
-    self.subject_geographics.each do |t|
-      t.save!
-      self.subject_geographic_ids = self.subject_geographic_ids + [t.id] unless self.subject_geographic_ids.include? t.id
-    end
+    
     super(arg)
+  end
+  
+  def delete_nested_attributes
+    gf = GenericFile.find(self.id)
+    self.title_principals.delete_all
   end
   
   class << self

@@ -1,9 +1,6 @@
 module MODS
   module MADS
-    class Name < ActiveFedora::Base
-      property :label, predicate: MODS::RDFSVocabulary.label, multiple: false do |index|
-         index.as :stored_searchable, :facetable
-      end
+    class Name < LabelProperty
       
       property :relation, predicate: MODS::RDFSVocabulary.label, multiple: false do |index|
          index.as :stored_searchable, :facetable

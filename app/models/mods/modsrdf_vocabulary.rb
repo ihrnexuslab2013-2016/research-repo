@@ -6,9 +6,13 @@ module MODS
     MADSRDF_NS = "http://www.loc.gov/mads/rdf/v1#"
     RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    
-   
+    # title   
     property :titlePrincipal
     property :titleUniform
+    property :hasAbbreviatedVariant
+    property :hasTranslatedVariant  
+    property :hasAlternativeVariant
+    
     property :abstract
     property :accessCondition
     property :genre
@@ -29,11 +33,15 @@ module MODS
     property :edition
     property :frequency
     property :dateIssued
+    
+    # part
     property :part
     property :partOrder
     property :partLevel
     property :partCaption
     property :partNumber
+    
+    
     property :form
     property :reformattingQuality
     property :mediaType

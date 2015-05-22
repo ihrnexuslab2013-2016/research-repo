@@ -1,0 +1,19 @@
+<% if not @generic_file.nil? %>
+<h4><%= f.label :parts %></h4>
+<% (@generic_file.parts + [MODS::Part.new]).each do |part| %>
+	<%= f.simple_fields_for :parts, part do |builder| %>
+	<div class="file-show-term">
+	<b>Part: <%= part.part_caption %></b>
+	<div class="panel-body">
+		<%= render_edit_field_partial(:part_order, {f: builder}) %>
+		<%= render_edit_field_partial(:part_level, {f: builder}) %>
+		<%= render_edit_field_partial(:part_caption, {f: builder}) %>
+		<%= render_edit_field_partial(:part_number, {f: builder}) %>
+	</div>
+	</div>
+	<% end %>
+<% end %>
+
+<% end %>
+
+

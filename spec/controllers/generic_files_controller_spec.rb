@@ -19,7 +19,7 @@ describe GenericFilesController do
 
     before :each do
       @gen_file = generic_file
-      @gen_file.title_principals = [MODS::TitleInfo.new]
+      @gen_file.title_principals = [MODS::MADS::Title.new]
       @gen_file.title_principals.first.save
       @gen_file.save!
     end

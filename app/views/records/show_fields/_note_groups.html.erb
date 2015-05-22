@@ -1,0 +1,7 @@
+<% @generic_file.note_groups.each do |group| %>
+  <span itemprop="note_groups" itemscope itemtype="http://schema.org/Thing">
+    <span itemprop="name"><%= group.label %></span>
+  </span>
+  <br />
+<% end %>
+

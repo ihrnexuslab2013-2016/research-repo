@@ -23,4 +23,7 @@ class SolrDocument
   # Recommendation: Use field names from Dublin Core
   use_extension( Blacklight::Document::DublinCore)    
 
+  def subject_topics
+    Array(self[Solrizer.solr_name("subject_topics")])
+  end
 end
