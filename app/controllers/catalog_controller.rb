@@ -48,10 +48,10 @@ class CatalogController < ApplicationController
 
     # Specify which field to use in the tag cloud on the homepage.
     # To disable the tag cloud, comment out this line.
-    config.tag_cloud_field_name = Solrizer.solr_name("tag", :facetable)
+    config.tag_cloud_field_name = Solrizer.solr_name("subject_topics", :facetable)
 
     # solr field configuration for document/show views
-    config.index.title_field = solr_name("title", :stored_searchable)
+    config.index.title_field = solr_name("title_principals", :stored_searchable)
     config.index.display_type_field = solr_name("has_model", :symbol)
     config.index.thumbnail_method = :sufia_thumbnail_tag
 

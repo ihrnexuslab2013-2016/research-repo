@@ -26,4 +26,11 @@ class SolrDocument
   def subject_topics
     Array(self[Solrizer.solr_name("subject_topics")])
   end
+  def title_principals
+    Array(self[Solrizer.solr_name("title_principals")])
+  end
+  
+  def title_or_label
+    title_principals.first || title || label
+  end
 end
