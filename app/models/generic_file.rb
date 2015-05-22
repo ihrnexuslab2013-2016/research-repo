@@ -2,6 +2,7 @@ require "active-fedora"
 
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
+  include SolrObject
   
   before_destroy :delete_nested_attributes
   
@@ -46,8 +47,8 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :location_of_resources, :predicate => MODS::MODSRDFVocabulary.locationOfResource, :class_name => "MODS::Location"
   accepts_nested_attributes_for :location_of_resources, allow_destroy: true
   
-  has_and_belongs_to_many :name_principals, :predicate => MODS::MODSRDFVocabulary.namePrincipal, :class_name => "MODS::MADS::Name"
-  accepts_nested_attributes_for :name_principals, allow_destroy: true
+  #has_and_belongs_to_many :name_principals, :predicate => MODS::MODSRDFVocabulary.namePrincipal, :class_name => "MODS::MADS::Name"
+  #accepts_nested_attributes_for :name_principals, allow_destroy: true
   
   has_and_belongs_to_many :names, :predicate => MODS::MODSRDFVocabulary.name, :class_name => "MODS::MADS::Name"
   accepts_nested_attributes_for :names, allow_destroy: true
@@ -175,9 +176,6 @@ class GenericFile < ActiveFedora::Base
           if assoc_elem.persisted? or not assoc_elem.respond_to? :is_filled? or assoc_elem.is_filled?
             assoc_elem.save!
             self.send("#{assoc.name.to_s.singularize}_ids=", self.send("#{assoc.name.to_s.singularize}_ids") + [assoc_elem.id]) unless self.send("#{assoc.name.to_s.singularize}_ids").include? assoc_elem.id
-          else
-            puts "can't save : ======================"
-            puts assoc_elem
           end
         end
       end

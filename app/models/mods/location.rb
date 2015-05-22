@@ -7,6 +7,9 @@ module MODS
        index.as :stored_searchable, :facetable
     end
     
+    has_and_belongs_to_many :location_copies, :predicate => MODS::MODSRDFVocabulary.locationCopy, :class_name => "MODS::LocationCopy"
+    accepts_nested_attributes_for :location_copies
+    
     def is_filled?
       return (!self.location_physical.strip.empty? or !self.location_shelf_locator.strip.empty?)
     end
