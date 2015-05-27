@@ -34,3 +34,27 @@ function getSelectedOptions(sel) {
     // return array containing references to selected option elements
     return opts;
 }
+
+
+      // Initialize the plugin
+      $('#simple_overlay').dialog({
+      modal: true,
+      buttons: {
+        Ok: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+
+  
+   $( "#simple_overlay_open" ).click(function() {
+      $( "#simple_overlay" ).dialog( "open" );
+      return false;
+    });
+
+  
+function find_related_host() {
+	
+  
+  return false;
+}

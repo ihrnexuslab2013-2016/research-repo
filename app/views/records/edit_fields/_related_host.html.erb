@@ -1,0 +1,19 @@
+
+<%= javascript_include_tag "http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js" %>
+
+<% @text = nil %>
+<% if defined? label_text %>
+<% @text = label_text%>
+<% end %>
+<% if f.object.class.multiple? key %>
+  <%= f.input key, as: :multi_value, input_html: { class: 'form-control' }, required: f.object.required?(key), readonly: true %>
+<% else %>
+  <%= f.input key, required: f.object.required?(key), label: @text, readonly: true %>
+<% end %>
+<span class="input-group-btn field-controls">
+<button id="simple_overlay_open" class="btn btn-success add"><i class="icon-white glyphicon-add"></i><span>Find resource</span></button>
+</span>
+<div id="simple_overlay">
+	<input type="text">
+	<button class="simple_overlay_close">Close</button>
+</div>

@@ -33,4 +33,8 @@ class SolrDocument
   def title_or_label
     title_principals.first || title || label
   end
+  
+  def description
+    Array(self[Solrizer.solr_name("notes")]).first
+  end
 end
