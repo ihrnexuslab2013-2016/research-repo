@@ -5,7 +5,7 @@ module MODS
     end
     
     def is_filled?
-      return !self.label.strip.empty?
+      !self.label.nil? and !self.label.strip.empty?
     end
   end
 end

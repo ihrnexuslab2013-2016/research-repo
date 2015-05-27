@@ -173,7 +173,7 @@ class GenericFile < ActiveFedora::Base
       assoc = assoc[1]
       if assoc.respond_to? :macro and assoc.macro == :has_and_belongs_to_many
         self.send(assoc.name).each do |assoc_elem|
-          if assoc_elem.persisted? or not assoc_elem.respond_to? :is_filled? or assoc_elem.is_filled?
+          if not assoc_elem.kind_of? GenericFile and (assoc_elem.persisted? or not assoc_elem.respond_to? :is_filled? or assoc_elem.is_filled?)
             assoc_elem.save!
             self.send("#{assoc.name.to_s.singularize}_ids=", self.send("#{assoc.name.to_s.singularize}_ids") + [assoc_elem.id]) unless self.send("#{assoc.name.to_s.singularize}_ids").include? assoc_elem.id
           end

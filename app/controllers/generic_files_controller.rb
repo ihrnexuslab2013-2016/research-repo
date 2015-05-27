@@ -53,6 +53,9 @@ class GenericFilesController < ApplicationController
   end
   
   def update_metadata
+    
+    puts "upadate ************************"
+    puts params[:generic_file]
     # set all unused attribute to empty 
     #types_fields_map = AttributeHelper::build_type_symbol_map
     uses_fields_map = AttributeHelper::build_use_symbol_list
@@ -66,12 +69,12 @@ class GenericFilesController < ApplicationController
     end
     
     file_attributes = edit_form_class.model_attributes(params[:generic_file])
+    puts file_attributes
     #nested_attributes = edit_form_class.nested_attributes(params[:generic_file])
     #file_attributes.keys.each do |attr_name|
     #  fields.delete(attr_name)
     #end
-    puts "attributes ++++++++++++++++++++++++++++++++"
-    puts file_attributes
+    
     # now we have all unsed fields and can set them to empty
     #fields.each do |field|
      # file_attributes.store(field, presenter_class.multiple?(field.to_sym) ? [] : "")
