@@ -4,7 +4,7 @@ module NestedRelatedHosts
   module ClassMethods
     def build_permitted_params
       permitted = super
-      permitted << { related_host_attributes: permitted_related_hosts_params }
+      permitted << { related_hosts_attributes: permitted_related_hosts_params }
       permitted
     end
 
@@ -14,12 +14,7 @@ module NestedRelatedHosts
 
   end
 
-  def related_host_attributes= attributes
-    puts "setting resalted host-------------------"
-    puts attributes
-    id = attributes[:id]
-    file = GenericFile.find(id)
-    model.generic_file_related_host = [file]
+  def related_hosts_attributes= attributes
+    # do nothing, we don't want to change a linked generic file
   end
-
 end

@@ -100,8 +100,8 @@ class GenericFile < ActiveFedora::Base
      index.as :stored_searchable, :facetable
   end
   
-  has_and_belongs_to_many :related_host, :predicate => MODS::MODSRDFVocabulary.relatedHost, :class_name => "GenericFile"
-  accepts_nested_attributes_for :related_host
+  has_and_belongs_to_many :related_hosts, :predicate => MODS::MODSRDFVocabulary.relatedHost, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_hosts
   
   has_and_belongs_to_many :related_referenced_by, :predicate => MODS::MODSRDFVocabulary.relatedReferencedBy, :class_name => "GenericFile"
   accepts_nested_attributes_for :related_referenced_by

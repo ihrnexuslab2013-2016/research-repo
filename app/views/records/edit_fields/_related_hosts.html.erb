@@ -3,8 +3,8 @@
 <% @text = label_text%>
 <% end %>
 
-<% (@generic_file.related_host + [GenericFile.new]).each do |host| %>
-	<%= f.simple_fields_for :related_host, host do |builder| %>
+<% (@generic_file.related_hosts + [GenericFile.new]).each do |host| %>
+	<%= f.simple_fields_for :related_hosts, host do |builder| %>
 		<%= builder.input :id, as: :hidden %>
 	<% end %>
 <% end %>

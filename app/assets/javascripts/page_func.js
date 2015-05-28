@@ -67,7 +67,7 @@ $(function() {
 
 function setText(id, title) {
 	$("#related_host_label").attr("value", title);
-	$("#generic_file_related_host_attributes_0_id").attr("value", id);
+	$("#generic_file_related_hosts_attributes_0_id").attr("value", id);
 	$( "#simple_overlay" ).dialog( "close" );
 }
   
