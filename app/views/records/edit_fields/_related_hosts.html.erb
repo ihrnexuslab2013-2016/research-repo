@@ -1,24 +1,20 @@
+<% if not @generic_file.nil?%>
 <% @text = nil %>
 <% if defined? label_text %>
 <% @text = label_text%>
 <% end %>
-
-<% (@generic_file.related_hosts + [GenericFile.new]).each do |host| %>
+<%= f.label :related_hosts %>
+<ul id="related_hosts_list">
+<% @generic_file.related_hosts.each do |host| %>
 	<%= f.simple_fields_for :related_hosts, host do |builder| %>
 		<%= builder.input :id, as: :hidden %>
+		<li>
+    		"<%= host.title_principals.first.label %> " uploaded by <%= host.depositor %>
+    	</li>
 	<% end %>
 <% end %>
+</ul>
 
-<input type="text" readonly="true" id="related_host_label">
+<%= f.input :related_hosts, as: :select_generic_file, label: false %>
 
-<span class="input-group-btn field-controls">
-<button id="simple_overlay_open" class="btn btn-success add"><i class="icon-white glyphicon-add"></i><span>Find resource</span></button>
-</span>
-<div id="choose_generic_file_dialog">
-	<input id="search_related_host_input" type="text">
-	<button id="search_related_host_button" class="btn btn-success add">Search</button>
-	
-	<ul id="results">
-		
-	</ul>
-</div>
+<% end %>

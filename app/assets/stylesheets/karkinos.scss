@@ -69,6 +69,7 @@ h4.visibility span.label {
   border-color: $button-dark-green;
 }
 .add:hover, .add:focus,
+.add_file:hover, .add_file:focus,
 .btn-primary:hover, .btn-primary:focus {
   background-color: $add-background-hover;
   border-color: $button-dark-green;
@@ -85,4 +86,14 @@ h4.visibility span.label {
   color: $button-dark-green;
 }
 
+/*
+ * Add resource dialog
+ */
 .ui-dialog { z-index: 1000 !important ;}
+
+.add_file {
+  background-color:$button-green;
+  border-color: $button-dark-green;
+  font-size: 13px;
+  padding: 3px 10px;
+}
