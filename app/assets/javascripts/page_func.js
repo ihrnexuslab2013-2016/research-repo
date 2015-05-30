@@ -79,9 +79,9 @@ function init() {
 
 function setText(attr_name, id, title, depositor) {
 	$("#" + attr_name + "_list").append('<li>"' + title + '" uploaded by ' + depositor);
-	var nrExistingHosts = $("#" + attr_name + "_list div input").length;
+	var nrExistingHosts = $("#" + attr_name + "_list input").length;
 	var idString = "generic_file_" + attr_name + "_attributes_" + nrExistingHosts + "_id";
-	var inputString = '<div class="form-group hidden generic_file_' + attr_name + '_id"><input class="hidden form-control" type="hidden" value="' + id + '" name="generic_file[' + attr_name + '_attributes][' + nrExistingHosts + '][id]" id="' + idString + '"></div>';
+	var inputString = '<input class="hidden form-control" type="hidden" value="' + id + '" name="generic_file[' + attr_name + '_attributes][' + nrExistingHosts + '][id]" id="' + idString + '">';
 	$("#" + attr_name + "_list").append(inputString);
 	$( "#choose_" + attr_name + "_dialog" ).dialog( "close" );
 }
