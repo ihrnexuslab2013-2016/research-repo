@@ -1,7 +1,15 @@
 class GenericFileActor < Sufia::GenericFile::Actor
   
   def update_metadata(attributes, visibility)
-    referenced_files = attributes[:related_hosts_attributes]
+    ref_attrs = [:related_hosts_attributes, :related_referenced_by_attributes]
+    ref_attrs.each{ |attr| set_referenced_files(attr, attributes) }
+    
+    super(attributes, visibility)
+  end
+  
+  
+  def set_referenced_files(ref_attr, attributes)
+    referenced_files = attributes[ref_attr]
     if !referenced_files.nil?
       files = []
       referenced_files.each do |key, file_attr|
@@ -11,12 +19,11 @@ class GenericFileActor < Sufia::GenericFile::Actor
           files << file
         end
       end
-      generic_file.related_hosts = files
-      attributes.except! :related_hosts_attributes
+      ridx = ref_attr.to_s.rindex "_attributes"
+      attr_name = ref_attr.to_s[0..ridx-1]
+      generic_file.send("#{attr_name}=", files)
+      attributes.except! ref_attr
     end
-    
-    
-    super(attributes, visibility)
   end
   
 end

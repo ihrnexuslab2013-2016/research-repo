@@ -21,7 +21,7 @@ class SelectGenericFileInput < SimpleForm::Inputs::FileInput
     html += "</ul>"
     
     html += '<span class="input-group-btn field-controls">'
-    html += '<button id="select_dialog_open" class="add_file btn btn-success" style="border-radius: 4px;">'
+    html += '<button class="add_file btn btn-success select_dialog_open" style="border-radius: 4px;">'
     html += "<i class=\"icon-white glyphicon-add\"></i><span data-attribute=\"#{attribute_name}\">Add #{attribute_name.to_s.humanize.singularize.downcase}</span>"
     html += '</button>'
     html += '</span>'

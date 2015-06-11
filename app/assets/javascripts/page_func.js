@@ -56,7 +56,7 @@ function init() {
 	});
 	
 	  
-	$( "#select_dialog_open" ).click(function(event) {
+	$( ".select_dialog_open" ).click(function(event) {
 		var target = event.target;
 		var attr_name = $(target).attr("data-attribute");
 	  	$( "#choose_" + attr_name + "_dialog" ).dialog( "open" );
