@@ -109,26 +109,26 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :related_originals, :predicate => MODS::MODSRDFVocabulary.relatedOriginal, :class_name => "GenericFile"
   accepts_nested_attributes_for :related_originals
   
-  has_and_belongs_to_many :related_format, :predicate => MODS::MODSRDFVocabulary.relatedFormat, :class_name => "GenericFile"
-  accepts_nested_attributes_for :related_format
+  has_and_belongs_to_many :related_formats, :predicate => MODS::MODSRDFVocabulary.relatedFormat, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_formats
   
-  has_and_belongs_to_many :related_version, :predicate => MODS::MODSRDFVocabulary.relatedVersion, :class_name => "GenericFile"
-  accepts_nested_attributes_for :related_version
+  has_and_belongs_to_many :related_versions, :predicate => MODS::MODSRDFVocabulary.relatedVersion, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_versions
   
-  has_and_belongs_to_many :related_preceding, :predicate => MODS::MODSRDFVocabulary.relatedPreceding, :class_name => "GenericFile"
-  accepts_nested_attributes_for :related_preceding
+  has_and_belongs_to_many :related_precedings, :predicate => MODS::MODSRDFVocabulary.relatedPreceding, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_precedings
   
-  has_and_belongs_to_many :related_reference, :predicate => MODS::MODSRDFVocabulary.relatedReference, :class_name => "GenericFile"
-  accepts_nested_attributes_for :related_reference
+  has_and_belongs_to_many :related_references, :predicate => MODS::MODSRDFVocabulary.relatedReference, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_references
   
-  has_and_belongs_to_many :related_review, :predicate => MODS::MODSRDFVocabulary.relatedReview, :class_name => "GenericFile"
-  accepts_nested_attributes_for :related_review
+  has_and_belongs_to_many :related_reviews, :predicate => MODS::MODSRDFVocabulary.relatedReview, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_reviews
   
   has_and_belongs_to_many :related_series, :predicate => MODS::MODSRDFVocabulary.relatedSeries, :class_name => "GenericFile"
   accepts_nested_attributes_for :related_series
   
-  has_and_belongs_to_many :related_succeeding, :predicate => MODS::MODSRDFVocabulary.relatedSucceeding, :class_name => "GenericFile"
-  accepts_nested_attributes_for :related_succeeding
+  has_and_belongs_to_many :related_succeedings, :predicate => MODS::MODSRDFVocabulary.relatedSucceeding, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_succeedings
   
   # subject fields
   has_and_belongs_to_many :subject_topics, :predicate => MODS::MODSRDFVocabulary.subjectTopic, :class_name => "MODS::MADS::Topic"

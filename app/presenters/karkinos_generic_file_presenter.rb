@@ -28,7 +28,7 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
       end
   end
   
-  self.terms = [:resource_type, :title_principals, :title_uniforms, :abstract, :access_condition, :genres, :language_of_resource, :location_of_resources, :names, :notes, :statement_of_responsibility, :note_groups, :edition, :frequency, :date_issued, :parts, :form, :reformatting_quality, :media_type, :related_hosts, :related_referenced_by, :related_originals, :related_format, :related_version, :related_preceding, :related_reference, :related_review, :related_series, :related_succeeding, :subject_topics, :subject_geographics, :subject_hierarchical_geographics, :cartographics, :subject_occupations, :subject_genres, :table_of_contents, :target_audience, :use ]
+  self.terms = [:resource_type, :title_principals, :title_uniforms, :abstract, :access_condition, :genres, :language_of_resource, :location_of_resources, :names, :notes, :statement_of_responsibility, :note_groups, :edition, :frequency, :date_issued, :parts, :form, :reformatting_quality, :media_type, :related_hosts, :related_referenced_by, :related_originals, :related_formats, :related_versions, :related_precedings, :related_references, :related_reviews, :related_series, :related_succeedings, :subject_topics, :subject_geographics, :subject_hierarchical_geographics, :cartographics, :subject_occupations, :subject_genres, :table_of_contents, :target_audience, :use ]
         
   @@nested_terms = []
   
