@@ -1,11 +1,1 @@
-<% @generic_file.related_hosts.each do |host| %>
-  <span itemprop="related_hosts" itemscope itemtype="http://schema.org/Thing">
-    <span itemprop="name">
-    	<%= link_to sufia.generic_file_path(host) do %>
-    		"<%= host.title_principals.first.label %></a>" uploaded by <%= host.depositor %>
-    	<% end %>		
-    </span>
-  </span>
-  <br />
-<% end %>
-
+<%= render partial: 'shared/generic_files_list', locals: {files_attr: :related_hosts}  %>

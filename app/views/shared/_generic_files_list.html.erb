@@ -1,0 +1,11 @@
+<% @generic_file.send(files_attr).each do |file| %>
+  <span itemprop="related_referenced_by" itemscope itemtype="http://schema.org/Thing">
+    <span itemprop="name">
+    	<%= link_to sufia.generic_file_path(file) do %>
+    		"<%= file.title_principals.first.label %></a>" uploaded by <%= file.depositor %>
+    	<% end %>		
+    </span>
+  </span>
+  <br />
+<% end %>
+
