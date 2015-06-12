@@ -106,8 +106,8 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :related_referenced_by, :predicate => MODS::MODSRDFVocabulary.relatedReferencedBy, :class_name => "GenericFile"
   accepts_nested_attributes_for :related_referenced_by
   
-  has_and_belongs_to_many :related_original, :predicate => MODS::MODSRDFVocabulary.relatedOriginal, :class_name => "GenericFile"
-  accepts_nested_attributes_for :related_original
+  has_and_belongs_to_many :related_originals, :predicate => MODS::MODSRDFVocabulary.relatedOriginal, :class_name => "GenericFile"
+  accepts_nested_attributes_for :related_originals
   
   has_and_belongs_to_many :related_format, :predicate => MODS::MODSRDFVocabulary.relatedFormat, :class_name => "GenericFile"
   accepts_nested_attributes_for :related_format

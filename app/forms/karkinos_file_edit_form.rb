@@ -21,6 +21,7 @@ class KarkinosFileEditForm < KarkinosGenericFilePresenter
   include NestedSubjectGenres
   include NestedRelatedHosts
   include NestedRelatedReferencedBy
+  include NestedRelatedOriginals
   
   self.required_fields = [:title, :creator, :tag, :rights]  
 

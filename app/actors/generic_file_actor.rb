@@ -1,7 +1,7 @@
 class GenericFileActor < Sufia::GenericFile::Actor
   
   def update_metadata(attributes, visibility)
-    ref_attrs = [:related_hosts_attributes, :related_referenced_by_attributes]
+    ref_attrs = [:related_hosts_attributes, :related_referenced_by_attributes, :related_originals_attributes]
     ref_attrs.each{ |attr| set_referenced_files(attr, attributes) }
     
     super(attributes, visibility)
