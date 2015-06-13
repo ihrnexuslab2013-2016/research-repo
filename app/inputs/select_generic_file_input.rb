@@ -6,15 +6,12 @@ class SelectGenericFileInput < SimpleForm::Inputs::FileInput
     return out if object.nil?
     
     html = "<ul id=\"#{attribute_name}_list\">"
-    puts "++++++++++++++++++++"
-    puts attribute_name
-    puts object
-    puts object.send("#{attribute_name}")
     object.model.send("#{attribute_name}").each do |host| 
       @builder.simple_fields_for "#{attribute_name}".to_sym, host do |build|
         html += build.hidden_field "id"
-        html += "<li>"
+        html += "<li data-id=\"#{host.id}\">"
         html += "\"#{host.title_principals.first.label}\" uploaded by #{host.depositor}"
+        html += " <span class=\"glyphicon glyphicon-trash remove-file\" data-attribute=\"#{attribute_name}\"></span>"
         html += "</li>"
       end
     end 

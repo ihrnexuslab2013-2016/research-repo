@@ -10,8 +10,8 @@ class GenericFileActor < Sufia::GenericFile::Actor
   
   def set_referenced_files(ref_attr, attributes)
     referenced_files = attributes[ref_attr]
+    files = []
     if !referenced_files.nil?
-      files = []
       referenced_files.each do |key, file_attr|
         id = file_attr[:id]
         if !id.empty?
@@ -19,11 +19,11 @@ class GenericFileActor < Sufia::GenericFile::Actor
           files << file
         end
       end
-      ridx = ref_attr.to_s.rindex "_attributes"
-      attr_name = ref_attr.to_s[0..ridx-1]
-      generic_file.send("#{attr_name}=", files)
-      attributes.except! ref_attr
     end
+    ridx = ref_attr.to_s.rindex "_attributes"
+    attr_name = ref_attr.to_s[0..ridx-1]
+    generic_file.send("#{attr_name}=", files)
+    attributes.except! ref_attr
   end
   
 end

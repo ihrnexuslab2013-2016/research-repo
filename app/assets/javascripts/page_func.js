@@ -55,7 +55,14 @@ function init() {
 	      	}
 	});
 	
-	  
+	$(".remove-file").click(function(event) {
+		var target = event.target;
+		var attr_name = $(target).attr("data-attribute");
+		var id = $(target).parent().attr("data-id");
+		$(target).parent().remove();
+		$("#" + attr_name + "_list").children("input[value='" + id  + "']").remove();
+	});
+	
 	$( ".select_dialog_open" ).click(function(event) {
 		var target = event.target;
 		var attr_name = $(target).attr("data-attribute");
@@ -74,11 +81,12 @@ function init() {
 		  }
 		  $("#" + attr_name + "_results").html(docsHtml);
 	});
+	
  });
 }
 
 function setText(attr_name, id, title, depositor) {
-	$("#" + attr_name + "_list").append('<li>"' + title + '" uploaded by ' + depositor);
+	$("#" + attr_name + "_list").append('<li data-id="' + id + '"' + '">"' + title + '" uploaded by ' + depositor);
 	var nrExistingHosts = $("#" + attr_name + "_list input").length;
 	var idString = "generic_file_" + attr_name + "_attributes_" + nrExistingHosts + "_id";
 	var inputString = '<input class="hidden form-control" type="hidden" value="' + id + '" name="generic_file[' + attr_name + '_attributes][' + nrExistingHosts + '][id]" id="' + idString + '">';
