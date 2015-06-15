@@ -55,13 +55,7 @@ function init() {
 	      	}
 	});
 	
-	$(".remove-file").click(function(event) {
-		var target = event.target;
-		var attr_name = $(target).attr("data-attribute");
-		var id = $(target).parent().attr("data-id");
-		$(target).parent().remove();
-		$("#" + attr_name + "_list").children("input[value='" + id  + "']").remove();
-	});
+	$(".remove-file").click(remove_file);
 	
 	$( ".select_dialog_open" ).click(function(event) {
 		var target = event.target;
@@ -77,7 +71,9 @@ function init() {
 		  var docs = data["response"]["docs"];
 		  var docsHtml = "";
 		  for (doc in docs) {
-		  		docsHtml += '<li><a onclick="setText(\'' + attr_name + '\',\'' + docs[doc]["id"] + '\',\'' + docs[doc]["title_principals_tesim"][0] + '\',\'' + docs[doc]["depositor_tesim"] + '\')" >' + docs[doc]["title_principals_tesim"][0] + "</a></li>";
+		  		docsHtml += '<li>';
+		  		docsHtml += '<a onclick="setText(\'' + attr_name + '\',\'' + docs[doc]["id"] + '\',\'' + docs[doc]["title_principals_tesim"][0] + '\',\'' + docs[doc]["depositor_tesim"] + '\')" >' + docs[doc]["title_principals_tesim"][0] + "</a>";
+		  		docsHtml += "</li>";
 		  }
 		  $("#" + attr_name + "_results").html(docsHtml);
 	});
@@ -85,8 +81,24 @@ function init() {
  });
 }
 
+function remove_file(event) {
+	var target = event.target;
+	var attr_name = $(target).attr("data-attribute");
+	var id = $(target).parent().attr("data-id");
+	$(target).parent().remove();
+	$("#" + attr_name + "_list").children("input[value='" + id  + "']").remove();
+}
+
 function setText(attr_name, id, title, depositor) {
-	$("#" + attr_name + "_list").append('<li data-id="' + id + '"' + '">"' + title + '" uploaded by ' + depositor);
+	var html = '<li data-id="' + id + '"' + '">"';
+	html += title + '" uploaded by ' + depositor;
+	html += " <span class=\"glyphicon glyphicon-trash remove-file\" data-attribute=\"" + attr_name + "\"></span>";
+	html += "</li>";
+	
+	$("#" + attr_name + "_list").append(html);
+	
+	$("#" + attr_name + "_list").children("li[data-id='" + id  + "']").click(remove_file);
+	
 	var nrExistingHosts = $("#" + attr_name + "_list input").length;
 	var idString = "generic_file_" + attr_name + "_attributes_" + nrExistingHosts + "_id";
 	var inputString = '<input class="hidden form-control" type="hidden" value="' + id + '" name="generic_file[' + attr_name + '_attributes][' + nrExistingHosts + '][id]" id="' + idString + '">';
