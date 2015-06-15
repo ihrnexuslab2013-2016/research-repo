@@ -48,11 +48,12 @@ function init() {
 	$('.choose_generic_file_dialog').dialog({
 	  autoOpen: false,
 	  modal: true,
+	  width: 500,
 	  buttons: {
 	    Cancel: function() {
 	      $( this ).dialog( "close" );
-		        }
-	      	}
+        }
+  	  }
 	});
 	
 	$(".remove-file").click(remove_file);
@@ -71,14 +72,23 @@ function init() {
 		  var docs = data["response"]["docs"];
 		  var docsHtml = "";
 		  for (doc in docs) {
-		  		docsHtml += '<li>';
-		  		docsHtml += '<a onclick="setText(\'' + attr_name + '\',\'' + docs[doc]["id"] + '\',\'' + docs[doc]["title_principals_tesim"][0] + '\',\'' + docs[doc]["depositor_tesim"] + '\')" >' + docs[doc]["title_principals_tesim"][0] + "</a>";
-		  		docsHtml += "</li>";
+		  		docsHtml += '<div>';
+		  		docsHtml += '<a onclick="setText(\'' + attr_name + '\',\'' + docs[doc]["id"] + '\',\'' + docs[doc]["title_principals_tesim"][0] + '\',\'' + docs[doc]["depositor_tesim"] + '\')" >';
+		  		docsHtml += "<span class=\"glyphicon glyphicon-plus-sign\"></span> ";
+		  		docsHtml += build_result_entry(docs[doc]);
+		  		docsHtml += "</a>";
+		  		docsHtml += "</div>";
 		  }
 		  $("#" + attr_name + "_results").html(docsHtml);
 	});
 	
  });
+}
+
+function build_result_entry(doc) {
+	var title = doc["title_principals_tesim"][0];
+	var depositor = doc["depositor_tesim"][0];
+	return "\"" + title + "\"" + " uploaded by " + depositor;
 }
 
 function remove_file(event) {

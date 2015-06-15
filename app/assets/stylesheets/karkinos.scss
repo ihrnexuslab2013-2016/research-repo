@@ -91,11 +91,44 @@ h4.visibility span.label {
  */
 .ui-dialog { z-index: 1000 !important ;}
 
+.ui-dialog .ui-dialog-titlebar-close span {
+  display: block;
+  margin: -8px; 
+}
+
+.choose_generic_file_dialog {
+  font-size: 13px;
+}
+
 .add_file {
   background-color:$button-green;
   border-color: $button-dark-green;
   font-size: 13px;
-  padding: 3px 10px;
+  padding: 2px 10px;
+  margin: 4px;
   border-radius: 4px;
 }
 
+.result-list {
+  margin-top: 10px;
+}
+
+ul.linked_file_list {
+    list-style: none;
+    padding: 10px 0 0 0;
+}
+
+ul.linked_file_list li:before {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\e144";
+  padding-right: 10px;
+  margin-left: 30px;
+}
