@@ -53,6 +53,7 @@ class GenericFilesController < ApplicationController
   end
   
   def update_metadata
+    
     # set all unused attribute to empty 
     #types_fields_map = AttributeHelper::build_type_symbol_map
     uses_fields_map = AttributeHelper::build_use_symbol_list
@@ -67,16 +68,14 @@ class GenericFilesController < ApplicationController
     
     file_attributes = edit_form_class.model_attributes(params[:generic_file])
     #nested_attributes = edit_form_class.nested_attributes(params[:generic_file])
-    #puts "++++++++++++++ nattributes ++++++++++++++"
-    #puts nested_attributes
-    file_attributes.keys.each do |attr_name|
-      fields.delete(attr_name)
-    end
+    #file_attributes.keys.each do |attr_name|
+    #  fields.delete(attr_name)
+    #end
     
     # now we have all unsed fields and can set them to empty
-    fields.each do |field|
-      file_attributes.store(field, presenter_class.multiple?(field.to_sym) ? [] : "")
-    end
+    #fields.each do |field|
+     # file_attributes.store(field, presenter_class.multiple?(field.to_sym) ? [] : "")
+   # end
     
     actor.update_metadata(file_attributes, params[:visibility])
   end
@@ -125,7 +124,7 @@ class GenericFilesController < ApplicationController
     @generic_file.on_behalf_of = params[:on_behalf_of] if params[:on_behalf_of]
     @generic_file.label ||= file.original_filename
     @generic_file.title = [@generic_file.label] if @generic_file.title.blank?
-    tinfo = MODS::TitleInfo.new
+    tinfo = MODS::MADS::Title.new
     tinfo.label = @generic_file.title.first
     @generic_file.title_principals = [tinfo]
     

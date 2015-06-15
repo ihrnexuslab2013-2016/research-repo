@@ -2,31 +2,34 @@ class KarkinosFileEditForm < KarkinosGenericFilePresenter
   include HydraEditor::Form
   include HydraEditor::Form::Permissions
   include AttributeHelper
+  include NestedTitlePrincipals
+  include NestedTitleUniforms
+  include NestedSubjectTopics
+  include NestedSubjectGeographics
+  include NestedGenres
+  include NestedLocationOfResources
+  include NestedNamePrincipals
+  include NestedNames
+  include NestedNoteGroups
+  include NestedParts
+  include NestedSubjectTemporals
+  include NestedSubjectTitles
+  include NestedSubjectGeographicCodes
+  include NestedSubjectHierarchicalGeographics
+  include NestedCartographics
+  include NestedSubjectOccupations
+  include NestedSubjectGenres
+  include NestedRelatedHosts
+  include NestedRelatedReferencedBy
+  include NestedRelatedOriginals
+  include NestedRelatedFormats
+  include NestedRelatedVersions
+  include NestedRelatedPrecedings
+  include NestedRelatedReferences
+  include NestedRelatedReviews
+  include NestedRelatedSeries
+  include NestedRelatedSucceedings
   
-  self.required_fields = [:title, :creator, :tag, :rights]
-  @@permitted_nested_params = [ :title_principals => [:label] ]
-  
-  @permitted_additional_files = []
-  files = AttributeHelper.yaml_use_files # AttributeHelper.yaml_type_files + AttributeHelper.yaml_use_files
-  files.each do |file|  
-    yamlFile = YAML.load_file(file)
-    yamlFile['fields'].each do |field|
-      termSym = field['name'].parameterize.underscore.to_sym
-      if multiple?(termSym)
-        @permitted_additional_files << { termSym => [] }
-      else
-        @permitted_additional_files << termSym
-      end
-    end
-  end
-  
-  def self.build_permitted_params
-     super  + (@permitted_additional_files ? @permitted_additional_files : []) + @@permitted_nested_params
-  end
-  
-  def self.nested_attributes(form_params)
-    permitted_nested_params = form_params.permit(@@permitted_nested_params)
-    permitted_nested_params
-  end
+  self.required_fields = [:title, :creator, :tag, :rights]  
 
 end

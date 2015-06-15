@@ -44,6 +44,9 @@ class KarkinosBatchUpdateJob
     title_ids = gf.title_principal_ids
     
     gf.title = title[gf.id] if title[gf.id]
+     gf.title_principals.each do |ti|
+      ti.label = gf.title.first
+    end
     gf.attributes = file_attributes
     gf.visibility= visibility
     

@@ -1,0 +1,12 @@
+<% @generic_file.parts.each do |part| %>
+  <span itemprop="part" itemscope itemtype="http://schema.org/Thing">
+    <span itemprop="name"><%= part.part_caption %></span>
+    <div style="margin-left: 10px;">
+    	<span itemprop="name">Level: <%= part.part_level %></span><br>
+    	<span itemprop="name">Number: <%= part.part_number %></span><br>
+    	<span itemprop="name">Order: <%= part.part_order %></span><br>
+    </div>
+  </span>
+  <br />
+<% end %>
+

@@ -1,0 +1,7 @@
+<% @generic_file.genres.each do |genre| %>
+  <span itemprop="genre" itemscope itemtype="http://schema.org/Thing">
+    <span itemprop="name"><%= genre.label %></span>
+  </span>
+  <br />
+<% end %>
+

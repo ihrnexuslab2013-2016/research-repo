@@ -44,13 +44,14 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'factory_girl_rails'
+  gem "capybara"
+  gem 'rspec-rails'
+  gem 'jettywrapper'
 end
 
 gem 'rdf-vocab'
 gem 'rsolr', '~> 1.0.6'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
-group :development, :test do
-  gem 'rspec-rails'
-  gem 'jettywrapper'
-end
+

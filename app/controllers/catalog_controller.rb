@@ -9,6 +9,7 @@ require 'parsing_nesting/tree'
 
 class CatalogController < ApplicationController
   include Hydra::Catalog
+  #include KarkinosCatalog
   include Hydra::Controller::ControllerBehavior
   include Sufia::Catalog
 
@@ -16,7 +17,7 @@ class CatalogController < ApplicationController
   before_filter :enforce_show_permissions, only: :show
   # This applies appropriate access controls to all solr queries
   CatalogController.search_params_logic += [:add_access_controls_to_solr_params, :add_advanced_parse_q_to_solr]
-
+  
   skip_before_filter :default_html_head
 
   def self.uploaded_field
@@ -40,16 +41,17 @@ class CatalogController < ApplicationController
 
     ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
     config.default_solr_params = {
+      qf: 'label_tesim',
       qt: "search",
       rows: 10
     }
 
     # Specify which field to use in the tag cloud on the homepage.
     # To disable the tag cloud, comment out this line.
-    config.tag_cloud_field_name = Solrizer.solr_name("tag", :facetable)
+    config.tag_cloud_field_name = Solrizer.solr_name("subject_topics", :facetable)
 
     # solr field configuration for document/show views
-    config.index.title_field = solr_name("title", :stored_searchable)
+    config.index.title_field = solr_name("title_principals", :stored_searchable)
     config.index.display_type_field = solr_name("has_model", :symbol)
     config.index.thumbnail_method = :sufia_thumbnail_tag
 
@@ -57,13 +59,18 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
     config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
     config.add_facet_field solr_name("creator", :facetable), label: "Creator", limit: 5
-    config.add_facet_field solr_name("tag", :facetable), label: "Keyword", limit: 5
-    config.add_facet_field solr_name("subject", :facetable), label: "Subject", limit: 5
-    config.add_facet_field solr_name("language", :facetable), label: "Language", limit: 5
-    config.add_facet_field solr_name("based_near", :facetable), label: "Location", limit: 5
-    config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", limit: 5
+    #config.add_facet_field solr_name("tag", :facetable), label: "Keyword", limit: 5
+    #config.add_facet_field solr_name("subject", :facetable), label: "Subject", limit: 5
+    #config.add_facet_field solr_name("language", :facetable), label: "Language", limit: 5
+    #config.add_facet_field solr_name("based_near", :facetable), label: "Location", limit: 5
+    #config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", limit: 5
     config.add_facet_field solr_name("file_format", :facetable), label: "File Format", limit: 5
-
+    #config.add_facet_field solr_name("title_principals", :facetable), label: "Principal Title", limit: 5
+    config.add_facet_field solr_name("genres", :facetable), label: "Genre", limit: 5
+    config.add_facet_field solr_name("location_physical", :facetable), label: "Location of Resource", limit: 5
+    config.add_facet_field solr_name("names", :facetable), label: "Names", limit: 5
+    config.add_facet_field solr_name("subject_topics", :facetable), label: "Topics", limit: 5
+   
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
@@ -87,6 +94,11 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
     config.add_index_field solr_name("format", :stored_searchable), label: "File Format"
     config.add_index_field solr_name("identifier", :stored_searchable), label: "Identifier"
+    config.add_index_field solr_name("title_principals", :stored_searchable), label: "Principal Title"
+    config.add_index_field solr_name("title_uniforms", :stored_searchable), label: "Uniform Title"
+    config.add_index_field solr_name("genres", :stored_searchable), label: "Genre"
+    config.add_index_field solr_name("names", :stored_searchable), label: "Names"
+    config.add_index_field solr_name("subject_topics", :stored_searchable), label: "Subject Topics"
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -106,6 +118,10 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
     config.add_show_field solr_name("format", :stored_searchable), label: "File Format"
     config.add_show_field solr_name("identifier", :stored_searchable), label: "Identifier"
+    config.add_show_field solr_name("title_principals", :stored_searchable), label: "Principal Title"
+    config.add_show_field solr_name("title_uniforms", :stored_searchable), label: "Uniform Title"
+    config.add_show_field solr_name("genres", :stored_searchable), label: "Genre"
+    #config.add_show_field solr_name("subject_topics", :stored_searchable), label: "Subject Topics"
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -217,7 +233,7 @@ class CatalogController < ApplicationController
         pf: solr_name
       }
     end
-
+    
     config.add_search_field('language') do |field|
       field.solr_parameters = {
         :"spellcheck.dictionary" => "language"
