@@ -39,6 +39,16 @@ $(document).on('page:load', function() {
       init();
 });
 
+$(document).on('page:fetch', function() {
+  var spinner = $(".loading");
+  spinner.show();
+  $("#overlay").show();
+});
+$(document).on('page:change', function() {
+  $(".loading").hide();
+  $("#overlay").hide();
+});
+
 $(function() {
       init();
 });
