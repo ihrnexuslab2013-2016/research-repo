@@ -21,6 +21,7 @@ module DataFileHelper
      
      ext = File.extname(fileid)
      ext[0] = ''
+     ext.downcase!
      return "icons/" + ext + ".png" if File.exist?("#{Rails.root}/app/assets/images/icons/" + ext + ".png")
      
      "icons/_blank.png"
