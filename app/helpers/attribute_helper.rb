@@ -43,17 +43,7 @@ module AttributeHelper
   
   # retrieve all fields for a given resource type
   def self.retrieve_type_fields(type)
-    filename = type.to_s.parameterize.underscore + ".yml"
-    type_fields = []
-    # add additional type fields to details page
-    if (File.exists?("#{Rails.root}/metadata/type/" + filename))
-      yamlFile = YAML.load_file("#{Rails.root}/metadata/type/" + filename)
-      
-      yamlFile['fields'].each do |field|
-        type_fields << field['name'].parameterize.underscore.to_sym
-      end
-    end
-    type_fields
+    (PropertyProviderService.get_type_properties type).keys
   end
   
   # build a hash with a list of use fields for all given uses; if uses is nil, it reads all use fields from all use types

@@ -16,9 +16,9 @@ class DatafilePresenter < Sufia::GenericFilePresenter
   
   def initialize(object)
     super
-    resource_types object.resource_type
+    #resource_types object.resource_type
   end
-  
+
   def resource_types(types)
     @type_fields_map = Hash.new
     
@@ -26,5 +26,5 @@ class DatafilePresenter < Sufia::GenericFilePresenter
       get_type_field_symbols type
     end
   end
-  
+ 
 end
