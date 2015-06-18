@@ -2,10 +2,22 @@
   type_name: Article
   
   fields:
-    - name: image_size
-      label: Image Size
+    - name: resource_type
+      label: Resource Type
       
-    - name: encoding
-      label: Encoding
+    - name: use
+      label: Conceptual Use
+      
+    - name: title_principals
+      label: Principal Titles
+      
+    - name: abstract
+      label: Abstract
+      
+    - name: Names
+      label: names
+      
+    - name: related_hosts
+      label: Related Hosts
       
 ...

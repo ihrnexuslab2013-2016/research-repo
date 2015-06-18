@@ -2,13 +2,22 @@
   type_name: Image
   
   fields:
-    - name: image_size
-      label: Image Size
-      relation: http://researchrepo.asu.edu/ns#image_size
+    - name: resource_type
+      label: Resource Type
       
-    - name: encoding
-      label: Encoding
-      relation: http://researchrepo.asu.edu/ns#encoding
-      multiple: false
+    - name: use
+      label: Conceptual Use
+      
+    - name: title_principals
+      label: Principal Titles
+      
+    - name: Names
+      label: names
+      
+    - name: related_hosts
+      label: Related Hosts
+      
+    - name: access_condition
+      label: Access Condition
       
 ...

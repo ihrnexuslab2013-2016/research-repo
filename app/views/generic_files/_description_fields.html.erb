@@ -3,21 +3,12 @@
     <h1>Descriptions <span class="pull-right required"><abbr title="required">*</abbr> indicates required fields</span></h1>
       <div class="well">
 
-		<% displayterms = f.object.terms %>
+		<% displayterms = f.object.display_terms.keys %>
 		<% displayterms = displayterms - [:title, :resource_type, :date_uploaded] if @generic_file.instance_of? DataFile %>
         <% displayterms.each do |term| %>
           <%= render_edit_field_partial(term, f: f) %>
         <% end %>
         
-        <% f.object.nested_terms.each do |nested_term| %>
-        	<% nattrs = @generic_file[nested_term] %>
-        	<%= f.simple_fields_for nested_term do |builder| %>
-        		<% nattrs.each do |nattr| %>
-        			<% builder.object = nattr %>
-        			<%= render_edit_field_partial(:label, f: builder) %>
-        		<% end %>
-        	<% end %>
-        <% end %>
         
        
         <% if !@generic_file.instance_of? DataFile %>
