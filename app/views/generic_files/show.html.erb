@@ -42,7 +42,7 @@
 <div class="container-fluid">
 <div class="row">
   <div itemscope itemtype="<%= @presenter.itemtype %>" class="col-xs-12 col-sm-8">
-    <h1 class="visibility"><%= display_multiple @presenter.title_principals.map {|t| t.label} %> <%= render_visibility_badge %></h1>
+    <h1 class="visibility"><% if @presenter.respond_to? :title_principals %><%= display_multiple @presenter.title_principals.map {|t| t.label} %><% else %><%= @presenter.title.first %><% end%> <%= render_visibility_badge %></h1>
     <p class="genericfile_description"><%= display_multiple @presenter.description %></p>
     <%= render 'show_descriptions' %>
     <%= render 'show_details' %>

@@ -18,13 +18,13 @@
 			<% present_terms(df_presenter,df_presenter.terms - [:title]) do |r, term| %>
   				<div><strong><%= r.label(term) %>:</strong> <%= r.value(term) %></div>
   			<% end %>
-  			
-  			<% df_presenter.type_fields_map.each do |type, terms| %>
-			<% present_terms(df_presenter,terms) do |r, term| %>
-			  <div><strong><%= r.label(term) %>:</strong> <%= r.value(term) %></div>
-			  <% end %>
-			<% end %>
-			
+  			<!--
+  			<%# df_presenter.type_fields_map.each do |type, terms| %>
+			<%# present_terms(df_presenter,terms) do |r, term| %>
+			  <div><strong><%#= r.label(term) %>:</strong> <%#= r.value(term) %></div>
+			  <%# end %>
+			<%# end %>
+			-->
 		</td>
 		
 	</tr>
