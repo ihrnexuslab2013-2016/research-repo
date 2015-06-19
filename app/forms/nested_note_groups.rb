@@ -9,7 +9,7 @@ module NestedNoteGroups
     end
 
     def permitted_note_groups_params
-      [:label, :id]
+      [:label, :id, :note_group_note, :note_group_type]
     end
 
   end

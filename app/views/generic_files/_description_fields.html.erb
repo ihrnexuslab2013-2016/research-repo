@@ -3,10 +3,10 @@
     <h1>Descriptions <span class="pull-right required"><abbr title="required">*</abbr> indicates required fields</span></h1>
       <div class="well">
 
-		<% displayterms = f.object.display_terms.keys %>
-		<% displayterms = displayterms - [:title, :resource_type, :date_uploaded] if @generic_file.instance_of? DataFile %>
-        <% displayterms.each do |term| %>
-          <%= render_edit_field_partial(term, f: f) %>
+		<% displayterms = f.object.display_terms %>
+		<% displayterms = displayterms.except!([:title, :resource_type, :date_uploaded]) if @generic_file.instance_of? DataFile %>
+        <% displayterms.each do |term, props| %>
+        	<%= render_edit_field_partial(term, {f: f, props: props}) %>
         <% end %>
         
         

@@ -1,8 +1,18 @@
 <% if not @generic_file.nil? %>
-<%= f.label :names %>
+<% if defined? props %>
+<% @clabel = props[:label] %>
+<% @role = props[:role]  %>
+<% else %>
+<% @label = :names %>
+<% end %>
+
+<%= f.label @clabel %>
 <% (@generic_file.names + [MODS::MADS::Name.new]).each do |name| %>
 	<%= f.simple_fields_for :names, name do |builder| %>
 		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>
+		<% if !@role.nil? %>
+			<%= builder.input :role, as: :hidden, :input_html => { :value => @role } %>
+		<% end %>
 	<% end %>
 <% end %>
 

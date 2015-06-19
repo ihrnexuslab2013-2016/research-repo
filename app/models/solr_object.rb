@@ -17,8 +17,8 @@ module SolrObject
     insert_fields solr_doc, self.genres, 'genres'
     insert_location_fields solr_doc, self.location_of_resources
     insert_name_fields solr_doc, self.names
-    insert_fields solr_doc, self.note_groups, 'note_groups'
     insert_parts_fields solr_doc, self.parts
+    insert_note_group_fields solr_doc, self.note_groups
     
     # subjects
     insert_fields solr_doc, self.subject_topics, 'subject_topics'
@@ -42,6 +42,28 @@ module SolrObject
       end
     end
     insert_facets(solr_doc, objects, fieldName)
+  end
+  
+  def insert_note_group_fields(solr_doc, notegroups)
+    if !notegroups.nil?
+       facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
+       notegroups.map do |note_group|
+         note_json = {}
+         note_json[:id] = note_group.id
+         note_json.merge!( :note_group_note => note_group.note_group_note.to_s,
+                         :note_group_type => note_group.note_group_type.to_s)
+         Solrizer.insert_field(solr_doc, "note_groups_json", note_json.to_json )
+        
+         Solrizer.insert_field(solr_doc, 'note_group_type', note_group.note_group_type)
+         Solrizer.insert_field(solr_doc, "all_fields", note_group.note_group_type)
+         
+         Solrizer.insert_field(solr_doc, 'note_group_note', note_group.note_group_note)
+         Solrizer.insert_field(solr_doc, "all_fields", note_group.note_group_note)
+        
+        
+         Solrizer.insert_field(solr_doc, 'note_group_type', note_group.note_group_type,facetable)
+       end
+    end
   end
   
   def insert_location_fields (solr_doc, locations) 
@@ -98,8 +120,12 @@ module SolrObject
         
         Solrizer.insert_field(solr_doc, 'names', name.label)
         Solrizer.insert_field(solr_doc, "all_fields", name.label)
-        
         Solrizer.insert_field(solr_doc, 'names', name.label, facetable)
+        
+        Solrizer.insert_field(solr_doc, 'names', name.role)
+        Solrizer.insert_field(solr_doc, "all_fields", name.role)
+        
+        Solrizer.insert_field(solr_doc, 'names', name.role, facetable)
       end
     end
   end

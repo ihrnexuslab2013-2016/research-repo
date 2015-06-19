@@ -14,10 +14,15 @@
     - name: abstract
       label: Abstract
       
-    - name: Names
-      label: names
+    - name: names
+      label: Creator
+      role: Creator
       
     - name: related_hosts
       label: Related Hosts
+      
+    - name: note_groups
+      label: Director
+      type: director
       
 ...
