@@ -1,9 +1,11 @@
-<% @text = nil %>
 <% if defined? label_text %>
-<% @text = label_text%>
-<% end %>
-<% if f.object.class.multiple? key %>
-  <%= f.input key, as: :multi_value_with_help, input_html: { class: 'form-control' }, required: f.object.required?(key) %>
+<% @clabel = label_text %>
 <% else %>
-  <%= f.input key, required: f.object.required?(key), label: @text %>
+<% @clabel = '' %>
+<% end %>
+
+<% if f.object.class.multiple? key %>
+  <%= f.input key, as: :multi_value_with_help, input_html: { class: 'form-control' }, label: @clabel, required: f.object.required?(key) %>
+<% else %>
+  <%= f.input key, required: f.object.required?(key), label: @clabel %>
 <% end %>

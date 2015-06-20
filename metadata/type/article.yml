@@ -3,16 +3,18 @@
   
   fields:
     - name: resource_type
-      label: Resource Type
+      label: Type of resource
       
     - name: use
       label: Conceptual Use
       
     - name: title_principals
-      label: Principal Titles
+      label: Principal Title
       
     - name: abstract
-      label: Abstract
+      label: Article abstract
+      
+    - name: cartographics
       
     - name: names
       label: Creator
@@ -24,5 +26,50 @@
     - name: note_groups
       label: Director
       type: director
+     
+    - name: genres
+      label: Genre
       
+    - name: location_of_resources
+    
+    - name: parts
+      label: Parts of resource
+      
+    - name: related_formats
+      label: Related Format
+      
+    - name: related_hosts
+    
+    - name: related_originals
+    
+    - name: related_precedings
+    
+    - name: related_referenced_by
+    
+    - name: related_references
+    
+    - name: related_reviews
+    
+    - name: related_series
+    
+    - name: related_succeedings
+    
+    - name: related_versions
+    
+    - name: subject_genres
+      label: Genre subject
+      
+    - name: subject_geographics
+    
+    - name: subject_hierarchical_geographics
+    
+    - name: subject_occupations
+    
+    - name: subject_topics
+    
+    - name: subject_temporals
+    
+    - name: subject_titles
+    
+    - name: subject_geographic_codes
 ...

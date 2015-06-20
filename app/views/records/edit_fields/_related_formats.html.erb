@@ -1,1 +1,7 @@
-<%= f.input :related_formats, as: :select_generic_file %>
+<% if defined? props %>
+<% @clabel = props[:label]  %>
+<% else %>
+<% @clabel = '' %>
+<% end %>
+
+<%= f.input :related_formats, label: @clabel, as: :select_generic_file %>

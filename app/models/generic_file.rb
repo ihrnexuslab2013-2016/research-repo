@@ -140,11 +140,11 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :subject_temporals, :predicate => MODS::MODSRDFVocabulary.subjectTemporal, :class_name => "MODS::MADS::Temporal"
   accepts_nested_attributes_for :subject_temporals, allow_destroy: true
   
-  has_and_belongs_to_many :subject_title, :predicate => MODS::MODSRDFVocabulary.subjectTitle, :class_name => "MODS::MADS::Title"
-  accepts_nested_attributes_for :subject_title, allow_destroy: true
+  has_and_belongs_to_many :subject_titles, :predicate => MODS::MODSRDFVocabulary.subjectTitle, :class_name => "MODS::MADS::Title"
+  accepts_nested_attributes_for :subject_titles, allow_destroy: true
   
-  has_and_belongs_to_many :subject_geographic_code, :predicate => MODS::MODSRDFVocabulary.subjectGeographicCode, :class_name => "MODS::MADS::GeographicCode"
-  accepts_nested_attributes_for :subject_geographic_code, allow_destroy: true
+  has_and_belongs_to_many :subject_geographic_codes, :predicate => MODS::MODSRDFVocabulary.subjectGeographicCode, :class_name => "MODS::MADS::GeographicCode"
+  accepts_nested_attributes_for :subject_geographic_codes, allow_destroy: true
   
   has_and_belongs_to_many :subject_hierarchical_geographics, :predicate => MODS::MODSRDFVocabulary.subjectHierarchicalGeographic, :class_name => "MODS::MADS::HierarchicalGeographic"
   accepts_nested_attributes_for :subject_hierarchical_geographics, allow_destroy: true

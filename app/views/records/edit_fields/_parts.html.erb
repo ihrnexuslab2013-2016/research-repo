@@ -1,5 +1,11 @@
 <% if not @generic_file.nil? %>
-<h4><%= f.label :parts %></h4>
+<% if defined? props %>
+<% @clabel = props[:label]  %>
+<% else %>
+<% @clabel = nil? %>
+<% end %>
+
+<h4><%= f.label :parts, label: @clabel %></h4>
 <% (@generic_file.parts + [MODS::Part.new]).each do |part| %>
 	<%= f.simple_fields_for :parts, part do |builder| %>
 	<div class="file-show-term">
