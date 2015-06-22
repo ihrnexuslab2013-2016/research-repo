@@ -10,7 +10,7 @@ GIT
 PATH
   remote: ../my_sufia
   specs:
-    sufia (6.0.0)
+    sufia (6.0.0.rc4)
       blacklight (~> 5.12)
       blacklight-gallery (~> 0.1)
       blacklight_advanced_search (>= 5.1.4, < 6.0)
@@ -25,13 +25,12 @@ PATH
       rails_autolink (~> 1.1)
       sass-rails
       select2-rails (~> 3.5.9)
-      sufia-models (= 6.0.0)
+      sufia-models (= 6.0.0.rc4)
       tinymce-rails (~> 4.0.19)
       tinymce-rails-imageupload (~> 4.0.16.beta)
       yaml_db (~> 0.2)
-    sufia-models (6.0.0)
-      active-fedora (~> 9.1, >= 9.1.1)
-      active_fedora-noid (~> 0.1)
+    sufia-models (6.0.0.rc4)
+      active-fedora (~> 9.0)
       activerecord-import (~> 0.5)
       activeresource (~> 4.0)
       acts_as_follower (>= 0.1.1, < 0.3)
@@ -44,6 +43,7 @@ PATH
       mailboxer (~> 0.12)
       mini_magick
       nest (~> 1.1)
+      noid (~> 0.6)
       oauth2 (~> 0.9)
       rails (~> 4.0)
       resque (~> 1.23)
@@ -88,9 +88,6 @@ GEM
       deprecation (~> 0.1)
       linkeddata (~> 1.1)
       rdf (~> 1.1)
-    active_fedora-noid (0.2.0)
-      active-fedora (~> 9.0)
-      noid (~> 0.7)
     activejob (4.2.1)
       activesupport (= 4.2.1)
       globalid (>= 0.3.0)

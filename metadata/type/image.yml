@@ -19,5 +19,11 @@
       
     - name: access_condition
       label: Access Condition
+    
+    - name: names
+      label: Creator
+      role: Creator
       
+    - name: abstract
+      label: Abstract
 ...
