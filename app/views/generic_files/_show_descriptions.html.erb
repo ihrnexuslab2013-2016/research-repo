@@ -22,15 +22,16 @@
 </dl>
 <% end %>
 <% end %>
-
-<% if @generic_file.instance_of? DataFile %>
-<% @presenter.type_fields_map.each do |type, terms| %>
-<h4 class="file-show-term">Resource type: <%= type.to_s.humanize %></h4>
+<!--
+<%# if @generic_file.instance_of? DataFile %>
+<%# @presenter.type_fields_map.each do |type, terms| %>
+<h4 class="file-show-term">Resource type: <%#= type.to_s.humanize %></h4>
 <dl class="dl-horizontal file-show-descriptions">
-  <% present_terms(@presenter,terms) do |r, term| %>
-  <dt><%= r.label(term) %>:</dt>
-      <dd><%= r.value(term) %></dd>
-  <% end %>
+  <%# present_terms(@presenter,terms) do |r, term| %>
+  <dt><%#= r.label(term) %>:</dt>
+      <dd><%#= r.value(term) %></dd>
+  <%# end %>
 </dl>
-<% end %>
-<% end %>
+<%# end %>
+<%# end %>
+-->

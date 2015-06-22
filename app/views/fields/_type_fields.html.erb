@@ -1,8 +1,10 @@
-<%= simple_form_for [sufia, @form], html: { multipart: true } do |f| %>
-<% f.object.type_fields_map.each do |type, terms| %>
-  <h2><%= type.to_s.humanize %></h2>
-  <% terms.each do |term| %>
-  	<%= render_edit_field_partial(term, f: f) %>
-  <% end %>
-<% end %>
-<% end %>
+<!--
+<%#= simple_form_for [sufia, @form], html: { multipart: true } do |f| %>
+<%# f.object.type_fields_map.each do |type, terms| %>
+  <h2><%#= type.to_s.humanize %></h2>
+  <%# terms.each do |term| %>
+  	<%#= render_edit_field_partial(term, f: f) %>
+  <%# end %>
+<%# end %>
+<%# end %>
+-->
