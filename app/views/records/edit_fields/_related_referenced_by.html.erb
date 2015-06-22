@@ -1,1 +1,7 @@
-<%= f.input :related_referenced_by, as: :select_generic_file %>
+<% if defined? props %>
+<% @clabel = props[:label]  %>
+<% else %>
+<% @clabel = '' %>
+<% end %>
+
+<%= f.input :related_referenced_by, label: @clabel, as: :select_generic_file %>

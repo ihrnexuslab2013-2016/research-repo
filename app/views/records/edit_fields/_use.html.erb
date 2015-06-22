@@ -1,2 +1,8 @@
-<%= f.input :use, as: :select_with_help, collection: Sufia.config.uses,
+<% if defined? props %>
+<% @clabel = props[:label]  %>
+<% else %>
+<% @clabel = nil? %>
+<% end %>
+
+<%= f.input :use, as: :select_with_help, label: @clabel, collection: Sufia.config.uses,
     input_html: { class: 'form-control', multiple: true, id: 'resource_use_selector', :onchange => 'change_use_fields()' } %>

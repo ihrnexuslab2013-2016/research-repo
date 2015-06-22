@@ -1,5 +1,11 @@
 <% if not @generic_file.nil? %>
-<%= f.label :title_principals %>
+<% if defined? props %>
+<% @clabel = props[:label]  %>
+<% else %>
+<% @clabel = nil? %>
+<% end %>
+
+<%= f.label :title_principals, label: @clabel %>
 <% (@generic_file.title_principals + [MODS::MADS::Title.new]).each do |title| %>
 	<%= f.simple_fields_for :title_principals, title do |builder| %>
 		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>

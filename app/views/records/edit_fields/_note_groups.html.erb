@@ -1,8 +1,18 @@
 <% if not @generic_file.nil? %>
-<%= f.label :note_groups %>
+<% if defined? props %>
+<% @clabel = props[:label] %>
+<% @type = props[:type]  %>
+<% else %>
+<% @label = :note_groups %>
+<% end %>
+
+<%= f.label @clabel %>
 <% (@generic_file.note_groups + [MODS::NoteGroup.new]).each do |note| %>
 	<%= f.simple_fields_for :note_groups, note do |builder| %>
 		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>
+		<% if !@type.nil? %>
+			<%= builder.input :note_group_type, as: :hidden, :input_html => { :value => @type } %>
+		<% end %>
 	<% end %>
 <% end %>
 

@@ -7,10 +7,16 @@ class PresenterRenderer
   end
 
   def value(field_name, locals={})
+    field_name = field_name[0] if field_name.kind_of?(Array)
     render_show_field_partial(field_name, locals)
   end
 
   def label(field)
+    if field.kind_of?(Array) and field.length > 1
+      label = field[1][:label]
+      return label if !label.nil?
+      field = field[0]
+    end
     t(:"#{model_name.param_key}.#{field}", scope: label_scope, default: field.to_s.humanize).presence
   end
 

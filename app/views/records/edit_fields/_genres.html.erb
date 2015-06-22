@@ -1,5 +1,11 @@
 <% if not @generic_file.nil? %>
-<%= f.label :genres %>
+<% if defined? props %>
+<% @clabel = props[:label] %>
+<% else %>
+<% @clabel = :nil %>
+<% end %>
+
+<%= f.label :genres, label: @clabel %>
 <% (@generic_file.genres + [MODS::Genre.new]).each do |genre| %>
 	<%= f.simple_fields_for :genres, genre do |builder| %>
 		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>

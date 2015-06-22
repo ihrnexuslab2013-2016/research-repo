@@ -3,20 +3,17 @@ class DatafilePresenter < Sufia::GenericFilePresenter
   self.model_class = ::DataFile
   
   attr_accessor :type_fields_map
+  attr_accessor :display_terms
+  attr_accessor :always_present_terms
   
-  
-  self.terms = [:title, :rights, :date_uploaded]
-  
-  @@nested_terms = []
-  
-  def nested_terms
-    @@nested_terms
-  end
+  self.terms = [:title, :rights, :date_uploaded, :use]
+  @@always_present_terms = [:use]
   
   
   def initialize(object)
     super
-    #resource_types object.resource_type
+    @display_terms = Hash[*self.class.terms.zip(self.class.terms).flatten.compact]
+    #@display_terms = Hash[*@@always_present_terms.zip(@@always_present_terms).flatten.compact].merge(@display_terms)
   end
 
   def resource_types(types)

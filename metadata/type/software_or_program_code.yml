@@ -2,16 +2,22 @@
   type_name: Software or Program Code
   
   fields:
-    - name: filesize
-      label: File Size
-      relation: http://researchrepo.asu.edu/ns#file_size
+    - name: resource_type
+      label: Resource Type
       
-    - name: encoding
-      label: Encoding
-      relation: http://researchrepo.asu.edu/ns#encoding
+    - name: use
+      label: Conceptual Use
       
-    - name: language
-      label: Programming language
-      relation: language
+    - name: title_principals
+      label: Principal Titles
+      
+    - name: notes
+      label: Release Date (Note)
+      
+    - name: Names
+      label: names
+      
+    - name: language_of_resource
+      label: Programming Language
       
 ...

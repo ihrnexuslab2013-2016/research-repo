@@ -5,9 +5,9 @@
 <% @clabel = nil? %>
 <% end %>
 
-<%= f.label :subject_geographics, label: @clabel %>
-<% (@generic_file.subject_geographics + [MODS::MADS::Geographic.new]).each do |subject| %>
-	<%= f.simple_fields_for :subject_geographics, subject do |builder| %>
+<%= f.label :subject_temporals, label: @clabel %>
+<% (@generic_file.subject_temporals + [MODS::MADS::Temporal.new]).each do |subject| %>
+	<%= f.simple_fields_for :subject_temporals, subject do |builder| %>
 		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>
 	<% end %>
 <% end %>
