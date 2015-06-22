@@ -25,7 +25,7 @@ class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
       end
       
       @display_terms = PropertyProviderService.get_type_properties object.resource_type
-      labels = self.class.terms.map {|t| {:label => t.to_s}}
+      labels = self.class.terms.map {|t| {:label => t.to_s.humanize}}
       @display_terms = Hash[*self.class.terms.zip(labels).flatten.compact] if @display_terms.empty?
       #@display_terms = Hash[*@@always_present_terms.zip(@@always_present_terms).flatten.compact].merge(@display_terms)
   end

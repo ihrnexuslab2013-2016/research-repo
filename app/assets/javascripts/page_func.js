@@ -53,6 +53,11 @@ $(function() {
       init();
 });
 
+var add_nested_attribute_template = ["<div class=\"nested_attribute_entry\">", "<div class=\"form-group string optional generic_{{attr_name}}_label with-button\">",
+"<input label=\"false\" class=\"string optional\" type=\"text\" name=\"generic_file[{{attr_name}}_attributes][{0}{index}}][label]\" id=\"generic_file_{{attr_name}}_attributes_{{index}}_label\">",
+"<button class=\"btn btn-success add-nested\" data-attribute=\"{{attr_name}}\"><i class=\"icon-white glyphicon-plus\"></i><span> Add</span></button>",
+"</div>"].join("\n");
+
 function init() {
 	// Initialize the plugin
 	$('.choose_generic_file_dialog').dialog({
@@ -68,7 +73,38 @@ function init() {
 	
 	$(".remove-file").click(remove_file);
 	
-	$( ".select_dialog_open" ).click(function(event) {
+	$(".delete-nested").click(function(event) {
+		var target = event.target;
+		var attr_name = $(target).attr("data-attribute");
+	  	
+	  	var div_to_remove = target.closest("div[class='nested_attribute_entry']");
+	  	div_to_remove.remove();
+	  	return false;
+	});
+	
+	$(".add-nested").click(function() {
+		alert(add_nested_attribute_template);
+		var target = event.target;
+		var surrounding_div = target.closest("div[class='nested_attribute_entry']");
+		
+		var attribute_name = $(target).attr("data-attribute");
+		attribute_name = $(target.closest("button[data-attribute]")).attr("data-attribute");
+		
+		var list = surrounding_div.closest("div[id='" + attribute_name + "_input_list']");
+	  	var entry = {
+		  attr_name: attribute_name,
+		  index: $(list).children(".nested_attribute_entry").size()
+		};
+	  	
+	  	var new_entry = Mustache.render(add_nested_attribute_template, entry);
+	  	$(list).append(new_entry);
+	  	
+	  	// missing: make plus button delete button, find solution for indexes, attach function to new button
+	  	
+	  	return false;
+	});
+	
+	$(".select_dialog_open" ).click(function(event) {
 		var target = event.target;
 		var attr_name = $(target).attr("data-attribute");
 	  	$( "#choose_" + attr_name + "_dialog" ).dialog( "open" );
@@ -124,10 +160,4 @@ function setText(attr_name, id, title, depositor) {
 	var inputString = '<input class="hidden form-control" type="hidden" value="' + id + '" name="generic_file[' + attr_name + '_attributes][' + nrExistingHosts + '][id]" id="' + idString + '">';
 	$("#" + attr_name + "_list").append(inputString);
 	$( "#choose_" + attr_name + "_dialog" ).dialog( "close" );
-}
-  
-function find_related_host() {
-	
-  
-  return false;
 }

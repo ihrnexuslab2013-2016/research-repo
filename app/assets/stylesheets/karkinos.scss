@@ -70,7 +70,8 @@ h4.visibility span.label {
 }
 .add:hover, .add:focus,
 .add_file:hover, .add_file:focus,
-.btn-primary:hover, .btn-primary:focus {
+.btn-primary:hover, .btn-primary:focus, 
+.add-nested:hover, .add-nested:focus {
   background-color: $add-background-hover;
   border-color: $button-dark-green;
   color: $button-dark-green;
@@ -278,4 +279,35 @@ ul.linked_file_list li:before {
   width: 100%;
   z-index: 1000; 
   background-color: rgba(33, 33,33,0.5);
+}
+
+.with-button input {
+  height: 34px;
+  font-size: 14px;
+  padding: 6px 12px;
+  line-height: 1.42857143;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  width: 60%;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.delete-nested {
+  margin-left: -5px;
+  margin-top: -2px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  width: 98px;
+}
+
+.add-nested {
+  margin-left: -5px;
+  margin-top: -2px;
+  background-color: #749B73;
+  border-color: #6D8B6C;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  width: 98px;
 }
