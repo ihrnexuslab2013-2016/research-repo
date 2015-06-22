@@ -40,7 +40,7 @@ class GenericFile < ActiveFedora::Base
   has_and_belongs_to_many :genres, :predicate => MODS::MODSRDFVocabulary.genre, :class_name => "MODS::Genre"
   accepts_nested_attributes_for :genres, allow_destroy: true
   
-  property :language_of_resource, predicate: MODS::MODSRDFVocabulary.languageOfResource, multiple: true do |index|
+  property :language_of_resources, predicate: MODS::MODSRDFVocabulary.languageOfResource, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   

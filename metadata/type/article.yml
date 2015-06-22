@@ -30,6 +30,8 @@
     - name: genres
       label: Genre
       
+    - name: language_of_resources
+    
     - name: location_of_resources
     
     - name: parts
