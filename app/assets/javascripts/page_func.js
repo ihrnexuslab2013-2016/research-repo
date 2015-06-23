@@ -54,7 +54,7 @@ $(function() {
 });
 
 var add_nested_attribute_template = ["<div class=\"nested_attribute_entry\">", "<div class=\"form-group string optional generic_{{attr_name}}_label with-button\">",
-"<input label=\"false\" class=\"string optional\" type=\"text\" name=\"generic_file[{{attr_name}}_attributes][{0}{index}}][label]\" id=\"generic_file_{{attr_name}}_attributes_{{index}}_label\">",
+"<input label=\"false\" class=\"string optional\" type=\"text\" name=\"generic_file[{{attr_name}}_attributes][{{index}}][label]\" id=\"generic_file_{{attr_name}}_attributes_{{index}}_label\">",
 "<button class=\"btn btn-success add-nested\" data-attribute=\"{{attr_name}}\"><i class=\"icon-white glyphicon-plus\"></i><span> Add</span></button>",
 "</div>"].join("\n");
 
@@ -73,36 +73,9 @@ function init() {
 	
 	$(".remove-file").click(remove_file);
 	
-	$(".delete-nested").click(function(event) {
-		var target = event.target;
-		var attr_name = $(target).attr("data-attribute");
-	  	
-	  	var div_to_remove = target.closest("div[class='nested_attribute_entry']");
-	  	div_to_remove.remove();
-	  	return false;
-	});
+	$(".delete-nested").click(delete_nested_attribute);
 	
-	$(".add-nested").click(function() {
-		alert(add_nested_attribute_template);
-		var target = event.target;
-		var surrounding_div = target.closest("div[class='nested_attribute_entry']");
-		
-		var attribute_name = $(target).attr("data-attribute");
-		attribute_name = $(target.closest("button[data-attribute]")).attr("data-attribute");
-		
-		var list = surrounding_div.closest("div[id='" + attribute_name + "_input_list']");
-	  	var entry = {
-		  attr_name: attribute_name,
-		  index: $(list).children(".nested_attribute_entry").size()
-		};
-	  	
-	  	var new_entry = Mustache.render(add_nested_attribute_template, entry);
-	  	$(list).append(new_entry);
-	  	
-	  	// missing: make plus button delete button, find solution for indexes, attach function to new button
-	  	
-	  	return false;
-	});
+	$(".add-nested").click(add_nested_attribute);
 	
 	$(".select_dialog_open" ).click(function(event) {
 		var target = event.target;
@@ -130,6 +103,47 @@ function init() {
 	
  });
 }
+
+function add_nested_attribute(event) {
+		var target = event.target;
+		var surrounding_div = target.closest("div[class='nested_attribute_entry']");
+		
+		var attribute_name = $(target).attr("data-attribute");
+		var button = target.closest("button[data-attribute]");
+		attribute_name = $(button).attr("data-attribute");
+		
+		var list = surrounding_div.closest("div[id='" + attribute_name + "_input_list']");
+	  	var entry = {
+		  "attr_name": attribute_name,
+		  "index": $(list).children(".nested_attribute_entry").size()
+		};
+	  	
+	  	var new_entry_html = Mustache.render(add_nested_attribute_template, entry);
+	  	var new_entry = $(new_entry_html).appendTo(list);
+	  	
+	  	// turn add button into remove button
+	  	$(button).find("span").html(" Remove");
+	  	$(button).find("i").toggleClass("glyphicon-plus glyphicon-minus");
+	  	$(button).attr("class", "btn btn-danger delete-nested");
+	  	$(button).unbind("click");
+	  	$(button).click(delete_nested_attribute);
+	  	
+	  	var new_button = new_entry.find("button");
+	  	$(new_button).click(add_nested_attribute);
+	  	
+	  	// missing: find solution for indexes
+	  	
+	  	return false;
+	}
+	
+function delete_nested_attribute(event) {
+	var target = event.target;
+	var attr_name = $(target).attr("data-attribute");
+  	
+  	var div_to_remove = target.closest("div[class='nested_attribute_entry']");
+  	div_to_remove.remove();
+  	return false;
+	}
 
 function build_result_entry(doc) {
 	var title = doc["title_principals_tesim"][0];
