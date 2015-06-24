@@ -76,7 +76,6 @@ class GenericFilesController < ApplicationController
     #fields.each do |field|
      # file_attributes.store(field, presenter_class.multiple?(field.to_sym) ? [] : "")
    # end
-    
     actor.update_metadata(file_attributes, params[:visibility])
   end
   

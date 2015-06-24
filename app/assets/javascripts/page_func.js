@@ -108,9 +108,9 @@ function add_nested_attribute(event) {
 		var target = event.target;
 		var surrounding_div = target.closest("div[class='nested_attribute_entry']");
 		
-		var attribute_name = $(target).attr("data-attribute");
+		//var attribute_name = $(target).attr("data-attribute");
 		var button = target.closest("button[data-attribute]");
-		attribute_name = $(button).attr("data-attribute");
+		var attribute_name = $(button).attr("data-attribute");
 		
 		var list = surrounding_div.closest("div[id='" + attribute_name + "_input_list']");
 	  	var entry = {
@@ -131,19 +131,42 @@ function add_nested_attribute(event) {
 	  	var new_button = new_entry.find("button");
 	  	$(new_button).click(add_nested_attribute);
 	  	
-	  	// missing: find solution for indexes
-	  	
 	  	return false;
 	}
 	
 function delete_nested_attribute(event) {
 	var target = event.target;
-	var attr_name = $(target).attr("data-attribute");
-  	
+	var button = target.closest("button[data-attribute]");
+	var attr_name = $(button).attr("data-attribute");
+		
+	var surrounding_div = target.closest("div[class='nested_attribute_entry']");
+	var list = surrounding_div.closest("div[id='" + attr_name + "_input_list']");
+	  	
   	var div_to_remove = target.closest("div[class='nested_attribute_entry']");
   	div_to_remove.remove();
+  	
+  	// update all indexes
+  	var list_items = $(list).children("div");
+  	$(list).children("div").each(function(i) {
+  		var input = $(this).find("input[type='text']");
+  		update_attribute_index(input, i);
+  		
+  		var inputHidden = $(this).find("input[type='hidden']");
+  		update_attribute_index(inputHidden, i);
+  	});
+  	
   	return false;
 	}
+
+function update_attribute_index(input, i) {
+	var oldName = input.attr("name");
+	var oldId = input.attr("id");
+	var newName = oldName.replace(new RegExp("\[[0-9]+?\]"), "[" + i + "]");
+	var newId = oldId.replace(new RegExp("_[0-9]+?_"), "_" + i + "_");
+	
+	input.attr("name", newName);
+	input.attr("id", newId);
+}
 
 function build_result_entry(doc) {
 	var title = doc["title_principals_tesim"][0];

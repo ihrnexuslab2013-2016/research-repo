@@ -10,7 +10,9 @@
       
     - name: title_principals
       label: Principal Title
-      
+     
+    - name: title_uniforms 
+     
     - name: abstract
       label: Article abstract
       
