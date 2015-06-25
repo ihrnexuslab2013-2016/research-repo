@@ -168,6 +168,28 @@ class GenericFile < ActiveFedora::Base
      index.as :stored_searchable, :facetable
   end
   
+  def assign_nested_attributes_for_collection_association(association_name, attributes_collection)
+    if attributes_collection.is_a? Hash
+      keys = attributes_collection.keys
+      attributes_collection = if keys.include?('id') || keys.include?(:id)
+        Array(attributes_collection)
+      else
+        attributes_collection.sort_by { |i, _| i.to_i }.map { |_, attributes| attributes }
+      end
+    end
+    
+    association = send(association_name)
+    attribute_ids = attributes_collection.map {|a| a['id'] || a[:id] }.compact
+      
+    records_to_delete = attribute_ids.present? ? association.to_a.select{ |x| not attribute_ids.include?(x.id)} : []
+    records_to_delete.each do |record|
+      association.delete record
+      record.delete
+    end
+    
+    super(association_name, attributes_collection)
+  end
+  
   def save(arg = {})
     GenericFile.reflections.each do |assoc|
       assoc = assoc[1]
