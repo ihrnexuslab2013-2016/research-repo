@@ -1,0 +1,7 @@
+<% @generic_file.subject_geographic_codes.each do |subject| %>
+  <span itemprop="subject_geographic_code" itemscope itemtype="http://schema.org/Title">
+    <span itemprop="name"><%= subject.label %></span>
+  </span>
+  <br />
+<% end %>
+
