@@ -113,13 +113,30 @@ function add_nested_attribute(event) {
 		var attribute_name = $(button).attr("data-attribute");
 		
 		var list = surrounding_div.closest("div[id='" + attribute_name + "_input_list']");
+		var list_length = $(list).children(".nested_attribute_entry").size();
+		
 	  	var entry = {
 		  "attr_name": attribute_name,
 		  "index": $(list).children(".nested_attribute_entry").size()
 		};
 	  	
-	  	var new_entry_html = Mustache.render(add_nested_attribute_template, entry);
+	  	var new_entry_html = $(list).children(".nested_attribute_entry").last().clone(); //Mustache.render(add_nested_attribute_template, entry);
 	  	var new_entry = $(new_entry_html).appendTo(list);
+	  	
+	  	new_entry.find("input[id$='_id']").remove();
+	  	new_entry.find("input[type='text']").val("");
+	  	// make button add button
+	  	// var remove_button = new_entry.find("button");
+	  	// $(remove_button).find("span").html(" Add");
+	  	// $(remove_button).find("i").attr("class", "icon-white glyphicon-plus");
+	  	// $(remove_button).attr("class", "btn btn-success add-nested");
+	  	// $(remove_button).unbind("click");
+	  	// $(remove_button).click(add_nested_attribute);
+	  	
+	  	var inputs = $(new_entry).find("input");
+  		inputs.each(function() {
+  			update_attribute_index(this, list_length);
+  		});
 	  	
 	  	// turn add button into remove button
 	  	$(button).find("span").html(" Remove");
@@ -148,15 +165,11 @@ function delete_nested_attribute(event) {
   	// update all indexes
   	var list_items = $(list).children("div");
   	$(list).children("div").each(function(i) {
-  		var inputs = $(this).find("input[type='text']");
+  		var inputs = $(this).find("input");
   		inputs.each(function() {
   			update_attribute_index(this, i);
   		});
   		
-  		var inputHiddens = $(this).find("input[type='hidden']");
-  		inputHiddens.each(function() {
-  			update_attribute_index(this, i);
-  		});
   	});
   	
   	return false;
