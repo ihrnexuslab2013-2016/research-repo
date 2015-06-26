@@ -5,23 +5,9 @@
 <% @clabel = nil? %>
 <% end %>
 
-<%= f.label :title_principals, label: @clabel %>
-<div id="title_principals_input_list">
-<% (@generic_file.title_principals + [MODS::MADS::Title.new]).each_with_index do |title, index| %>
-	<div class="nested_attribute_entry">
-	<%= f.simple_fields_for :title_principals, title do |builder| %>
-		<div class="form-group string optional generic_title_principals_label with-button">
-		<%= builder.input_field :label, label: false %>
-		<% if index < @generic_file.title_principals.size %>
-			<button class="btn btn-danger delete-nested" data-attribute="title_principals"><i class="icon-white glyphicon-minus"></i><span> Remove</span></button>
-		<% else %>
-			<button class="btn btn-success add-nested" data-attribute="title_principals"><i class="icon-white glyphicon-plus"></i><span> Add</span></button>
-		<% end %>
-		</div>
-	<% end %>
-	</div>
+<%= f.input :title_principals, label: @clabel, as: :nested_attribute %>
+
 <% end %>
-</div>
-<% end %>
+
 
 

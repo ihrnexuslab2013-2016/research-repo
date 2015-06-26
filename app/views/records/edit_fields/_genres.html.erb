@@ -5,12 +5,8 @@
 <% @clabel = :nil %>
 <% end %>
 
-<%= f.label :genres, label: @clabel %>
-<% (@generic_file.genres + [MODS::Genre.new]).each do |genre| %>
-	<%= f.simple_fields_for :genres, genre do |builder| %>
-		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>
-	<% end %>
-<% end %>
+<%= f.input :genres, label: @clabel, as: :nested_attribute %>
+
 
 <% end %>
 
