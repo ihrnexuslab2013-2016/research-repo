@@ -148,24 +148,28 @@ function delete_nested_attribute(event) {
   	// update all indexes
   	var list_items = $(list).children("div");
   	$(list).children("div").each(function(i) {
-  		var input = $(this).find("input[type='text']");
-  		update_attribute_index(input, i);
+  		var inputs = $(this).find("input[type='text']");
+  		inputs.each(function() {
+  			update_attribute_index(this, i);
+  		});
   		
-  		var inputHidden = $(this).find("input[type='hidden']");
-  		update_attribute_index(inputHidden, i);
+  		var inputHiddens = $(this).find("input[type='hidden']");
+  		inputHiddens.each(function() {
+  			update_attribute_index(this, i);
+  		});
   	});
   	
   	return false;
 	}
 
 function update_attribute_index(input, i) {
-	var oldName = input.attr("name");
-	var oldId = input.attr("id");
+	var oldName = $(input).attr("name");
+	var oldId = $(input).attr("id");
 	var newName = oldName.replace(new RegExp("\[[0-9]+?\]"), "[" + i + "]");
 	var newId = oldId.replace(new RegExp("_[0-9]+?_"), "_" + i + "_");
 	
-	input.attr("name", newName);
-	input.attr("id", newId);
+	$(input).attr("name", newName);
+	$(input).attr("id", newId);
 }
 
 function build_result_entry(doc) {

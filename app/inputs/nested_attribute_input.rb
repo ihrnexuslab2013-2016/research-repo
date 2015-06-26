@@ -26,6 +26,14 @@ class NestedAttributeInput < SimpleForm::Inputs::FileInput
           html += "</button>"
         end
         html += build.hidden_field "id"
+        
+        hidden_value_fields = options[:hidden_value_field]
+        if not hidden_value_fields.nil?
+          hidden_value_fields.each do |key, value|
+            html += build.hidden_field key, :value => value
+          end
+        end
+        
         html += "</div>"
       end
       

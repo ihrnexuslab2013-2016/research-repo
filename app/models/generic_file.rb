@@ -63,7 +63,7 @@ class GenericFile < ActiveFedora::Base
   end
   
   has_and_belongs_to_many :note_groups, :predicate => MODS::MODSRDFVocabulary.noteGroup, :class_name => "MODS::NoteGroup"
-  accepts_nested_attributes_for :note_groups, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? and attributes['note_group_note'].blank? and attributes['note_group_type'].blank? }
+  accepts_nested_attributes_for :note_groups, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? and attributes['note_group_note'].blank? }
   
   # from MODS RDF:
   # In MODS XML originInfo binds together information pertaining to origination of the resource.  
