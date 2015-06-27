@@ -5,17 +5,7 @@
 <% @clabel = nil? %>
 <% end %>
 
-<h4><%= f.label :location_of_resources, label: @clabel %></h4>
-<% (@generic_file.location_of_resources + [MODS::Location.new]).each do |loc| %>
-	<%= f.simple_fields_for :location_of_resources, loc do |builder| %>
-	<div class="file-show-term">
-	<div class="panel-body">
-		<%= render_edit_field_partial(:location_physical, {f: builder}) %>
-		<%= render_edit_field_partial(:location_shelf_locator, {f: builder}) %>
-	</div>
-	</div>
-	<% end %>
-<% end %>
+<%= f.input :location_of_resources, label: @clabel, as: :nested_attribute_multiple, :fields => [:location_physical, :location_shelf_locator], :label_html => { :class => 'multi-part-heading' } %>
 
 <% end %>
 

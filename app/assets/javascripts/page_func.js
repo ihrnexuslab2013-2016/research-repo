@@ -74,6 +74,8 @@ function init() {
 	$(".remove-file").click(remove_file);
 	
 	$(".delete-nested").click(delete_nested_attribute);
+	$(".delete-nested-multi").click(delete_nested_attribute);
+	$(".add-nested-multi").click(add_nested_attr_multi);
 	
 	$(".add-nested").click(add_nested_attribute);
 	
@@ -104,34 +106,43 @@ function init() {
  });
 }
 
+function add_nested_attr_multi(event) {
+	var target = event.target;
+	var surrounding_div = target.closest("div[class='nested_attribute_entry']");
+	
+	var button = target.closest("button[data-attribute]");
+	var attribute_name = $(button).attr("data-attribute");
+	
+	var list = target.closest("div[id='" + attribute_name + "_input_list']");
+	var list_length = $(list).children(".nested_attribute_entry").size();
+		
+	var last_entry = $(list).children(".nested_attribute_entry").last();
+	var new_entry_html = last_entry.clone(); 
+	var new_entry = $(new_entry_html).insertAfter(last_entry);
+	
+	var inputs = $(new_entry).find("input");
+	inputs.each(function() {
+		update_attribute_index(this, list_length);
+	});
+  		
+	return false;
+}
+
 function add_nested_attribute(event) {
 		var target = event.target;
 		var surrounding_div = target.closest("div[class='nested_attribute_entry']");
 		
-		//var attribute_name = $(target).attr("data-attribute");
 		var button = target.closest("button[data-attribute]");
 		var attribute_name = $(button).attr("data-attribute");
 		
-		var list = surrounding_div.closest("div[id='" + attribute_name + "_input_list']");
+		var list = target.closest("div[id='" + attribute_name + "_input_list']");
 		var list_length = $(list).children(".nested_attribute_entry").size();
 		
-	  	var entry = {
-		  "attr_name": attribute_name,
-		  "index": $(list).children(".nested_attribute_entry").size()
-		};
-	  	
-	  	var new_entry_html = $(list).children(".nested_attribute_entry").last().clone(); //Mustache.render(add_nested_attribute_template, entry);
+	  	var new_entry_html = $(list).children(".nested_attribute_entry").last().clone(); 
 	  	var new_entry = $(new_entry_html).appendTo(list);
 	  	
 	  	new_entry.find("input[id$='_id']").remove();
 	  	new_entry.find("input[type='text']").val("");
-	  	// make button add button
-	  	// var remove_button = new_entry.find("button");
-	  	// $(remove_button).find("span").html(" Add");
-	  	// $(remove_button).find("i").attr("class", "icon-white glyphicon-plus");
-	  	// $(remove_button).attr("class", "btn btn-success add-nested");
-	  	// $(remove_button).unbind("click");
-	  	// $(remove_button).click(add_nested_attribute);
 	  	
 	  	var inputs = $(new_entry).find("input");
   		inputs.each(function() {
