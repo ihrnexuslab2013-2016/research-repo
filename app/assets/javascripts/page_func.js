@@ -117,13 +117,26 @@ function add_nested_attr_multi(event) {
 	var list_length = $(list).children(".nested_attribute_entry").size();
 		
 	var last_entry = $(list).children(".nested_attribute_entry").last();
+	
+	// enable remove button if disabled
+	var remove_button = last_entry.find("button.delete-nested-multi").first();
+	if (remove_button != null) {
+		$(remove_button).removeAttr('disabled');
+	}
+		
 	var new_entry_html = last_entry.clone(); 
 	var new_entry = $(new_entry_html).insertAfter(last_entry);
+	
+	new_entry.find("input[id$='_id']").remove();
+	new_entry.find("input[type='text']").attr("value", "");
 	
 	var inputs = $(new_entry).find("input");
 	inputs.each(function() {
 		update_attribute_index(this, list_length);
 	});
+	
+	$(new_entry).find("button").click(delete_nested_attribute);
+	  	
   		
 	return false;
 }
@@ -133,6 +146,7 @@ function add_nested_attribute(event) {
 		var surrounding_div = target.closest("div[class='nested_attribute_entry']");
 		
 		var button = target.closest("button[data-attribute]");
+		
 		var attribute_name = $(button).attr("data-attribute");
 		
 		var list = target.closest("div[id='" + attribute_name + "_input_list']");
@@ -183,8 +197,18 @@ function delete_nested_attribute(event) {
   		
   	});
   	
+  	// for nested attributes with multiple input fields:
+  	// if there is only one entry left, disable remove button if there is one
+  	if (list_items.length == 1) {
+  		var delete_button = list_items.first().find("button.delete-nested-multi").first();
+  		if (delete_button != null) {
+  			delete_button.attr('disabled', true);
+  		}
+  	}
+  	
+  	
   	return false;
-	}
+}
 
 function update_attribute_index(input, i) {
 	var oldName = $(input).attr("name");
