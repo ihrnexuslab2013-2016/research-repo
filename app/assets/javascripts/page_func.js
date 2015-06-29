@@ -53,6 +53,11 @@ $(function() {
       init();
 });
 
+var add_nested_attribute_template = ["<div class=\"nested_attribute_entry\">", "<div class=\"form-group string optional generic_{{attr_name}}_label with-button\">",
+"<input label=\"false\" class=\"string optional\" type=\"text\" name=\"generic_file[{{attr_name}}_attributes][{{index}}][label]\" id=\"generic_file_{{attr_name}}_attributes_{{index}}_label\">",
+"<button class=\"btn btn-success add-nested\" data-attribute=\"{{attr_name}}\"><i class=\"icon-white glyphicon-plus\"></i><span> Add</span></button>",
+"</div>"].join("\n");
+
 function init() {
 	// Initialize the plugin
 	$('.choose_generic_file_dialog').dialog({
@@ -68,7 +73,13 @@ function init() {
 	
 	$(".remove-file").click(remove_file);
 	
-	$( ".select_dialog_open" ).click(function(event) {
+	$(".delete-nested").click(delete_nested_attribute);
+	$(".delete-nested-multi").click(delete_nested_attribute);
+	$(".add-nested-multi").click(add_nested_attr_multi);
+	
+	$(".add-nested").click(add_nested_attribute);
+	
+	$(".select_dialog_open" ).click(function(event) {
 		var target = event.target;
 		var attr_name = $(target).attr("data-attribute");
 	  	$( "#choose_" + attr_name + "_dialog" ).dialog( "open" );
@@ -93,6 +104,121 @@ function init() {
 	});
 	
  });
+}
+
+function add_nested_attr_multi(event) {
+	var target = event.target;
+	var surrounding_div = target.closest("div[class='nested_attribute_entry']");
+	
+	var button = target.closest("button[data-attribute]");
+	var attribute_name = $(button).attr("data-attribute");
+	
+	var list = target.closest("div[id='" + attribute_name + "_input_list']");
+	var list_length = $(list).children(".nested_attribute_entry").size();
+		
+	var last_entry = $(list).children(".nested_attribute_entry").last();
+	
+	// enable remove button if disabled
+	var remove_button = last_entry.find("button.delete-nested-multi").first();
+	if (remove_button != null) {
+		$(remove_button).removeAttr('disabled');
+	}
+		
+	var new_entry_html = last_entry.clone(); 
+	var new_entry = $(new_entry_html).insertAfter(last_entry);
+	
+	new_entry.find("input[id$='_id']").remove();
+	new_entry.find("input[type='text']").attr("value", "");
+	new_entry.find("input[type='text']").val("");
+	
+	var inputs = $(new_entry).find("input");
+	inputs.each(function() {
+		update_attribute_index(this, list_length);
+	});
+	
+	$(new_entry).find("button").click(delete_nested_attribute);
+	  	
+  		
+	return false;
+}
+
+function add_nested_attribute(event) {
+		var target = event.target;
+		var surrounding_div = target.closest("div[class='nested_attribute_entry']");
+		
+		var button = target.closest("button[data-attribute]");
+		
+		var attribute_name = $(button).attr("data-attribute");
+		
+		var list = target.closest("div[id='" + attribute_name + "_input_list']");
+		var list_length = $(list).children(".nested_attribute_entry").size();
+		
+	  	var new_entry_html = $(list).children(".nested_attribute_entry").last().clone(); 
+	  	var new_entry = $(new_entry_html).appendTo(list);
+	  	
+	  	new_entry.find("input[id$='_id']").remove();
+	  	new_entry.find("input[type='text']").val("");
+	  	
+	  	var inputs = $(new_entry).find("input");
+  		inputs.each(function() {
+  			update_attribute_index(this, list_length);
+  		});
+	  	
+	  	// turn add button into remove button
+	  	$(button).find("span").html(" Remove");
+	  	$(button).find("i").toggleClass("glyphicon-plus glyphicon-minus");
+	  	$(button).attr("class", "btn btn-danger delete-nested");
+	  	$(button).unbind("click");
+	  	$(button).click(delete_nested_attribute);
+	  	
+	  	var new_button = new_entry.find("button");
+	  	$(new_button).click(add_nested_attribute);
+	  	
+	  	return false;
+	}
+	
+function delete_nested_attribute(event) {
+	var target = event.target;
+	var button = target.closest("button[data-attribute]");
+	var attr_name = $(button).attr("data-attribute");
+		
+	var surrounding_div = target.closest("div[class='nested_attribute_entry']");
+	var list = surrounding_div.closest("div[id='" + attr_name + "_input_list']");
+	  	
+  	var div_to_remove = target.closest("div[class='nested_attribute_entry']");
+  	div_to_remove.remove();
+  	
+  	// update all indexes
+  	var list_items = $(list).children("div");
+  	$(list).children("div").each(function(i) {
+  		var inputs = $(this).find("input");
+  		inputs.each(function() {
+  			update_attribute_index(this, i);
+  		});
+  		
+  	});
+  	
+  	// for nested attributes with multiple input fields:
+  	// if there is only one entry left, disable remove button if there is one
+  	if (list_items.length == 1) {
+  		var delete_button = list_items.first().find("button.delete-nested-multi").first();
+  		if (delete_button != null) {
+  			delete_button.attr('disabled', true);
+  		}
+  	}
+  	
+  	
+  	return false;
+}
+
+function update_attribute_index(input, i) {
+	var oldName = $(input).attr("name");
+	var oldId = $(input).attr("id");
+	var newName = oldName.replace(new RegExp("\[[0-9]+?\]"), "[" + i + "]");
+	var newId = oldId.replace(new RegExp("_[0-9]+?_"), "_" + i + "_");
+	
+	$(input).attr("name", newName);
+	$(input).attr("id", newId);
 }
 
 function build_result_entry(doc) {
@@ -124,10 +250,4 @@ function setText(attr_name, id, title, depositor) {
 	var inputString = '<input class="hidden form-control" type="hidden" value="' + id + '" name="generic_file[' + attr_name + '_attributes][' + nrExistingHosts + '][id]" id="' + idString + '">';
 	$("#" + attr_name + "_list").append(inputString);
 	$( "#choose_" + attr_name + "_dialog" ).dialog( "close" );
-}
-  
-function find_related_host() {
-	
-  
-  return false;
 }

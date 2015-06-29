@@ -5,12 +5,7 @@
 <% @clabel = nil? %>
 <% end %>
 
-<%= f.label :cartographics, label: @clabel %>
-<% (@generic_file.cartographics + [MODS::MADS::Cartographics.new]).each do |subject| %>
-	<%= f.simple_fields_for :cartographics, subject do |builder| %>
-		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>
-	<% end %>
-<% end %>
+<%= f.input :cartographics, label: @clabel, as: :nested_attribute %>
 
 <% end %>
 

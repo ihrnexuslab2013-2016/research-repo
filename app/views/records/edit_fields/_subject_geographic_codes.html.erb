@@ -5,12 +5,7 @@
 <% @clabel = nil? %>
 <% end %>
 
-<%= f.label :subject_geographic_codes, label: @clabel %>
-<% (@generic_file.subject_geographic_codes + [MODS::MADS::GeographicCode.new]).each do |subject| %>
-	<%= f.simple_fields_for :subject_geographic_codes, subject do |builder| %>
-		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>
-	<% end %>
-<% end %>
+<%= f.input :subject_geographic_codes, label: @clabel, as: :nested_attribute %>
 
 <% end %>
 

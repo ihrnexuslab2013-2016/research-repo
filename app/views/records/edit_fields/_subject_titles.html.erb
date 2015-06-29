@@ -5,12 +5,8 @@
 <% @clabel = nil? %>
 <% end %>
 
-<%= f.label :subject_titles, label: @clabel %>
-<% (@generic_file.subject_titles + [MODS::MADS::Title.new]).each do |subject| %>
-	<%= f.simple_fields_for :subject_titles, subject do |builder| %>
-		<%= render_edit_field_partial(:label, {f: builder, label_text: false}) %>
-	<% end %>
-<% end %>
+<%= f.input :subject_titles, label: @clabel, as: :nested_attribute %>
+
 
 <% end %>
 
