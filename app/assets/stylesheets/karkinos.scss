@@ -71,7 +71,8 @@ h4.visibility span.label {
 .add:hover, .add:focus,
 .add_file:hover, .add_file:focus,
 .btn-primary:hover, .btn-primary:focus, 
-.add-nested:hover, .add-nested:focus {
+.add-nested:hover, .add-nested:focus,
+.add-nested-multi:hover, .add-nested-multi:focus {
   background-color: $add-background-hover;
   border-color: $button-dark-green;
   color: $button-dark-green;
@@ -309,6 +310,14 @@ ul.linked_file_list li:before {
   border-color: #6D8B6C;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
+  width: 98px;
+}
+
+.add-nested-multi {
+  margin-left: -5px;
+  margin-top: -2px;
+  background-color: #749B73;
+  border-color: #6D8B6C;
   width: 98px;
 }
 

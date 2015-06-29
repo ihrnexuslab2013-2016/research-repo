@@ -1,10 +1,10 @@
-class NestedAttributeMultipleInput < SimpleForm::Inputs::FileInput
+class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
   
   def input(wrapper_options = nil)
     out = ActiveSupport::SafeBuffer.new
     
     return out if object.nil? or object.model.nil?
-    
+     
     html = "<div id=\"#{attribute_name}_input_list\">"
     
     collection = object.model.send("#{attribute_name}")
@@ -31,7 +31,10 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::FileInput
             html += build.hidden_field key, :value => value
           end
         end
-        html += "<button class=\"btn btn-danger delete-nested-multi\" data-attribute=\"#{attribute_name}\">"
+        html += "<button class=\"btn btn-danger delete-nested-multi\" data-attribute=\"#{attribute_name}\""
+        html += " disabled " if collection.size == 0
+        html += ">"
+        
         html += "<i class=\"icon-white glyphicon-minus\"></i><span> Remove</span>"
         html += "</button>"
           
