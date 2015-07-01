@@ -32,11 +32,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+group :development do
+  gem 'sufia', path: '../my_sufia'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  
-  gem 'sufia', path: '../my_sufia'
   gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia' 
 
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -52,6 +54,7 @@ end
 
 group :test do
   gem 'ci_reporter_rspec'
+  gem 'sufia'
 end
 
 gem 'rdf-vocab'
