@@ -17,8 +17,12 @@ describe GenericFile do
 
   describe "adding a title principal" do
     before { file.title_principals_attributes = [{label: "First title"}] }
-    subject { file.title_principals.first }
-    it { is_expected.to be_kind_of MODS::MADS::Title }
+    subject(:title) { file.title_principals.first }
+    it { 
+      is_expected.to be_kind_of MODS::MADS::Title 
+      expect(title.label).to eql "First title"
+    }
+    
   end
 
 end

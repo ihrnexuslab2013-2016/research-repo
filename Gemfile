@@ -50,6 +50,10 @@ group :development, :test do
   gem 'jettywrapper'
 end
 
+group :test do
+  gem 'ci_reporter_rspec'
+end
+
 gem 'rdf-vocab'
 gem 'rsolr', '~> 1.0.6'
 gem 'devise'
