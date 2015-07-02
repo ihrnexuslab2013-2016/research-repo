@@ -50,6 +50,8 @@ group :development, :test do
   
   #gem 'sufia', path: '../my_sufia'
   gem 'sufia'
+  
+  gem 'capistrano-rails'
 end
 
 group :test do
