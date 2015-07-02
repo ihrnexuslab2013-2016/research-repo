@@ -54,6 +54,7 @@ end
 
 group :test do
   gem 'ci_reporter_rspec'
+  gem 'therubyracer', platforms: :ruby
 end
 
 gem 'rdf-vocab'
