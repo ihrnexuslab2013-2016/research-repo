@@ -1,6 +1,6 @@
 == Research Repository of the Nexus Lab at Arizona State University 
 
-[![Build Status](http://diging.asu.edu:8091/buildStatus/icon?job=Karkinos_run_tests_on_push)](http://diging.asu.edu:8091/job/Karkinos_run_tests_on_push)
+[Build Status](http://diging.asu.edu:8091/buildStatus/icon?job=Karkinos_run_tests_on_push)
 
 (working name Karkinos)
 
