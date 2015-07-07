@@ -180,15 +180,15 @@ describe GenericFile do
     }
   end
   
-  # describe "adding related host" do
-    # before { 
-      # file.related_hosts_attributes = [{ id: related_file.id }] 
-    # }
-    # subject(:host) { file.related_hosts.first }
-    # it {
-      # is_expected.to be_kind_of GenericFile
-      # expect(host.id).to eql related_file.id
-    # }
-  # end
+  describe "adding related host" do
+    before { 
+      file.related_hosts = [related_file] 
+    }
+    subject(:host) { file.related_hosts.first }
+    it {
+      is_expected.to be_kind_of GenericFile
+      expect(host.id).to eql related_file.id
+    }
+  end
 
 end
