@@ -34,6 +34,12 @@ describe GenericFilesController do
       @gen_file.location_of_resources = [@location]
       @location.save!
       
+      # prepare name
+      @name = MODS::MADS::Name.new
+      @name.role = "producer"
+      @gen_file.names = [@name]
+      @name.save!
+      
       @gen_file.save!
     end
 
@@ -121,6 +127,29 @@ describe GenericFilesController do
         new_loc = subject.location_of_resources.detect { |g| g.id != @location.id }
         expect(new_loc.location_physical).to eql "New physical location"
         expect(new_loc.location_shelf_locator).to eql "New shelf locator"
+      end
+    end
+    
+    context "when adding and updating a name" do
+      let(:attributes) do
+        {
+          names_attributes: {"0" => {role: "director", label: "New name"}, "1" => {label: ""}, "2" => {label: "Updated name", id: @name.id}}
+        }
+      end
+      
+      before { post :update, id: @gen_file, generic_file: attributes }
+      subject { @gen_file.reload }
+      
+      it "adds a new name, ignores the empty name, updates the existing name" do
+        expect(subject.names.size).to eql 2
+        
+        orig_name = subject.names.detect { |n| n.id == @name.id }
+        expect(orig_name.label).to eql "Updated name"
+        expect(orig_name.role).to eql "producer"
+        
+        new_name = subject.names.detect { |n| n.id != @name.id }
+        expect(new_name.label).to eql "New name"
+        expect(new_name.role).to eql "director"
       end
     end
 
