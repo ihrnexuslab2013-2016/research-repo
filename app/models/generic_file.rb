@@ -70,15 +70,15 @@ class GenericFile < ActiveFedora::Base
   # The binding is considered necessary because originInfo may repeat, for different origination events.  
   # However, in this ontology, different instances of originInfo are considered to be different resource. 
   # MODS RDF dispenses with the container and instead, each originInfo subelement tranforms to a direct property of the resource. 
-  property :edition, predicate: MODS::MODSRDFVocabulary.edition, multiple: false do |index|
+  property :edition, predicate: MODS::MODSRDFVocabulary.edition, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :frequency, predicate: MODS::MODSRDFVocabulary.frequency, multiple: false do |index|
+  property :frequency, predicate: MODS::MODSRDFVocabulary.frequency, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :date_issued, predicate: MODS::MODSRDFVocabulary.dateIssued, multiple: false do |index|
+  property :date_issued, predicate: MODS::MODSRDFVocabulary.dateIssued, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
@@ -88,15 +88,15 @@ class GenericFile < ActiveFedora::Base
   # from MODS RDF:
   # n MODS XML it binds together information pertaining to physical characteristics of the resource. 
   # MODS RDF dispenses with the container and instead, each physical description subelement tranforms to a direct property of the resource. 
-  property :form, predicate: MODS::MODSRDFVocabulary.form, multiple: false do |index|
+  property :form, predicate: MODS::MODSRDFVocabulary.form, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :reformatting_quality, predicate: MODS::MODSRDFVocabulary.reformattingQuality, multiple: false do |index|
+  property :reformatting_quality, predicate: MODS::MODSRDFVocabulary.reformattingQuality, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
-  property :media_type, predicate: MODS::MODSRDFVocabulary.mediaType, multiple: false do |index|
+  property :media_type, predicate: MODS::MODSRDFVocabulary.mediaType, multiple: true do |index|
      index.as :stored_searchable, :facetable
   end
   
