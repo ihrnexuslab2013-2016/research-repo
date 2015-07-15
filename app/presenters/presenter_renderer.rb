@@ -12,9 +12,11 @@ class PresenterRenderer
   end
 
   def label(field)
-    if field.kind_of?(Array) and field.length > 1
-      label = field[1][:label]
-      return label if !label.nil?
+    if field.kind_of?(Array) 
+      if field.length > 1
+       label = field[1][:label]
+        return label if !label.nil?
+      end
       field = field[0]
     end
     t(:"#{model_name.param_key}.#{field}", scope: label_scope, default: field.to_s.humanize).presence
