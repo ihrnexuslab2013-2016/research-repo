@@ -40,6 +40,20 @@ describe GenericFilesController do
       @gen_file.names = [@name]
       @name.save!
       
+      # prepare note group
+      @note_group = MODS::NoteGroup.new
+      @note_group.label ="note group"
+      @note_group.note_group_type = "note type"
+      @gen_file.note_groups = [@note_group]
+      @note_group.save!
+      
+      # prepare parts
+      @parts = MODS::Part.new
+      @parts.part_order = "Order test"
+      @parts.part_level = "Level"
+      @gen_file.parts = [@parts]
+      @parts.save!
+      
       @gen_file.save!
     end
 
@@ -150,6 +164,105 @@ describe GenericFilesController do
         new_name = subject.names.detect { |n| n.id != @name.id }
         expect(new_name.label).to eql "New name"
         expect(new_name.role).to eql "director"
+      end
+    end
+    
+    context "when adding a note" do
+      let(:attributes) do
+        {
+          notes: ["First note"]
+        }
+      end
+      
+      before { post :update, id: @gen_file, generic_file: attributes }
+      subject { @gen_file.reload }
+      
+      it "adds a new note" do
+        expect(subject.notes.first).to eql "First note"
+      end      
+    end
+    
+    context "when adding a statement of responsibility" do
+      let(:attributes) do
+        {
+          statement_of_responsibility: ["Statement"]
+        }
+      end
+      
+      before { post :update, id: @gen_file, generic_file: attributes}
+      subject {@gen_file.reload }
+      
+      it "adds a new statement of responsibility" do
+        expect(subject.statement_of_responsibility.first).to eql "Statement"
+      end
+    end
+    
+    context "when adding a new note group" do
+      let(:attributes) do
+        {
+          note_groups_attributes: {"0" => {label: ""}, "1" => {note_group_type: "type"}, "2" => {label: "biblio", note_group_type: "bibliography"}, "3" => {label: "updated note", id: @note_group.id} }
+        }
+      end
+      
+      before { post :update, id: @gen_file, generic_file: attributes }
+      subject { @gen_file.reload }
+      
+      it "adds a new note group" do
+        expect(subject.note_groups.size).to eql 2
+        
+        orig_note = subject.note_groups.detect { |n| n.id == @note_group.id }
+        expect(orig_note.label).to eql "updated note"
+        expect(orig_note.note_group_type).to eql "note type"
+        
+        new_note = subject.note_groups.detect { |n| n.id != @note_group.id }
+        expect(new_note.label).to eql "biblio"
+        expect(new_note.note_group_type).to eql "bibliography"
+      end
+    end
+    
+    context "when adding edition, frequencey, and date issued" do
+      let(:attributes) do
+        {
+          edition: ["edition test"],
+          frequency: ["frequency test"],
+          date_issued: ["date test"]
+        }
+      end
+      
+      before { post :update, id: @gen_file, generic_file: attributes }
+      subject { @gen_file.reload }
+      
+      it "adds the attributes" do
+        expect(subject.edition.first).to eql "edition test"
+        expect(subject.frequency.first).to eql "frequency test"
+        expect(subject.date_issued.first).to eql "date test"
+      end
+    end
+    
+    context "when adding parts" do
+      let(:attributes) do
+        {
+          parts_attributes: { "0" => { part_order: ""}, "1" => { part_order: "Order", part_level: "Level", part_caption: "Caption", part_number: "Number"}, "2" => { part_level: "Level test", part_caption: "Caption test", id: @parts.id } }
+        }
+      end
+      
+      before { post :update, id: @gen_file, generic_file: attributes }
+      subject { @gen_file.reload }
+      
+      it "adds a new part, and updates the other" do
+        expect(subject.parts.size).to eql 2
+        
+        orig_part = subject.parts.detect { |n| n.id == @parts.id }
+        expect(orig_part.part_order).to eql "Order test"
+        expect(orig_part.part_level).to eql "Level test"
+        expect(orig_part.part_caption).to eql "Caption test"
+        expect(orig_part.part_number).to eql nil
+        
+        new_part = subject.parts.detect { |n| n.id != @parts.id }
+        expect(new_part.part_order).to eql "Order"
+        expect(new_part.part_level).to eql "Level"
+        expect(new_part.part_caption).to eql "Caption"
+        expect(new_part.part_number).to eql "Number"
       end
     end
 
