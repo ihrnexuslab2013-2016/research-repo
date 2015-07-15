@@ -16,8 +16,21 @@ describe GenericFilesController do
         gf.apply_depositor_metadata(user)
       end
     end
+    let(:generic_file_rel_1) do
+      GenericFile.create do |gf|
+        gf.apply_depositor_metadata(user)
+      end
+    end
+    let(:generic_file_rel_2) do
+      GenericFile.create do |gf|
+        gf.apply_depositor_metadata(user)
+      end
+    end
 
     before :each do
+      @gen_file_rel_1 = generic_file_rel_1
+      @gen_file_rel_2 = generic_file_rel_2
+      
       @gen_file = generic_file
       @gen_file.title_principals = [MODS::MADS::Title.new]
       @gen_file.title_principals.first.save
@@ -53,6 +66,9 @@ describe GenericFilesController do
       @parts.part_level = "Level"
       @gen_file.parts = [@parts]
       @parts.save!
+      
+      # add referenced files
+      @gen_file.related_hosts = [@gen_file_rel_1]
       
       @gen_file.save!
     end
@@ -263,6 +279,59 @@ describe GenericFilesController do
         expect(new_part.part_level).to eql "Level"
         expect(new_part.part_caption).to eql "Caption"
         expect(new_part.part_number).to eql "Number"
+      end
+    end
+    
+    context "when adding form, reformatting quality, and media type" do
+      let(:attributes) do
+        {
+          form: ["Form test"],
+          reformatting_quality: ["Quality test"],
+          media_type: ["Media type test"]
+        }
+      end
+      
+      before { post :update, id: @gen_file, generic_file: attributes }
+      subject { @gen_file.reload }
+      
+      it "adds the attributes to the file" do
+        expect(subject.form.first).to eql "Form test"
+        expect(subject.reformatting_quality.first).to eql "Quality test"
+        expect(subject.media_type.first).to eql "Media type test"
+      end
+    end
+    
+    context "when setting related hosts to one file" do
+      let(:attributes) do
+        {
+          related_hosts_attributes: {"1" => {id: @gen_file_rel_2.id }}
+        }
+      end
+      
+      before { post :update, id: @gen_file, generic_file: attributes }
+      subject { @gen_file.reload }
+      
+      it "sets related hosts to that one file" do
+        expect(subject.related_hosts.size).to eql 1
+        expect(subject.related_hosts.first.id).to eql @gen_file_rel_2.id
+      end
+    end
+    
+    context "when setting related hosts to the file already added and a new one" do
+       let(:attributes) do
+        {
+          related_hosts_attributes: { "1" => {id: @gen_file_rel_1.id }, "2" => {id: @gen_file_rel_2.id} }
+        }
+      end
+      
+      before { post :update, id: @gen_file, generic_file: attributes }
+      subject { @gen_file.reload }
+      
+      it "sets related hosts to those two file" do
+        expect(subject.related_hosts.size).to eql 2
+        
+        expect(subject.related_hosts).to include @gen_file_rel_1
+        expect(subject.related_hosts).to include @gen_file_rel_2
       end
     end
 
