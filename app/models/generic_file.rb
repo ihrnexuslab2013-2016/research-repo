@@ -46,7 +46,7 @@ class GenericFile < ActiveFedora::Base
   end
   
   has_and_belongs_to_many :location_of_resources, :predicate => MODS::MODSRDFVocabulary.locationOfResource, :class_name => "MODS::Location"
-  accepts_nested_attributes_for :location_of_resources, allow_destroy: true, :reject_if => proc { |attributes| attributes['location_physical'].blank? and attributes['location_shelf_locator'].blank? }
+  accepts_nested_attributes_for :location_of_resources, allow_destroy: true, :reject_if => proc { |attributes| attributes['location_physical'].blank? and attributes['location_shelf_locator'].blank? and attributes['url'].blank? }
   
   #has_and_belongs_to_many :name_principals, :predicate => MODS::MODSRDFVocabulary.namePrincipal, :class_name => "MODS::MADS::Name"
   #accepts_nested_attributes_for :name_principals, allow_destroy: true

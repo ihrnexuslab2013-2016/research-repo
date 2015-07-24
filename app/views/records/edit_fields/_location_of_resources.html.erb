@@ -5,7 +5,7 @@
 <% @clabel = nil? %>
 <% end %>
 
-<%= f.input :location_of_resources, label: @clabel, as: :nested_attribute_multiple, :fields => [:location_physical, :location_shelf_locator], :label_html => { :class => 'multi-part-heading' } %>
+<%= f.input :location_of_resources, label: @clabel, as: :nested_attribute_multiple, :fields => [:location_physical, :location_shelf_locator, :url], :label_html => { :class => 'multi-part-heading' } %>
 
 <% end %>
 

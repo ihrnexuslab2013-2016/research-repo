@@ -9,7 +9,7 @@ module NestedLocationOfResources
     end
 
     def permitted_location_of_resources_params
-      [:location_physical, :location_shelf_locator, :id]
+      [:location_physical, :location_shelf_locator, :url, :id]
     end
 
   end

@@ -1,6 +1,14 @@
 <% @generic_file.location_of_resources.each do |tinfo| %>
   <span itemprop="location_of_resources" itemscope itemtype="http://schema.org/Place">
-    <span itemprop="name"><%= tinfo.location_physical %>, <%= tinfo.location_shelf_locator %></span>
+    <% if !tinfo.url.nil? %>
+    <span itemprop="name"><%= tinfo.url %></span>
+    <% end %>
+    <% if !tinfo.location_physical.nil? %>
+    <span itemprop="name"><%= tinfo.location_physical %></span>
+    <% end %>
+    <% if !tinfo.location_shelf_locator.nil? %>
+    <span itemprop="name"><%= tinfo.location_shelf_locator %></span>
+    <% end %>
   </span>
   <br />
 <% end %>

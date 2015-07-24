@@ -20,6 +20,7 @@ module MODS
     property :locationOfResource
     property :locationPhysicalLocation
     property :locationShelfLocator
+    property :url
     property :locationCopy
     property :locationCopyShelfLocator
     property :locationCopyEnumerationAndChronologyBasic

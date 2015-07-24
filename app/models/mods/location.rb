@@ -6,6 +6,9 @@ module MODS
     property :location_shelf_locator, predicate: MODS::MODSRDFVocabulary.locationShelfLocator, multiple: false do |index|
        index.as :stored_searchable, :facetable
     end
+    property :url, predicate: MODS::MODSRDFVocabulary.url, multiple: false do |index|
+       index.as :stored_searchable, :facetable
+    end
     
     has_and_belongs_to_many :location_copies, :predicate => MODS::MODSRDFVocabulary.locationCopy, :class_name => "MODS::LocationCopy"
     accepts_nested_attributes_for :location_copies
