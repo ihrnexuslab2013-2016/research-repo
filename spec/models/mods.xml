@@ -1,11 +1,9 @@
-<?xml version="1.0" ?>
-<modsCollection xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/mods/v3" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-3.xsd">
-	<mods version="3.5">
-		<titleInfo>
-	  	  	<title>First title</title>
-	  	</titleInfo>
-	  	<titleInfo type="uniform">
-	  	  	<title>First uniform title</title>
-	  	</titleInfo>
-  	</mods>
-</modsCollection>
+<?xml version="1.0" encoding="UTF-8"?>
+<mods version="3.5" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd">
+   <titleInfo>
+      <title>First title</title>
+   </titleInfo>
+   <titleInfo type="uniform">
+      <title>First uniform title</title>
+   </titleInfo>
+</mods>
