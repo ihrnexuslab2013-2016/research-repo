@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mods version="3.5" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd">
+<mods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.5" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd">
    <titleInfo>
       <title>First title</title>
    </titleInfo>
@@ -40,4 +40,11 @@
          <caption>Caption</caption>
       </detail>
    </part>
+   <physicalDescription>
+      <form>graphic</form>
+      <reformattingQuality>good</reformattingQuality>
+      <internetMediaType>text/html</internetMediaType>
+      <extent>1 slide : col. ; 35mm</extent>
+      <digitalOrigin>reformatted digital</digitalOrigin>
+   </physicalDescription>
 </mods>

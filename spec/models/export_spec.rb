@@ -26,6 +26,11 @@ describe GenericFile do
       file.frequency = ["Annual"]
       file.date_issued = ["1889"]
       file.parts_attributes = [{part_order: "2", part_level: "no. 3", part_caption: "Caption", part_number: "Part 1"}]
+      file.form = ["graphic"]
+      file.reformatting_quality = ["good"]
+      file.media_type = ["text/html"]
+      file.extent = ["1 slide : col. ; 35mm"]
+      file.digital_origin = ["reformatted digital"]
     }
     subject(:xml){ file.export_as_mods_xml }
     it {

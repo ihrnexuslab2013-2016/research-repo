@@ -101,6 +101,14 @@ class GenericFile < ActiveFedora::Base
      index.as :stored_searchable, :facetable
   end
   
+  property :extent, predicate: MODS::MODSRDFVocabulary.extent, multiple: true do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  property :digital_origin, predicate: MODS::MODSRDFVocabulary.digitalOrigin, multiple: true do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
   has_and_belongs_to_many :related_hosts, :predicate => MODS::MODSRDFVocabulary.relatedHost, :class_name => "GenericFile"
   accepts_nested_attributes_for :related_hosts
   

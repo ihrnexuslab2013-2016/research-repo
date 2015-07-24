@@ -2,7 +2,7 @@ module ExportMODS
     
   def export_as_mods_xml
     mods_xml = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
-      xml.mods(:version => "3.5", 'xsi:schemaLocation' => "http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd") {
+      xml.mods('xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance", "version" => "3.5", 'xsi:schemaLocation' => "http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd") {
         # add title principals
         title_principals.each do |title|
           xml.titleInfo {
@@ -105,6 +105,24 @@ module ExportMODS
             }
           }
         end
+        
+        xml.physicalDescription {
+          form.each do |f|
+            xml.form f
+          end
+          reformatting_quality.each do |q|
+            xml.reformattingQuality q
+          end
+          media_type.each do |m|
+            xml.internetMediaType m
+          end
+          extent.each do |e|
+            xml.extent e
+          end
+          digital_origin.each do |d|
+            xml.digitalOrigin d
+          end
+        }
         
       # end mods
       }

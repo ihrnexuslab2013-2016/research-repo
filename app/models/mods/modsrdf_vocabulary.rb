@@ -46,6 +46,8 @@ module MODS
     property :form
     property :reformattingQuality
     property :mediaType
+    property :extent
+    property :digitalOrigin
     
     #relatedItem
     property :relatedHost
