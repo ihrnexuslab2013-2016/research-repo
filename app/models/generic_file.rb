@@ -3,6 +3,7 @@ require "active-fedora"
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
   include SolrObject
+  include ExportMODS
   
   before_destroy :delete_nested_attributes
   
