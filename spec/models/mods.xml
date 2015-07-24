@@ -6,4 +6,38 @@
    <titleInfo type="uniform">
       <title>First uniform title</title>
    </titleInfo>
+   <abstract>Test abstract with a few more words.</abstract>
+   <accessCondition>Personal, noncommercial use of this item is permitted in the United States of America. Please see http://digital.library.upenn.edu/women/ for other rights and restrictions that may apply to this resource.</accessCondition>
+   <genre>Web site</genre>
+   <language>
+      <languageTerm type="code" authority="iso639-2b">eng</languageTerm>
+   </language>
+   <location>
+      <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      <shelfLocator>HB123.89</shelfLocator>
+   </location>
+   <location>
+      <url>http://purl.dlib.indiana.edu/iudl/archives/cushman/P07803</url>
+   </location>
+   <name>
+      <namePart>Raschke, Gregory K.</namePart>
+   </name>
+   <note>Dominus vo-bisque'em et come spear a tu-tu, oh.</note>
+   <note type="statement of responsibility">created and maintained by the Asian Division, Area Studies Directorate</note>
+   <note type="acquisition">Received: 6/17/82; ref print; gift, ATM 138; AFI/Woods (John) Collection.</note>
+   <originInfo>
+      <edition>Limited ed</edition>
+   </originInfo>
+   <originInfo>
+      <frequency>Annual</frequency>
+   </originInfo>
+   <originInfo>
+      <dateIssued>1889</dateIssued>
+   </originInfo>
+   <part order="2">
+      <detail level="no. 3">
+         <number>Part 1</number>
+         <caption>Caption</caption>
+      </detail>
+   </part>
 </mods>

@@ -6,7 +6,7 @@
 <% @label = :names %>
 <% end %>
 
-<%= f.input :names, label: @clabel, as: :nested_attribute, :hidden_value_field => {:role => @role} %>
+<%= f.input :names, label: @clabel, as: :nested_attribute_multiple, :fields => [:label], :hidden_value_field => {:role => @role} %>
 
 
 <% end %>
