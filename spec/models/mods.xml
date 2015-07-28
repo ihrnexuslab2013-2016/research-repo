@@ -47,6 +47,8 @@
       <extent>1 slide : col. ; 35mm</extent>
       <digitalOrigin>reformatted digital</digitalOrigin>
    </physicalDescription>
+   <tableOfContents>1. Chapter 1</tableOfContents>
+   <targetAudience>Audience</targetAudience>
    <relatedItem type="host">
       <location>
          <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
@@ -58,6 +60,7 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
    <relatedItem type="isReferencedBy">
       <location>
@@ -70,6 +73,7 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
    <relatedItem type="original">
       <location>
@@ -82,6 +86,7 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
    <relatedItem type="otherFormat">
       <location>
@@ -94,6 +99,7 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
    <relatedItem type="otherVersion">
       <location>
@@ -106,6 +112,7 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
    <relatedItem type="preceding">
       <location>
@@ -118,6 +125,7 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
    <relatedItem type="references">
       <location>
@@ -130,6 +138,7 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
    <relatedItem type="reviewOf">
       <location>
@@ -142,6 +151,7 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
    <relatedItem type="series">
       <location>
@@ -154,6 +164,7 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
    <relatedItem type="succeeding">
       <location>
@@ -166,5 +177,40 @@
          <form>graphic</form>
          <extent>1 slide : col. ; 35mm</extent>
       </physicalDescription>
+      <subject/>
    </relatedItem>
+   <subject>
+      <topic>Mountains</topic>
+      <topic>Snow</topic>
+      <geographic>United States</geographic>
+      <temporal>16th century</temporal>
+      <titleInfo>
+         <title>Test</title>
+      </titleInfo>
+      <geographicCode>012</geographicCode>
+      <hierarchicalGeographic>
+         <continent>North America</continent>
+         <country>United States</country>
+         <state>California</state>
+         <county>Inyo</county>
+         <province>Bla</province>
+         <region>Region</region>
+      </hierarchicalGeographic>
+      <hierarchicalGeographic>
+         <territory>Terri</territory>
+         <city>San Diego</city>
+         <citySection>Section</citySection>
+         <island>Island</island>
+         <area>Area</area>
+         <extraterrestrialArea>Mars</extraterrestrialArea>
+      </hierarchicalGeographic>
+      <cartographics>
+         <coordinates>A</coordinates>
+         <coordinates>B</coordinates>
+         <projection>Projection</projection>
+         <scale>Scale</scale>
+      </cartographics>
+      <occupation>Occupation</occupation>
+      <genre>Genre</genre>
+   </subject>
 </mods>

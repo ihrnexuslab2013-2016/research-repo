@@ -156,10 +156,11 @@ class GenericFile < ActiveFedora::Base
   accepts_nested_attributes_for :subject_geographic_codes, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? }
   
   has_and_belongs_to_many :subject_hierarchical_geographics, :predicate => MODS::MODSRDFVocabulary.subjectHierarchicalGeographic, :class_name => "MODS::MADS::HierarchicalGeographic"
-  accepts_nested_attributes_for :subject_hierarchical_geographics, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? }
+  accepts_nested_attributes_for :subject_hierarchical_geographics, allow_destroy: true, 
+    :reject_if => proc { |attributes| attributes['continent'].blank? and attributes['country'].blank? and attributes['province'].blank? and attributes['region'].blank? and attributes['state'].blank? and attributes['territory'].blank? and attributes['county'].blank? and attributes['city'].blank? and attributes['citySection'].blank? and attributes['island'].blank? and attributes['area'].blank? and attributes['extraterrestrial_area'].blank?}
   
   has_and_belongs_to_many :cartographics, :predicate => MODS::MODSRDFVocabulary.cartographics, :class_name => "MODS::MADS::Cartographics"
-  accepts_nested_attributes_for :cartographics, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? }
+  accepts_nested_attributes_for :cartographics, allow_destroy: true, :reject_if => proc { |attributes| attributes['scale'].blank? and attributes['projection'].blank? and attributes['coordinates'].blank? }
   
   has_and_belongs_to_many :subject_occupations, :predicate => MODS::MODSRDFVocabulary.subjectOccupation, :class_name => "MODS::MADS::Occupation"
   accepts_nested_attributes_for :subject_occupations, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? }

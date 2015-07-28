@@ -74,6 +74,11 @@ module MODS
     property :subjectComplex
     property :cartographics
     
+    #cartographics props
+    property :cartographicsCoordinates
+    property :cartographicsProjection
+    property :cartographicsScale
+    
     #table of contents
     property :tableOfContents
     

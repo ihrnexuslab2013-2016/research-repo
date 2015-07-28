@@ -9,54 +9,65 @@ module ExportMODS
         related_hosts.each do |rel|
           xml.relatedItem(:type => "host") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         related_referenced_by.each do |rel|
           xml.relatedItem(:type => "isReferencedBy") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         related_originals.each do |rel|
           xml.relatedItem(:type => "original") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         related_formats.each do |rel|
           xml.relatedItem(:type => "otherFormat") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         related_versions.each do |rel|
           xml.relatedItem(:type => "otherVersion") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         related_precedings.each do |rel|
           xml.relatedItem(:type => "preceding") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         related_references.each do |rel|
           xml.relatedItem(:type => "references") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         related_reviews.each do |rel|
           xml.relatedItem(:type => "reviewOf") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         related_series.each do |rel|
           xml.relatedItem(:type => "series") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         related_succeedings.each do |rel|
           xml.relatedItem(:type => "succeeding") {
             add_mods_fields rel,xml
+            add_subjects rel,xml
           }
         end
         
+        add_subjects self, xml
       # end mods
       }
     end
@@ -183,6 +194,81 @@ module ExportMODS
       end
       file.digital_origin.each do |d|
         xml.digitalOrigin d
+      end
+    }
+    
+    file.table_of_contents.each do |t|
+      xml.tableOfContents t
+    end
+    
+    file.target_audience.each do |a|
+      xml.targetAudience a
+    end
+    
+  end
+  
+  def add_subjects file, xml 
+    xml.subject {
+      #topics 
+      file.subject_topics.each do |subj|
+        xml.topic subj.label
+      end
+      # geographics
+      file.subject_geographics.each do |subj|
+        xml.geographic subj.label
+      end
+      # temporal
+      file.subject_temporals.each do |subj|
+        xml.temporal subj.label
+      end
+      # title
+      file.subject_titles.each do |subj|
+        xml.titleInfo {
+          xml.title subj.label
+        }
+      end
+      # geographic code
+      file.subject_geographic_codes.each do |subj|
+        xml.geographicCode subj.label
+      end
+      # hierarchical geographics
+      file.subject_hierarchical_geographics.each do |subj|
+        xml.hierarchicalGeographic {
+          xml.continent subj.continent if !subj.continent.nil? and !subj.continent.blank?
+          xml.country subj.country if !subj.country.nil? and !subj.country.blank?
+          xml.state subj.state if !subj.state.nil? and !subj.state.blank?
+          xml.county subj.county if !subj.county.nil? and !subj.county.blank?
+          xml.province subj.province if !subj.province.nil? and !subj.province.blank?
+          xml.region subj.region if !subj.region.nil? and !subj.region.blank?
+          xml.territory subj.territory if !subj.territory.nil? and !subj.territory.blank?
+          xml.city subj.city if !subj.city.nil? and !subj.city.blank?
+          xml.citySection subj.citySection if !subj.citySection.nil? and !subj.citySection.blank?
+          xml.island subj.island if !subj.island.nil? and !subj.island.blank?
+          xml.area subj.area if !subj.area.nil? and !subj.area.blank?
+          xml.extraterrestrialArea subj.extraterrestrial_area if !subj.extraterrestrial_area.nil? and !subj.extraterrestrial_area.blank?
+        }
+      end
+      #cartographics
+      file.cartographics.each do |cart|
+        xml.cartographics {
+          cart.coordinates.each do |coord|
+            xml.coordinates coord
+          end
+          cart.projection.each do |proj|
+            xml.projection proj
+          end
+          cart.scale.each do |sc|
+            xml.scale sc
+          end
+        }
+      end
+      #occupation
+      file.subject_occupations.each do |occ|
+        xml.occupation occ.label
+      end
+      # genres
+      file.subject_genres.each do |g|
+        xml.genre g.label
       end
     }
   end

@@ -41,6 +41,17 @@ describe GenericFile do
       file.related_reviews_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
       file.related_series_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
       file.related_succeedings_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.subject_topics_attributes = [{label: "Mountains"}, {label:"Snow"}]
+      file.subject_geographics_attributes = [{label: "United States"}]
+      file.subject_temporals_attributes = [{label: "16th century"}]
+      file.subject_titles_attributes = [{label: "Test"}]
+      file.subject_geographic_codes_attributes = [{label: "012"}]
+      file.subject_hierarchical_geographics_attributes = [{continent: "North America", country: "United States", state: "California", county: "Inyo", province: "Bla", region: "Region"}, {territory: "Terri", city: "San Diego", citySection: "Section", island: "Island", area: "Area", extraterrestrial_area: "Mars"}]
+      file.cartographics_attributes = [{coordinates: ["A", "B"], projection: ["Projection"], scale: ["Scale"]}]
+      file.subject_occupations_attributes = [{label: "Occupation"}]
+      file.subject_genres_attributes = [{label: "Genre"}]
+      file.table_of_contents = ["1. Chapter 1"]
+      file.target_audience = ["Audience"]
     }
     subject(:xml){ file.export_as_mods_xml }
     it {
