@@ -1,7 +1,7 @@
 class KarkinosGenericFilePresenter < Sufia::GenericFilePresenter
   include AttributeHelper
   
-  self.terms = [:resource_type, :title_principals, :title_uniforms, :abstract, :access_condition, :genres, :language_of_resources, :location_of_resources, :names, :notes, :statement_of_responsibility, :note_groups, :edition, :frequency, :date_issued, :parts, :form, :reformatting_quality, :media_type, :related_hosts, :related_referenced_by, :related_originals, :related_formats, :related_versions, :related_precedings, :related_references, :related_reviews, :related_series, :related_succeedings, :subject_topics, :subject_geographics, :subject_temporals, :subject_hierarchical_geographics, :subject_titles, :subject_geographic_codes, :cartographics, :subject_occupations, :subject_genres, :table_of_contents, :target_audience, :use]
+  self.terms = [:resource_type, :title_principals, :title_uniforms, :abstract, :access_condition, :genres, :language_of_resources, :location_of_resources, :names, :notes, :statement_of_responsibility, :note_groups, :edition, :frequency, :date_issued, :parts, :form, :reformatting_quality, :media_type, :extent, :digital_origin, :related_hosts, :related_referenced_by, :related_originals, :related_formats, :related_versions, :related_precedings, :related_references, :related_reviews, :related_series, :related_succeedings, :subject_topics, :subject_geographics, :subject_temporals, :subject_hierarchical_geographics, :subject_titles, :subject_geographic_codes, :cartographics, :subject_occupations, :subject_genres, :table_of_contents, :target_audience, :use]
   @@always_present_terms = [:use]
   
   attr_accessor :use_fields_map
