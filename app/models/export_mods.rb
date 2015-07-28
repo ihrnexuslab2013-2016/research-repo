@@ -5,8 +5,54 @@ module ExportMODS
       xml.mods('xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance", "version" => "3.5", 'xsi:schemaLocation' => "http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd") {
         add_mods_fields self,xml
         
+        # related items
         related_hosts.each do |rel|
           xml.relatedItem(:type => "host") {
+            add_mods_fields rel,xml
+          }
+        end
+        related_referenced_by.each do |rel|
+          xml.relatedItem(:type => "isReferencedBy") {
+            add_mods_fields rel,xml
+          }
+        end
+        related_originals.each do |rel|
+          xml.relatedItem(:type => "original") {
+            add_mods_fields rel,xml
+          }
+        end
+        related_formats.each do |rel|
+          xml.relatedItem(:type => "otherFormat") {
+            add_mods_fields rel,xml
+          }
+        end
+        related_versions.each do |rel|
+          xml.relatedItem(:type => "otherVersion") {
+            add_mods_fields rel,xml
+          }
+        end
+        related_precedings.each do |rel|
+          xml.relatedItem(:type => "preceding") {
+            add_mods_fields rel,xml
+          }
+        end
+        related_references.each do |rel|
+          xml.relatedItem(:type => "references") {
+            add_mods_fields rel,xml
+          }
+        end
+        related_reviews.each do |rel|
+          xml.relatedItem(:type => "reviewOf") {
+            add_mods_fields rel,xml
+          }
+        end
+        related_series.each do |rel|
+          xml.relatedItem(:type => "series") {
+            add_mods_fields rel,xml
+          }
+        end
+        related_succeedings.each do |rel|
+          xml.relatedItem(:type => "succeeding") {
             add_mods_fields rel,xml
           }
         end

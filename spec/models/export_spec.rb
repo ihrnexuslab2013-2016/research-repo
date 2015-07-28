@@ -32,6 +32,15 @@ describe GenericFile do
       file.extent = ["1 slide : col. ; 35mm"]
       file.digital_origin = ["reformatted digital"]
       file.related_hosts_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.related_referenced_by_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.related_originals_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.related_formats_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.related_versions_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.related_precedings_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.related_references_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.related_reviews_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.related_series_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
+      file.related_succeedings_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
     }
     subject(:xml){ file.export_as_mods_xml }
     it {
