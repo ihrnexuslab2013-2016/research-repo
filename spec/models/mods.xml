@@ -47,4 +47,16 @@
       <extent>1 slide : col. ; 35mm</extent>
       <digitalOrigin>reformatted digital</digitalOrigin>
    </physicalDescription>
+   <relatedItem type="host">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+   </relatedItem>
 </mods>
