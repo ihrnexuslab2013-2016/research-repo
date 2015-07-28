@@ -44,7 +44,7 @@ module MODS
       end
       
       # <citySection> – Name of a smaller unit within a populated place, e.g., neighborhoods, parks, or streets.
-      property :citySection, predicate: MODS::MADSRDFVocabulary.citySection, multiple: false do |index|
+      property :city_section, predicate: MODS::MADSRDFVocabulary.citySection, multiple: false do |index|
          index.as :stored_searchable, :facetable
       end
       

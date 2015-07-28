@@ -46,7 +46,7 @@ describe GenericFile do
       file.subject_temporals_attributes = [{label: "16th century"}]
       file.subject_titles_attributes = [{label: "Test"}]
       file.subject_geographic_codes_attributes = [{label: "012"}]
-      file.subject_hierarchical_geographics_attributes = [{continent: "North America", country: "United States", state: "California", county: "Inyo", province: "Bla", region: "Region"}, {territory: "Terri", city: "San Diego", citySection: "Section", island: "Island", area: "Area", extraterrestrial_area: "Mars"}]
+      file.subject_hierarchical_geographics_attributes = [{continent: "North America", country: "United States", state: "California", county: "Inyo", province: "Bla", region: "Region"}, {territory: "Terri", city: "San Diego", city_section: "Section", island: "Island", area: "Area", extraterrestrial_area: "Mars"}]
       file.cartographics_attributes = [{coordinates: ["A", "B"], projection: ["Projection"], scale: ["Scale"]}]
       file.subject_occupations_attributes = [{label: "Occupation"}]
       file.subject_genres_attributes = [{label: "Genre"}]

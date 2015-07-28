@@ -154,6 +154,11 @@ GEM
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
     columnize (0.9.0)
+    countries (0.9.3)
+      currencies (~> 0.4.2)
+    country_select (2.1.1)
+      countries (>= 0.9.3, < 0.10.0)
+    currencies (0.4.2)
     daemons (1.2.3)
     debug_inspector (0.0.2)
     deprecation (0.2.2)
@@ -643,6 +648,7 @@ DEPENDENCIES
   capybara
   ci_reporter_rspec
   coffee-rails (~> 4.1.0)
+  country_select (~> 2.1.0)
   devise
   devise-guests (~> 0.3)
   factory_girl_rails

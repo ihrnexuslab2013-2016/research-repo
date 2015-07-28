@@ -9,7 +9,7 @@ module NestedSubjectHierarchicalGeographics
     end
 
     def permitted_subject_hierarchical_geographics_params
-      [:label, :id]
+      [:continent, :country, :province, :region, :state, :territory, :county, :city, :city_section, :island, :area, :extraterrestrial_area, :id]
     end
 
   end

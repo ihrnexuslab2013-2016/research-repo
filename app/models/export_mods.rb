@@ -242,7 +242,7 @@ module ExportMODS
           xml.region subj.region if !subj.region.nil? and !subj.region.blank?
           xml.territory subj.territory if !subj.territory.nil? and !subj.territory.blank?
           xml.city subj.city if !subj.city.nil? and !subj.city.blank?
-          xml.citySection subj.citySection if !subj.citySection.nil? and !subj.citySection.blank?
+          xml.citySection subj.city_section if !subj.city_section.nil? and !subj.city_section.blank?
           xml.island subj.island if !subj.island.nil? and !subj.island.blank?
           xml.area subj.area if !subj.area.nil? and !subj.area.blank?
           xml.extraterrestrialArea subj.extraterrestrial_area if !subj.extraterrestrial_area.nil? and !subj.extraterrestrial_area.blank?
