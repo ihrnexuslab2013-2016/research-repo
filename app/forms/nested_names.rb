@@ -9,7 +9,7 @@ module NestedNames
     end
 
     def permitted_names_params
-      [:label, :id, :role]
+      [:label, :id, :name_type, :role]
     end
 
   end

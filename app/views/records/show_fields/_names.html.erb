@@ -1,6 +1,7 @@
 <% @generic_file.names.each do |name| %>
   <span itemprop="names" itemscope itemtype="http://schema.org/Thing">
     <span itemprop="name"><%= name.label %></span>
+    <!-- Type: <span itemprop="name"><%#= name.name_type %></span> -->
   </span>
   <br />
 <% end %>

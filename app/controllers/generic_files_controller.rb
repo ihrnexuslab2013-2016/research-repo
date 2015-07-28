@@ -7,6 +7,18 @@ class GenericFilesController < ApplicationController
   @@datafile_edit_form_class = KarkinosDatafileEditForm
   self.edit_form_class = KarkinosFileEditForm
   
+  # routed to /files/:id
+  def show
+    respond_to do |format|
+      format.html {
+        @events = @generic_file.events(100)
+        @presenter = presenter
+        @audit_status = audit_service.human_readable_audit_status
+      }
+      format.endnote { render text: @generic_file.export_as_endnote }
+      format.xml { render text: @generic_file.export_as_mods_xml }
+    end
+  end
   
   # overwrites parent update; routed to /files/:id (PUT)
   def update

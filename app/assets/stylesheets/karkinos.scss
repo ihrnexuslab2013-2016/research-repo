@@ -20,6 +20,13 @@ h4.visibility span.label {
   vertical-align: middle;
 }
 
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    width: 100%;
+}
+
 #home_header {
 	background-image: image-url('sedona.jpg');
 }

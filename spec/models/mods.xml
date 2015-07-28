@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/mods/v3" version="3.5" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd">
+   <titleInfo>
+      <title>First title</title>
+   </titleInfo>
+   <titleInfo type="uniform">
+      <title>First uniform title</title>
+   </titleInfo>
+   <abstract>Test abstract with a few more words.</abstract>
+   <accessCondition>Personal, noncommercial use of this item is permitted in the United States of America. Please see http://digital.library.upenn.edu/women/ for other rights and restrictions that may apply to this resource.</accessCondition>
+   <genre>Web site</genre>
+   <language>
+      <languageTerm type="code" authority="iso639-2b">eng</languageTerm>
+   </language>
+   <location>
+      <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      <shelfLocator>HB123.89</shelfLocator>
+   </location>
+   <location>
+      <url>http://purl.dlib.indiana.edu/iudl/archives/cushman/P07803</url>
+   </location>
+   <name>
+      <namePart>Raschke, Gregory K.</namePart>
+   </name>
+   <note>Dominus vo-bisque'em et come spear a tu-tu, oh.</note>
+   <note type="statement of responsibility">created and maintained by the Asian Division, Area Studies Directorate</note>
+   <note type="acquisition">Received: 6/17/82; ref print; gift, ATM 138; AFI/Woods (John) Collection.</note>
+   <originInfo>
+      <edition>Limited ed</edition>
+   </originInfo>
+   <originInfo>
+      <frequency>Annual</frequency>
+   </originInfo>
+   <originInfo>
+      <dateIssued>1889</dateIssued>
+   </originInfo>
+   <part order="2">
+      <detail level="no. 3">
+         <number>Part 1</number>
+         <caption>Caption</caption>
+      </detail>
+   </part>
+   <physicalDescription>
+      <form>graphic</form>
+      <reformattingQuality>good</reformattingQuality>
+      <internetMediaType>text/html</internetMediaType>
+      <extent>1 slide : col. ; 35mm</extent>
+      <digitalOrigin>reformatted digital</digitalOrigin>
+   </physicalDescription>
+   <tableOfContents>1. Chapter 1</tableOfContents>
+   <targetAudience>Audience</targetAudience>
+   <relatedItem type="host">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <relatedItem type="isReferencedBy">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <relatedItem type="original">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <relatedItem type="otherFormat">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <relatedItem type="otherVersion">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <relatedItem type="preceding">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <relatedItem type="references">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <relatedItem type="reviewOf">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <relatedItem type="series">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <relatedItem type="succeeding">
+      <location>
+         <physicalLocation>Indiana University, Bloomington. University Archives P07803</physicalLocation>
+      </location>
+      <originInfo>
+         <dateIssued>1955-03-22</dateIssued>
+      </originInfo>
+      <physicalDescription>
+         <form>graphic</form>
+         <extent>1 slide : col. ; 35mm</extent>
+      </physicalDescription>
+      <subject/>
+   </relatedItem>
+   <subject>
+      <topic>Mountains</topic>
+      <topic>Snow</topic>
+      <geographic>United States</geographic>
+      <temporal>16th century</temporal>
+      <titleInfo>
+         <title>Test</title>
+      </titleInfo>
+      <geographicCode>012</geographicCode>
+      <hierarchicalGeographic>
+         <continent>North America</continent>
+         <country>United States</country>
+         <state>California</state>
+         <county>Inyo</county>
+         <province>Bla</province>
+         <region>Region</region>
+      </hierarchicalGeographic>
+      <hierarchicalGeographic>
+         <territory>Terri</territory>
+         <city>San Diego</city>
+         <citySection>Section</citySection>
+         <island>Island</island>
+         <area>Area</area>
+         <extraterrestrialArea>Mars</extraterrestrialArea>
+      </hierarchicalGeographic>
+      <cartographics>
+         <coordinates>A</coordinates>
+         <coordinates>B</coordinates>
+         <projection>Projection</projection>
+         <scale>Scale</scale>
+      </cartographics>
+      <occupation>Occupation</occupation>
+      <genre>Genre</genre>
+   </subject>
+</mods>

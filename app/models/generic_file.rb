@@ -3,6 +3,7 @@ require "active-fedora"
 class GenericFile < ActiveFedora::Base
   include Sufia::GenericFile
   include SolrObject
+  include ExportMODS
   
   before_destroy :delete_nested_attributes
   
@@ -45,7 +46,7 @@ class GenericFile < ActiveFedora::Base
   end
   
   has_and_belongs_to_many :location_of_resources, :predicate => MODS::MODSRDFVocabulary.locationOfResource, :class_name => "MODS::Location"
-  accepts_nested_attributes_for :location_of_resources, allow_destroy: true, :reject_if => proc { |attributes| attributes['location_physical'].blank? and attributes['location_shelf_locator'].blank? }
+  accepts_nested_attributes_for :location_of_resources, allow_destroy: true, :reject_if => proc { |attributes| attributes['location_physical'].blank? and attributes['location_shelf_locator'].blank? and attributes['url'].blank? }
   
   #has_and_belongs_to_many :name_principals, :predicate => MODS::MODSRDFVocabulary.namePrincipal, :class_name => "MODS::MADS::Name"
   #accepts_nested_attributes_for :name_principals, allow_destroy: true
@@ -100,6 +101,14 @@ class GenericFile < ActiveFedora::Base
      index.as :stored_searchable, :facetable
   end
   
+  property :extent, predicate: MODS::MODSRDFVocabulary.extent, multiple: true do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
+  property :digital_origin, predicate: MODS::MODSRDFVocabulary.digitalOrigin, multiple: true do |index|
+     index.as :stored_searchable, :facetable
+  end
+  
   has_and_belongs_to_many :related_hosts, :predicate => MODS::MODSRDFVocabulary.relatedHost, :class_name => "GenericFile"
   accepts_nested_attributes_for :related_hosts
   
@@ -147,10 +156,11 @@ class GenericFile < ActiveFedora::Base
   accepts_nested_attributes_for :subject_geographic_codes, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? }
   
   has_and_belongs_to_many :subject_hierarchical_geographics, :predicate => MODS::MODSRDFVocabulary.subjectHierarchicalGeographic, :class_name => "MODS::MADS::HierarchicalGeographic"
-  accepts_nested_attributes_for :subject_hierarchical_geographics, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? }
+  accepts_nested_attributes_for :subject_hierarchical_geographics, allow_destroy: true, 
+    :reject_if => proc { |attributes| attributes['continent'].blank? and attributes['country'].blank? and attributes['province'].blank? and attributes['region'].blank? and attributes['state'].blank? and attributes['territory'].blank? and attributes['county'].blank? and attributes['city'].blank? and attributes['citySection'].blank? and attributes['island'].blank? and attributes['area'].blank? and attributes['extraterrestrial_area'].blank?}
   
   has_and_belongs_to_many :cartographics, :predicate => MODS::MODSRDFVocabulary.cartographics, :class_name => "MODS::MADS::Cartographics"
-  accepts_nested_attributes_for :cartographics, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? }
+  accepts_nested_attributes_for :cartographics, allow_destroy: true, :reject_if => proc { |attributes| attributes['scale'].blank? and attributes['projection'].blank? and attributes['coordinates'].blank? }
   
   has_and_belongs_to_many :subject_occupations, :predicate => MODS::MODSRDFVocabulary.subjectOccupation, :class_name => "MODS::MADS::Occupation"
   accepts_nested_attributes_for :subject_occupations, allow_destroy: true, :reject_if => proc { |attributes| attributes['label'].blank? }

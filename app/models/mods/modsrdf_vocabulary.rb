@@ -20,6 +20,7 @@ module MODS
     property :locationOfResource
     property :locationPhysicalLocation
     property :locationShelfLocator
+    property :url
     property :locationCopy
     property :locationCopyShelfLocator
     property :locationCopyEnumerationAndChronologyBasic
@@ -45,6 +46,8 @@ module MODS
     property :form
     property :reformattingQuality
     property :mediaType
+    property :extent
+    property :digitalOrigin
     
     #relatedItem
     property :relatedHost
@@ -70,6 +73,11 @@ module MODS
     property :subjectGenre
     property :subjectComplex
     property :cartographics
+    
+    #cartographics props
+    property :cartographicsCoordinates
+    property :cartographicsProjection
+    property :cartographicsScale
     
     #table of contents
     property :tableOfContents

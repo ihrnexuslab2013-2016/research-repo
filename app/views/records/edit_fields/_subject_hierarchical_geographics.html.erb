@@ -5,7 +5,8 @@
 <% @clabel = nil? %>
 <% end %>
 
-<%= f.input :subject_hierarchical_geographics, label: @clabel, as: :nested_attribute %>
+<%= f.input :subject_hierarchical_geographics, label: @clabel, as: :nested_attribute_multiple, 
+   :fields => [:continent, :country, :province, :region, :state, :territory, :county, :city, :city_section, :island, :area, :extraterrestrial_area] %>
 
 <% end %>
 

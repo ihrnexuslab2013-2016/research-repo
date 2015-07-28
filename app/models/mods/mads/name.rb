@@ -2,6 +2,10 @@ module MODS
   module MADS
     class Name < LabelProperty
       
+      #property :name_type, predicate: RDF::RDF.type, multiple: false do |index|
+      #   index.as :stored_searchable, :facetable
+      #end
+      
       property :relation, predicate: MODS::RDFSVocabulary.label, multiple: false do |index|
          index.as :stored_searchable, :facetable
       end

@@ -1,6 +1,16 @@
 <% @generic_file.subject_hierarchical_geographics.each do |subject| %>
   <span itemprop="subject_hierarchical_geographics" itemscope itemtype="http://schema.org/Thing">
-    <span itemprop="name"><%= subject.label %></span>
+    <span itemprop="name">Continent: <%= subject.continent %></span>
+    <span itemprop="name">Country: <%= subject.country %></span><br />
+    <span itemprop="name">Province: <%= subject.province %></span><br />
+    <span itemprop="name">Region <%= subject.region %></span><br />
+    <span itemprop="name">State: <%= subject.state %></span><br />
+    <span itemprop="name">County: <%= subject.county %></span><br />
+    <span itemprop="name">City: <%= subject.city %></span><br />
+    <span itemprop="name">City Section: <%= subject.city_section %></span><br />
+    <span itemprop="name">Area: <%= subject.area %></span><br />
+    <span itemprop="name">Island: <%= subject.island %></span><br />
+    <span itemprop="name">Extraterrestrial Area: <%= subject.extraterrestrial_area %></span><br />
   </span>
   <br />
 <% end %>
