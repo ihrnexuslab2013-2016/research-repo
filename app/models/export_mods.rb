@@ -2,7 +2,7 @@ module ExportMODS
     
   def export_as_mods_xml
     mods_xml = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
-      xml.mods('xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance", "version" => "3.5", 'xsi:schemaLocation' => "http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd") {
+      xml.mods('xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance", "version" => "3.5", 'xsi:schemaLocation' => "http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-5.xsd", "xmlns" => "http://www.loc.gov/mods/v3") {
         add_mods_fields self,xml
         
         # related items
