@@ -31,6 +31,7 @@ describe GenericFile do
       file.media_type = ["text/html"]
       file.extent = ["1 slide : col. ; 35mm"]
       file.digital_origin = ["reformatted digital"]
+      file.related_hosts_attributes = [{date_issued: ["1955-03-22"], form: ["graphic"], extent: ["1 slide : col. ; 35mm"],  location_of_resources_attributes: [{location_physical: "Indiana University, Bloomington. University Archives P07803"}]}]
     }
     subject(:xml){ file.export_as_mods_xml }
     it {
