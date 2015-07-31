@@ -130,6 +130,8 @@ function add_nested_attr_multi(event) {
 	new_entry.find("input[id$='_id']").remove();
 	new_entry.find("input[type='text']").attr("value", "");
 	new_entry.find("input[type='text']").val("");
+	new_entry.find("input[type='url']").attr("value", "");
+   new_entry.find("input[type='url']").val("");
 	
 	var inputs = $(new_entry).find("input");
 	inputs.each(function() {

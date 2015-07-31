@@ -11,8 +11,13 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
     class_name = GenericFile.reflections["#{attribute_name}".to_sym].class_name
     
     fields = options[:fields]
+    multiple = true
+    multiple = options[:multiple] if !options[:multiple].nil? 
     
-    (collection + [class_name.constantize.new]).each_with_index do |attribute, index|
+    elements = collection + []
+    elements << class_name.constantize.new if elements.empty?
+    
+    elements.each_with_index do |attribute, index|
       html += "<div class=\"nested_attribute_entry\">"
       
       @builder.simple_fields_for "#{attribute_name}".to_sym, attribute do |build|
@@ -22,8 +27,10 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
         fields.each do |field|
           html += build.input field
         end
-        
-        html += build.hidden_field "id"
+        #byebug
+        if !attribute.id.blank?
+          html += build.hidden_field "id"
+        end
         
         hidden_value_fields = options[:hidden_value_field]
         if not hidden_value_fields.nil?
@@ -31,12 +38,14 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
             html += build.hidden_field key, :value => value
           end
         end
-        html += "<button class=\"btn btn-danger delete-nested-multi\" data-attribute=\"#{attribute_name}\""
-        html += " disabled " if collection.size == 0
-        html += ">"
-        
-        html += "<i class=\"icon-white glyphicon-minus\"></i><span> Remove</span>"
-        html += "</button>"
+        if multiple
+          html += "<button class=\"btn btn-danger delete-nested-multi\" data-attribute=\"#{attribute_name}\""
+          html += " disabled " if collection.size == 0
+          html += ">"
+          
+          html += "<i class=\"icon-white glyphicon-minus\"></i><span> Remove</span>"
+          html += "</button>"
+        end
           
         html += "</div>"
         html += "</div>"
@@ -46,9 +55,11 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
       
     end
     
-    html += "<button class=\"btn btn-success add-nested-multi\" data-attribute=\"#{attribute_name}\">"
-    html += "<i class=\"icon-white glyphicon-plus\"></i><span> Add</span>"
-    html += "</button>"
+    if multiple
+      html += "<button class=\"btn btn-success add-nested-multi\" data-attribute=\"#{attribute_name}\">"
+      html += "<i class=\"icon-white glyphicon-plus\"></i><span> Add</span>"
+      html += "</button>"
+    end
     
     html += "</div>"
     
