@@ -21,13 +21,21 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
       html += "<div class=\"nested_attribute_entry\">"
       
       @builder.simple_fields_for "#{attribute_name}".to_sym, attribute do |build|
-        html += "<div class=\"form-group string optional generic_#{attribute_name}_label with-button\">"
+        html += "<div class=\"generic_#{attribute_name}_label with-button\">"
         html += "<div class=\"file-show-term panel-body\">"
         
+        
         fields.each do |field|
-          html += build.input field
+          html += "<div class=\"form-group multi_value\">"
+          html += build.label field
+          html += "<ul class=\"listing\">"
+          html += "<li class=\"field-wrapper\">"
+          html += build.input field, {:wrapper => false, :label => false}
+          html += "</li>"
+          html += "</ul>"
+          html += "</div>"
         end
-        #byebug
+        
         if !attribute.id.blank?
           html += build.hidden_field "id"
         end
