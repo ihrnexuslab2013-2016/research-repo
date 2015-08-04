@@ -196,7 +196,6 @@ class GenericFile < ActiveFedora::Base
       association.delete record
       record.delete
     end
-    
     super(association_name, attributes_collection)
   end
   

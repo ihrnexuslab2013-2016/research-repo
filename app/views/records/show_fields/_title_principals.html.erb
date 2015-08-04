@@ -1,6 +1,15 @@
 <% @generic_file.title_principals.each do |tinfo| %>
   <span itemprop="title_principle" itemscope itemtype="http://schema.org/Title">
     <span itemprop="name"><%= tinfo.label %></span>
+    <% tinfo.abbreviated_variant.each do |var| %>
+    <br><span itemprop="name"><%= var %> (Abbr.)</span>
+    <% end %>
+    <% tinfo.translated_variant.each do |var| %>
+    <br><span itemprop="name"><%= var %> (Trans.)</span>
+    <% end %>
+    <% tinfo.alternative_variant.each do |var| %>
+    <br><span itemprop="name"><%= var %> (Alt.)</span>
+    <% end %>
   </span>
   <br />
 <% end %>

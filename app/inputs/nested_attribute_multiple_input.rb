@@ -1,4 +1,4 @@
-class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
+class NestedAttributeMultipleInput < SimpleForm::Inputs::CollectionInput
   
   def input(wrapper_options = nil)
     out = ActiveSupport::SafeBuffer.new
@@ -9,13 +9,15 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
     
     collection = object.model.send("#{attribute_name}")
     class_name = GenericFile.reflections["#{attribute_name}".to_sym].class_name
+    clazz = class_name.constantize
+    
     
     fields = options[:fields]
     multiple = true
     multiple = options[:multiple] if !options[:multiple].nil? 
     
     elements = collection + []
-    elements << class_name.constantize.new if elements.empty?
+    elements << clazz.new if elements.empty?
     
     elements.each_with_index do |attribute, index|
       html += "<div class=\"nested_attribute_entry\">"
@@ -26,14 +28,28 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
         
         
         fields.each do |field|
-          html += "<div class=\"form-group multi_value\">"
+          field_contents = attribute.send(field)
+          html += "<div" 
+          html += " class= \"nested-attrs-li\" " if !clazz.multiple? field
+          html += " class=\"form-group multi_value\" " if clazz.multiple? field
+          html +=  ">"
           html += build.label field
           html += "<ul class=\"listing\">"
-          html += "<li class=\"field-wrapper\">"
-          html += build.input field, {:wrapper => false, :label => false}
-          html += "</li>"
+          if clazz.multiple? field
+            field_contents.each do |con|
+              html += "<li class=\"field-wrapper\">"
+              html += build.text_field nil, {:wrapper => false, :label => false, :value => con, 
+                :name =>  "#{object_name}[#{attribute_name}_attributes][#{index}][#{field}][]", 
+                :id => "#{object_name}_#{attribute_name}_attributes_#{index}_#{field}"}
+              html += "</li>"
+            end
+          else
+             html += "<li class=\"field-wrapper\">"
+             html += build.input field, {:wrapper => false, :label => false}
+             html += "</li>"
+          end
           html += "</ul>"
-          html += "</div>"
+          html += "</div>" 
         end
         
         if !attribute.id.blank?
@@ -48,7 +64,7 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
         end
         if multiple
           html += "<button class=\"btn btn-danger delete-nested-multi\" data-attribute=\"#{attribute_name}\""
-          html += " disabled " if collection.size == 0
+          html += " disabled " if elements.size == 1
           html += ">"
           
           html += "<i class=\"icon-white glyphicon-minus\"></i><span> Remove</span>"
@@ -75,4 +91,7 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::TextInput
     out << html.html_safe
      
   end
+  
+  private 
+    def multiple?; true; end
 end

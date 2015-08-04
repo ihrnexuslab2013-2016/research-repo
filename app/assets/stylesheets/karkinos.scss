@@ -338,3 +338,15 @@ ul.linked_file_list li:before {
   margin-top: -2px;
   width: 98px;
 }
+
+div.nested-attrs-li ul {
+  list-style: none;
+}
+
+div.nested-attrs-li li {
+  margin-left: -40px;
+}
+
+.with-button ul.listing input {
+  width: 100%;
+}
