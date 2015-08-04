@@ -9,7 +9,7 @@ module NestedTitlePrincipals
     end
 
     def permitted_title_principals_params
-      [:label, :id]
+      [:label, { :abbreviated_variant => [] }, {:translated_variant  => []}, {:alternative_variant  => []}, :id]
     end
 
   end

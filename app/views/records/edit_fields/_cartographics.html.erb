@@ -5,7 +5,7 @@
 <% @clabel = nil? %>
 <% end %>
 
-<%= f.input :cartographics, label: @clabel, as: :nested_attribute %>
+<%= f.input :cartographics, label: @clabel, as: :nested_attribute_multiple, fields: [:coordinates, :scale, :projection] %>
 
 <% end %>
 

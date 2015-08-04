@@ -5,7 +5,7 @@
 <% @clabel = nil? %>
 <% end %>
 
-<%= f.input :title_principals, label: @clabel, as: :nested_attribute %>
+<%= f.input :title_principals, label: @clabel, as: :nested_attribute_multiple, :fields => [:label, :abbreviated_variant, :translated_variant, :alternative_variant], :multiple => false %>
 
 <% end %>
 

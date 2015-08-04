@@ -1,6 +1,14 @@
 <% @generic_file.cartographics.each do |cart| %>
   <span itemprop="cartographics" itemscope itemtype="http://schema.org/Thing">
-    <span itemprop="name"><%= cart.label %></span>
+     <% cart.coordinates.each do |c| %>
+      <span itemprop="name">Coordinates: <%= c %></span><br>
+     <% end %>
+     <% cart.scale.each do |c| %>
+      <span itemprop="name">Scale: <%= c %></span><br>
+     <% end %>
+     <% cart.projection.each do |c| %>
+      <span itemprop="name">Projection: <%= c %></span><br>
+     <% end %>
   </span>
   <br />
 <% end %>

@@ -130,13 +130,34 @@ function add_nested_attr_multi(event) {
 	new_entry.find("input[id$='_id']").remove();
 	new_entry.find("input[type='text']").attr("value", "");
 	new_entry.find("input[type='text']").val("");
+	new_entry.find("input[type='url']").attr("value", "");
+   new_entry.find("input[type='url']").val("");
+   
+   var ulElments = new_entry.find("ul.listing");
+   ulElments.each(function() {
+      var liElements = $(this).find("li");
+      if (liElements.length > 1) {
+         for (var i = 1; i < liElements.length; i++){
+            $(liElements[i]).remove();
+         }
+      } 
+   });
+   
+   // remove buttons as they get added again
+   new_entry.find(".field-controls").remove();
 	
 	var inputs = $(new_entry).find("input");
 	inputs.each(function() {
 		update_attribute_index(this, list_length);
 	});
 	
-	$(new_entry).find("button").click(delete_nested_attribute);
+	var btn = $(new_entry).find(".delete-nested-multi")[0];
+	$(btn).click(delete_nested_attribute);
+	var input_fields = new_entry.find(".multi_value.form-group");
+	input_fields.each(function() {
+	   $(this).manage_fields();
+	});
+	
 	  	
   		
 	return false;
