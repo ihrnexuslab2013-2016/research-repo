@@ -36,7 +36,7 @@ class NestedAttributeMultipleInput < SimpleForm::Inputs::CollectionInput
           html += build.label field
           html += "<ul class=\"listing\">"
           if clazz.multiple? field
-            field_contents.each do |con|
+            field_contents + [""].each do |con|
               html += "<li class=\"field-wrapper\">"
               html += build.text_field nil, {:wrapper => false, :label => false, :value => con, 
                 :name =>  "#{object_name}[#{attribute_name}_attributes][#{index}][#{field}][]", 

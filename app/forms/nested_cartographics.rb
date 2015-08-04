@@ -9,7 +9,7 @@ module NestedCartographics
     end
 
     def permitted_cartographics_params
-      [:label, :id]
+      [{:coordinates => []}, {:scale => []}, {:projection => []}, :id]
     end
 
   end
