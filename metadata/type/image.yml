@@ -26,4 +26,13 @@
       
     - name: abstract
       label: Abstract
+
+    - name: location_of_resources
+      label: Resource Location
+      subfields:
+        - name: location_physical
+          label: Physical Location
+
+        - name: location_shelf_locator
+          label: Shelf Locator
 ...
