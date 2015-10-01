@@ -30,9 +30,6 @@
     - name: location_of_resources
       label: Resource Location
       subfields:
-        - name: url
-          label: Url of the Resource
-
         - name: location_physical
           label: Physical Location
 
