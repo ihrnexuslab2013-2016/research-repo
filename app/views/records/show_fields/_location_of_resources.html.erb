@@ -1,15 +1,13 @@
 <% @generic_file.location_of_resources.each do |tinfo| %>
-  <span itemprop="location_of_resources" itemscope itemtype="http://schema.org/Place">
-    <% if !tinfo.url.nil? %>
-    <span itemprop="name"><%= tinfo.url %></span>
-    <% end %>
-    <% if !tinfo.location_physical.nil? %>
-    <span itemprop="name"><%= tinfo.location_physical %></span>
-    <% end %>
-    <% if !tinfo.location_shelf_locator.nil? %>
-    <span itemprop="name"><%= tinfo.location_shelf_locator %></span>
-    <% end %>
-  </span>
-  <br />
+    <span itemprop="location_of_resources" itemscope itemtype="http://schema.org/Place">
+      <% unless @presenter.display_terms[:location_of_resources][:subfields].nil? %>
+          <% @subfields = @presenter.display_terms[:location_of_resources][:subfields] %>
+          <% @subfields.each do |name, label| %>
+              </br><span itemprop="name"><%= label %> </span><%= tinfo.send name %>
+          <% end %>
+
+      <% end %>
+    </span>
+    <br />
 <% end %>
 

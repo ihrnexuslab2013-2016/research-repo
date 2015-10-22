@@ -4,8 +4,12 @@
 <% else %>
 <% @clabel = nil? %>
 <% end %>
-
-<%= f.input :location_of_resources, label: @clabel, as: :nested_attribute_multiple, :fields => [:location_physical, :location_shelf_locator, :url], :label_html => { :class => 'multi-part-heading' } %>
+<% if not f.object.display_terms[:location_of_resources][:subfields].nil?%>
+<% @subfields = f.object.display_terms[:location_of_resources][:subfields].keys %>
+<% else %>
+<% @subfields = [:location_physical, :location_shelf_locator, :url]%>
+<% end %>
+<%= f.input :location_of_resources, label: @clabel, as: :nested_attribute_multiple, :fields => @subfields, :label_html => { :class => 'multi-part-heading' } %>
 
 <% end %>
 
