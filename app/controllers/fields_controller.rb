@@ -16,7 +16,6 @@ class FieldsController < ApplicationController
     @edit_form.uses=uses
     @presenter = @edit_form 
     @form = @edit_form
-     
     respond_to do |format|
        format.js {render 'generic_files/update_use.js.erb' }
     end
