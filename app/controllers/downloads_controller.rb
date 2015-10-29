@@ -6,14 +6,41 @@ class DownloadsController < ApplicationController
   end
       
   def show
-    byebug
+    print "inside show++++++++++++++"
+    if file.instance_of? ZipFile
+      return send_content
+    end
     if file.new_record?
       render_404
     else
       send_content
     end
   end
-    
+  def stream_body(iostream)
+    print "inside stream_body++++++++"
+    iostream.each do |in_buff|
+      response.stream.write in_buff
+    end
+    print response.stream
+  ensure
+    #response.stream.close
+  end
+  def send_content
+    print "inside send_content +++++++++++++++"
+      response.headers['Accept-Ranges'] = 'bytes'
+
+      if request.head?
+        content_head
+      elsif request.headers['HTTP_RANGE']
+        send_range
+      else
+        print "headerssssssssssssssssss"
+        print request.headers
+        byebug
+        send_file_contents
+        
+      end
+   end  
   def load_file
     file_path = params[:file] #why??
     
@@ -34,7 +61,7 @@ class DownloadsController < ApplicationController
       #f = asset.attached_files[file_path] if file_path
       #f ||= default_file 
     end
-    f = Tempfile.new(file.id)
+    f = ZipFile.new(file.id)
     begin
     if file.instance_of? GenericFile
         Zip::OutputStream.open(f.path) do | z |
@@ -48,13 +75,11 @@ class DownloadsController < ApplicationController
             #print data_file
           end
         end
-        #send_file f.path
-      end 
+     end 
     ensure
-      f.close
+      #f.close
     end
     raise "Unable to find a file for #{params[:id]}" if f.nil?
-   # byebug
     print "return ============"
     print f
     f
@@ -74,3 +99,4 @@ class DownloadsController < ApplicationController
     end
   end
 end
+
