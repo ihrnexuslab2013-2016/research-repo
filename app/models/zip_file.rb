@@ -6,6 +6,11 @@ class ZipFile < Tempfile
     @temp = super
   end
   def stream
-    File.read(self.path)
+    fd = IO.sysopen(self.path,'r')
+    s = IO.new(fd)
+    print "---------stream----------"
+    s
+  ensure
+    self.close  
   end   
 end

@@ -4,7 +4,18 @@ class DownloadsController < ApplicationController
   def authorize_download!
     #authorize! :download, file
   end
-      
+  def send_file_contents
+        self.status = 200
+        byebug
+        prepare_file_headers
+        if file.instance_of? Tempfile
+          fd = IO.sysopen(file.path, 'r')
+          datastream = IO.read(fd)
+        elsif
+          datastream = file.stream
+        end
+        stream_body datastream
+  end    
   def show
     print "inside show++++++++++++++"
     if file.instance_of? ZipFile
@@ -23,7 +34,7 @@ class DownloadsController < ApplicationController
     end
     print response.stream
   ensure
-    #response.stream.close
+    response.stream.close
   end
   def send_content
     print "inside send_content +++++++++++++++"
@@ -36,7 +47,6 @@ class DownloadsController < ApplicationController
       else
         print "headerssssssssssssssssss"
         print request.headers
-        byebug
         send_file_contents
         
       end
@@ -61,24 +71,24 @@ class DownloadsController < ApplicationController
       #f = asset.attached_files[file_path] if file_path
       #f ||= default_file 
     end
-    f = ZipFile.new(file.id)
-    begin
+    
     if file.instance_of? GenericFile
-        Zip::OutputStream.open(f.path) do | z |
+        f = ZipFile.new(file.id + ".zip")
+        zip = Zip::OutputStream.open(f) 
+        zip.write_buffer do | z |
           file.data_files.each do | data_file_obj |
             print "******* Data File"
             data_file = fetch_file data_file_obj.id
             #f.get_output_stream(data_file_obj.filename.first) { |d| d.puts data_file }
             z.put_next_entry(data_file_obj.filename.first)
             #print data_file
-            z.print data_file
+            z << data_file
             #print data_file
           end
         end
+        zip.close
      end 
-    ensure
-      #f.close
-    end
+    
     raise "Unable to find a file for #{params[:id]}" if f.nil?
     print "return ============"
     print f
