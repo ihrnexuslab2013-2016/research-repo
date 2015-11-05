@@ -6,15 +6,8 @@ class DownloadsController < ApplicationController
   end
   def send_file_contents
         self.status = 200
-        byebug
         prepare_file_headers
-        if file.instance_of? Tempfile
-          fd = IO.sysopen(file.path, 'r')
-          datastream = IO.read(fd)
-        elsif
-          datastream = file.stream
-        end
-        stream_body datastream
+        stream_body file.stream
   end    
   def show
     print "inside show++++++++++++++"
@@ -73,20 +66,24 @@ class DownloadsController < ApplicationController
     end
     
     if file.instance_of? GenericFile
-        f = ZipFile.new(file.id + ".zip")
-        zip = Zip::OutputStream.open(f) 
-        zip.write_buffer do | z |
+        f = ZipFile.new(file.id << ".zip")
+        Zip::OutputStream.open(f) { | z | } 
+        Zip::File.open(f.path) do | zip |
           file.data_files.each do | data_file_obj |
             print "******* Data File"
             data_file = fetch_file data_file_obj.id
+            #byebug
             #f.get_output_stream(data_file_obj.filename.first) { |d| d.puts data_file }
-            z.put_next_entry(data_file_obj.filename.first)
-            #print data_file
-            z << data_file
-            #print data_file
+            #z.put_next_entry(data_file_obj.filename.first)
+            zip.get_output_stream(data_file_obj.filename.first) do |zf| 
+              data_file.stream.each do | buff |
+                zf.puts buff
+              end
+              #zf.puts data_file.stream 
+              zf.close
+            end
           end
         end
-        zip.close
      end 
     
     raise "Unable to find a file for #{params[:id]}" if f.nil?
