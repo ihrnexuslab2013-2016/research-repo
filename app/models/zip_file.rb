@@ -1,9 +1,10 @@
 class ZipFile < Tempfile
-  attr_accessor :mime_type
+  attr_accessor :mime_type, :name
   def initialize(filename)
     super(filename)
     @mime_type = 'application/zip'
-    @temp = super
+    @name = filename
+    #@temp = super(filename)
   end
   def stream
     fd = IO.sysopen(self.path,'r')

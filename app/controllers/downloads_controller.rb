@@ -67,43 +67,40 @@ class DownloadsController < ApplicationController
     
     if file.instance_of? GenericFile
         f = ZipFile.new(file.id << ".zip")
-        Zip::OutputStream.open(f) { | z | } 
-        Zip::File.open(f.path) do | zip |
+        #Zip::OutputStream.open(f) { | z | } 
+        Zip::File.open(f.path, Zip::File::CREATE) do | zip |
           file.data_files.each do | data_file_obj |
-            print "******* Data File"
             data_file = fetch_file data_file_obj.id
-            #byebug
-            #f.get_output_stream(data_file_obj.filename.first) { |d| d.puts data_file }
-            #z.put_next_entry(data_file_obj.filename.first)
             zip.get_output_stream(data_file_obj.filename.first) do |zf| 
               data_file.stream.each do | buff |
-                zf.puts buff
-              end
-              #zf.puts data_file.stream 
+                zf.print buff
+              end 
               zf.close
             end
           end
         end
+        
      end 
     
     raise "Unable to find a file for #{params[:id]}" if f.nil?
-    print "return ============"
-    print f
     f
   end
   def fetch_file(id) 
-    dfile = ActiveFedora::Base.find(id)  
-    if asset.class.respond_to?(:default_file_path)
-      asset.attached_files[asset.class.default_file_path]
-    elsif asset.class.respond_to?(:default_content_ds)
+    dfile = ActiveFedora::Base.find(id)
+    if dfile.class.respond_to?(:default_file_path)
+      dfile.attached_files[asset.class.default_file_path]
+    elsif dfile.class.respond_to?(:default_content_ds)
       Deprecation.warn(DownloadBehavior, "default_content_ds is deprecated and will be removed in hydra-head 10.0, use default_file_path instead")
-      asset.attached_files[asset.class.default_content_ds]
-    elsif asset.attached_files.key?(DownloadsController.default_file_path)
-      asset.attached_files[DownloadsController.default_file_path]
+      dfile.attached_files[asset.class.default_content_ds]
+    elsif dfile.attached_files.key?(DownloadsController.default_file_path)
+      dfile.attached_files[DownloadsController.default_file_path]
     elsif asset.attached_files.key?(DownloadsController.default_content_dsid)
       Deprecation.warn(DownloadBehavior, "DownloadsController.default_content_dsid is deprecated and will be removed in hydra-head 10.0, use default_file_path instead")
-      asset.attached_files[DownloadsController.default_content_dsid]
+      dfile.attached_files[DownloadsController.default_content_dsid]
     end
+  end
+  def file_name
+        params[:filename] || (file.respond_to?(:name) && file.name) || (asset.respond_to?(:label) && asset.label) || file.id
   end
 end
 
