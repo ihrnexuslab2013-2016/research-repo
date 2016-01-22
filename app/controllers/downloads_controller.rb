@@ -10,7 +10,6 @@ class DownloadsController < ApplicationController
         stream_body file.stream
   end    
   def show
-    print "inside show++++++++++++++"
     if file.instance_of? ZipFile
       return send_content
     end
@@ -21,16 +20,13 @@ class DownloadsController < ApplicationController
     end
   end
   def stream_body(iostream)
-    print "inside stream_body++++++++"
     iostream.each do |in_buff|
       response.stream.write in_buff
     end
-    print response.stream
   ensure
     response.stream.close
   end
   def send_content
-    print "inside send_content +++++++++++++++"
       response.headers['Accept-Ranges'] = 'bytes'
 
       if request.head?
@@ -38,17 +34,13 @@ class DownloadsController < ApplicationController
       elsif request.headers['HTTP_RANGE']
         send_range
       else
-        print "headerssssssssssssssssss"
         print request.headers
         send_file_contents
         
       end
    end  
   def load_file
-    file_path = params[:file] #why??
-    
-    print "testeing +++++++++++++++++++++++++"
-    print params
+    file_path = params[:file]
     file = GenericFile.find(params[:id]);
     f = nil
     #if file.instance_of? GenericFile and not file.resource_type.include? 'DataFile'
