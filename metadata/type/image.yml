@@ -12,18 +12,11 @@
       label: Principal Titles
       
     - name: Names
-      label: names
-      
-    - name: related_hosts
-      label: Related Hosts
+      label: names 
       
     - name: access_condition
       label: Access Condition
     
-    - name: names
-      label: Creator
-      role: Creator
-      
     - name: abstract
       label: Abstract
 ...
