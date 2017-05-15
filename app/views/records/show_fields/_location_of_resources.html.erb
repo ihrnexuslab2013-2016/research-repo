@@ -1,15 +1,28 @@
 <% @generic_file.location_of_resources.each do |tinfo| %>
-  <span itemprop="location_of_resources" itemscope itemtype="http://schema.org/Place">
-    <% if !tinfo.url.nil? %>
-    <span itemprop="name"><%= tinfo.url %></span>
-    <% end %>
-    <% if !tinfo.location_physical.nil? %>
-    <span itemprop="name"><%= tinfo.location_physical %></span>
-    <% end %>
-    <% if !tinfo.location_shelf_locator.nil? %>
-    <span itemprop="name"><%= tinfo.location_shelf_locator %></span>
-    <% end %>
-  </span>
-  <br />
+    <span itemprop="location_of_resources" itemscope itemtype="http://schema.org/Place">
+      <% unless @presenter.display_terms[:location_of_resources][:subfields].nil? %>
+          <% @subfields = @presenter.display_terms[:location_of_resources][:subfields] %>
+          <!--<#% else %>-->
+          <!--<#% @subfields = [:location_physical, :location_shelf_locator, :url] %>-->
+
+
+          <% @subfields.each do |name, label| %>
+              <!--<#% if !tinfo.url.nil? and @subfields.haskey?(:url)%>-->
+              <!--<span itemprop="name">-->
+              </br><span itemprop="name"><%= label %>:</span><%= tinfo.send name %>
+              <!--</span>-->
+              <!--<#% end %>-->
+          <% end %>
+          <!--<#% if !tinfo.location_physical.nil? and @subfields.haskey?(:location_physical)%>-->
+          <!--<span itemprop="name">-->
+          <!--</br><span><#%= @subfields[:location_physical] %>:</span><#%= tinfo.location_physical %></span>-->
+          <!--<#% end %>-->
+          <!--<#% if !tinfo.location_shelf_locator.nil? and @subfields.haskey?(:location_shelf_locator)%>-->
+          <!--<span itemprop="name">-->
+          <!--</br><span><#%= @subfields[:location_shelf_locator] %>:</span><#%= tinfo.location_shelf_locator %></span>-->
+          <!--<#% end %>-->
+      <% end %>
+    </span>
+    <br />
 <% end %>
 
